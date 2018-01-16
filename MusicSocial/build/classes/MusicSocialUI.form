@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                      <Component id="TitleFriends" min="-2" pref="380" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="FriendIcon6" min="-2" pref="64" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="FInfo6" min="-2" pref="320" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="FriendIcon1" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
+                                  <Component id="FriendIcon2" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
+                                  <Component id="FriendIcon3" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
+                                  <Component id="FriendIcon4" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
+                                  <Component id="FriendIcon5" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="FInfo5" min="-2" pref="320" max="-2" attributes="0"/>
+                                  <Component id="FInfo2" min="-2" pref="320" max="-2" attributes="0"/>
+                                  <Component id="FInfo1" min="-2" pref="320" max="-2" attributes="0"/>
+                                  <Component id="FInfo3" min="-2" pref="320" max="-2" attributes="0"/>
+                                  <Component id="FInfo4" min="-2" pref="320" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace min="42" pref="23" max="32767" attributes="0"/>
+              <Component id="FirstSep" min="-2" pref="50" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="TitleInYourNetwork" max="32767" attributes="0"/>
+                  <Component id="TitleFriendsPost" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace pref="91" max="32767" attributes="0"/>
+              <Component id="SecondSep" min="-2" pref="50" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="TimePlayed" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="ProgressSlider" min="-2" pref="523" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="TimeToGo" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
+                      <Component id="AlbumArt" min="-2" pref="301" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="Mute" min="-2" pref="32" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="Previous" min="-2" pref="32" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="Play" min="-2" pref="64" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="Skip" min="-2" pref="32" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="Repeat" min="-2" pref="32" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+                      <Component id="TitleRecommendation" min="-2" pref="470" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="FirstSep" max="32767" attributes="0"/>
+          <Component id="SecondSep" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="TitleFriendsPost" min="-2" pref="79" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="TitleInYourNetwork" min="-2" pref="79" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="282" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="AlbumArt" min="-2" pref="300" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="ProgressSlider" min="-2" max="-2" attributes="0"/>
+                          <Component id="TimePlayed" min="-2" max="-2" attributes="0"/>
+                          <Component id="TimeToGo" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="Play" alignment="3" min="-2" pref="64" max="-2" attributes="0"/>
+                          <Component id="Skip" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="Previous" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="Repeat" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="Mute" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="TitleRecommendation" min="-2" pref="79" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="TitleFriends" min="-2" pref="79" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="FriendIcon1" min="-2" pref="64" max="-2" attributes="0"/>
+                          <Component id="FInfo1" min="-2" pref="108" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="FriendIcon2" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
+                          <Component id="FInfo2" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="FriendIcon3" min="-2" pref="64" max="-2" attributes="0"/>
+                          <Component id="FInfo3" min="-2" pref="108" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="FriendIcon4" min="-2" pref="64" max="-2" attributes="0"/>
+                          <Component id="FInfo4" min="-2" pref="108" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="FriendIcon5" min="-2" pref="64" max="-2" attributes="0"/>
+                          <Component id="FInfo5" min="-2" pref="108" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="FriendIcon6" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
+                  <Component id="FInfo6" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="0" pref="98" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JSeparator" name="SecondSep">
+      <Properties>
+        <Property name="orientation" type="int" value="1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSeparator" name="FirstSep">
+      <Properties>
+        <Property name="orientation" type="int" value="1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="Play">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/play-button.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="Skip">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/next.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel2"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="Previous">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/back.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel2"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="Repeat">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/repeat.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel3"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="Mute">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/mute.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel4"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="AlbumArt">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/6027fe7edf669a864347e7b011d7c126.jpg"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel6"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="FriendIcon1">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/user.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel7"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="FriendIcon2">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/user.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel7"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="FriendIcon4">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/user.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel7"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="FriendIcon3">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/user.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel7"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSlider" name="ProgressSlider">
+    </Component>
+    <Component class="javax.swing.JLabel" name="TitleFriendsPost">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Franklin Gothic Heavy" size="48" style="0"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="FRIENDS POSTS"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="TimePlayed">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="00:00"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="TimeToGo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="00:00"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="TitleRecommendation">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Franklin Gothic Heavy" size="48" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="RECOMMENDATIONS"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="TitleFriends">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Franklin Gothic Heavy" size="48" style="0"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="FRIENDS"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="FriendIcon5">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/user.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel7"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="TitleInYourNetwork">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Franklin Gothic Heavy" size="48" style="0"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="IN YOUR NETWORK"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="FInfo5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non purus sed nisl mollis faucibus eget vitae est. Sed placerat ornare dapibus. Sed euismod a nulla nec facilisis. Vivamus nec gravida arcu. Duis vel tempor mi. Suspendisse in quam eleifend leo sollicitudin commodo fringilla sit amet ligula. Curabitur vestibulum lacinia risus, vitae molestie neque viverra venenatis."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="FInfo1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non purus sed nisl mollis faucibus eget vitae est. Sed placerat ornare dapibus. Sed euismod a nulla nec facilisis. Vivamus nec gravida arcu. Duis vel tempor mi. Suspendisse in quam eleifend leo sollicitudin commodo fringilla sit amet ligula. Curabitur vestibulum lacinia risus, vitae molestie neque viverra venenatis."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="FInfo2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non purus sed nisl mollis faucibus eget vitae est. Sed placerat ornare dapibus. Sed euismod a nulla nec facilisis. Vivamus nec gravida arcu. Duis vel tempor mi. Suspendisse in quam eleifend leo sollicitudin commodo fringilla sit amet ligula. Curabitur vestibulum lacinia risus, vitae molestie neque viverra venenatis."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="FInfo3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non purus sed nisl mollis faucibus eget vitae est. Sed placerat ornare dapibus. Sed euismod a nulla nec facilisis. Vivamus nec gravida arcu. Duis vel tempor mi. Suspendisse in quam eleifend leo sollicitudin commodo fringilla sit amet ligula. Curabitur vestibulum lacinia risus, vitae molestie neque viverra venenatis."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="FInfo4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non purus sed nisl mollis faucibus eget vitae est. Sed placerat ornare dapibus. Sed euismod a nulla nec facilisis. Vivamus nec gravida arcu. Duis vel tempor mi. Suspendisse in quam eleifend leo sollicitudin commodo fringilla sit amet ligula. Curabitur vestibulum lacinia risus, vitae molestie neque viverra venenatis."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="FriendIcon6">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/user.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel7"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="FInfo6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non purus sed nisl mollis faucibus eget vitae est. Sed placerat ornare dapibus. Sed euismod a nulla nec facilisis. Vivamus nec gravida arcu. Duis vel tempor mi. Suspendisse in quam eleifend leo sollicitudin commodo fringilla sit amet ligula. Curabitur vestibulum lacinia risus, vitae molestie neque viverra venenatis."/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>
