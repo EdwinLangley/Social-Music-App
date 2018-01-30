@@ -80,6 +80,11 @@ public class MusicSocialUI extends javax.swing.JFrame {
 
         FriendIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
         FriendIcon1.setText("jLabel7");
+        FriendIcon1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                FriendIcon1MouseClicked(evt);
+            }
+        });
 
         FriendIcon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
         FriendIcon2.setText("jLabel7");
@@ -253,6 +258,11 @@ public class MusicSocialUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void FriendIcon1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FriendIcon1MouseClicked
+        // TODO add your handling code here:
+        new Messaging().setVisible(true);
+    }//GEN-LAST:event_FriendIcon1MouseClicked
 
     /**
      * @param args the command line arguments
