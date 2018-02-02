@@ -169,13 +169,13 @@ public class Login extends javax.swing.JFrame {
 
     private void LoginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginButtonMouseClicked
         // TODO add your handling code here:
-        this.dispose();
         String userNameRetrievedText;
         userNameRetrievedText = userNameField.getText();
         char[] passwordRetrievedText;
         passwordRetrievedText = passwordField.getPassword();
         System.out.println(userNameRetrievedText);
         System.out.println(passwordRetrievedText);
+        this.dispose();
         new MusicSocialUI().setVisible(true);
     }//GEN-LAST:event_LoginButtonMouseClicked
 

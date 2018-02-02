@@ -1,3 +1,7 @@
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -309,6 +313,49 @@ public class NewUser extends javax.swing.JFrame {
     }//GEN-LAST:event_dubstepCheckBoxActionPerformed
 
     private void CreateNewUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CreateNewUserButtonMouseClicked
+        
+        ArrayList<String> genreList = new ArrayList<>();
+        String newFirstName;
+        String newLastName;
+        String newUserName;
+        String newEmail;
+        char[] newPassword;
+        
+        
+        newFirstName = firstNameTextField.getText();
+        newLastName = lastNameTextField.getText();
+        newUserName = userNameTextField.getText();
+        newEmail = emailField.getText();
+        newPassword = newUserPasswordField.getPassword();
+        
+        if (rapCheckBox.isSelected()) genreList.add("rap");
+        if (rockCheckBox.isSelected()) genreList.add("rock");
+        if (rnbCheckBox.isSelected()) genreList.add("rnb");
+        if (popCheckBox.isSelected()) genreList.add("pop");
+        if (countryCheckBox.isSelected()) genreList.add("country");
+        if (kPopCheckBox.isSelected()) genreList.add("kPop");
+        if (edmCheckBox.isSelected()) genreList.add("edm");
+        if (latinCheckBox.isSelected()) genreList.add("latin");
+        if (dnbCheckBox.isSelected()) genreList.add("dnb");
+        if (jazzCheckBox.isSelected()) genreList.add("jazz");
+        if (technoCheckBox.isSelected()) genreList.add("techno");
+        if (altrockCheckBox.isSelected()) genreList.add("alt rock");
+        if (bluesCheckBox.isSelected()) genreList.add("blues");
+        if (houseCheckBox.isSelected()) genreList.add("house");
+        if (dubstepCheckBox.isSelected()) genreList.add("dubstep");
+        if (punkCheckBox.isSelected()) genreList.add("punk");
+        if (SoulCheckBox.isSelected()) genreList.add("Soul");
+        if (reggaeCheckBox.isSelected()) genreList.add("reggae");
+        if (funkCheckBox.isSelected()) genreList.add("funk");
+        if (metalCheckBox.isSelected()) genreList.add("metal");
+        
+        System.out.println(Arrays.toString(genreList.toArray()));
+        System.out.println(newFirstName);
+        System.out.println(newLastName);
+        System.out.println(newUserName);
+        System.out.println(newEmail);
+        System.out.println(newPassword);
+        
         this.dispose();
         new MusicSocialUI().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_CreateNewUserButtonMouseClicked
