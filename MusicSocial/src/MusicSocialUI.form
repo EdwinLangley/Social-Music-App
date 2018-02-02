@@ -24,39 +24,8 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
-                      <Component id="TitleFriends" min="-2" pref="380" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="FriendIcon6" min="-2" pref="64" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="FInfo6" min="-2" pref="320" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="FriendIcon1" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
-                                  <Component id="FriendIcon2" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
-                                  <Component id="FriendIcon3" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
-                                  <Component id="FriendIcon4" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
-                                  <Component id="FriendIcon5" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="FInfo5" min="-2" pref="320" max="-2" attributes="0"/>
-                                  <Component id="FInfo2" min="-2" pref="320" max="-2" attributes="0"/>
-                                  <Component id="FInfo1" min="-2" pref="320" max="-2" attributes="0"/>
-                                  <Component id="FInfo3" min="-2" pref="320" max="-2" attributes="0"/>
-                                  <Component id="FInfo4" min="-2" pref="320" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                  </Group>
-              </Group>
+              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+              <Component id="TitleFriends" min="-2" pref="380" max="-2" attributes="0"/>
               <EmptySpace min="42" pref="23" max="32767" attributes="0"/>
               <Component id="FirstSep" min="-2" pref="50" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -64,39 +33,44 @@
                   <Component id="TitleInYourNetwork" max="32767" attributes="0"/>
                   <Component id="TitleFriendsPost" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="91" max="32767" attributes="0"/>
+              <EmptySpace pref="38" max="32767" attributes="0"/>
               <Component id="SecondSep" min="-2" pref="50" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="TimePlayed" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="ProgressSlider" min="-2" pref="523" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="TimeToGo" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="TimePlayed" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="ProgressSlider" min="-2" pref="523" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="TimeToGo" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="Mute" min="-2" pref="32" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="Previous" min="-2" pref="32" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="Play" min="-2" pref="64" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="Skip" min="-2" pref="32" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="Repeat" min="-2" pref="32" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="208" max="-2" attributes="0"/>
+                              <Component id="AlbumArt" min="-2" pref="238" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
-                      <Component id="AlbumArt" min="-2" pref="301" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="200" max="-2" attributes="0"/>
-                      <Component id="Mute" min="-2" pref="32" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Previous" min="-2" pref="32" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Play" min="-2" pref="64" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Skip" min="-2" pref="32" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Repeat" min="-2" pref="32" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="TitleRecommendation" min="-2" pref="470" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -107,7 +81,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="TitleFriendsPost" min="-2" pref="79" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="274" max="32767" attributes="0"/>
               <Component id="TitleInYourNetwork" min="-2" pref="79" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="282" max="-2" attributes="0"/>
           </Group>
@@ -115,7 +89,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="AlbumArt" min="-2" pref="300" max="-2" attributes="0"/>
+                      <Component id="AlbumArt" min="-2" pref="220" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="ProgressSlider" min="-2" max="-2" attributes="0"/>
@@ -130,45 +104,15 @@
                           <Component id="Repeat" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="Mute" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="TitleRecommendation" min="-2" pref="79" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="TitleFriends" min="-2" pref="79" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="FriendIcon1" min="-2" pref="64" max="-2" attributes="0"/>
-                          <Component id="FInfo1" min="-2" pref="108" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="FriendIcon2" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
-                          <Component id="FInfo2" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="FriendIcon3" min="-2" pref="64" max="-2" attributes="0"/>
-                          <Component id="FInfo3" min="-2" pref="108" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="FriendIcon4" min="-2" pref="64" max="-2" attributes="0"/>
-                          <Component id="FInfo4" min="-2" pref="108" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="FriendIcon5" min="-2" pref="64" max="-2" attributes="0"/>
-                          <Component id="FInfo5" min="-2" pref="108" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="FriendIcon6" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
-                  <Component id="FInfo6" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="0" pref="98" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="TitleRecommendation" min="-2" pref="79" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -232,41 +176,6 @@
         <Property name="text" type="java.lang.String" value="jLabel6"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="FriendIcon1">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/user.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="jLabel7"/>
-      </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="FriendIcon1MouseClicked"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="FriendIcon2">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/user.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="jLabel7"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="FriendIcon4">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/user.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="jLabel7"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="FriendIcon3">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/user.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="jLabel7"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JSlider" name="ProgressSlider">
     </Component>
     <Component class="javax.swing.JLabel" name="TitleFriendsPost">
@@ -305,14 +214,6 @@
         <Property name="text" type="java.lang.String" value="FRIENDS"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="FriendIcon5">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/user.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="jLabel7"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="TitleInYourNetwork">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -320,44 +221,6 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="IN YOUR NETWORK"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="FInfo5">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non purus sed nisl mollis faucibus eget vitae est. Sed placerat ornare dapibus. Sed euismod a nulla nec facilisis. Vivamus nec gravida arcu. Duis vel tempor mi. Suspendisse in quam eleifend leo sollicitudin commodo fringilla sit amet ligula. Curabitur vestibulum lacinia risus, vitae molestie neque viverra venenatis."/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="FInfo1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non purus sed nisl mollis faucibus eget vitae est. Sed placerat ornare dapibus. Sed euismod a nulla nec facilisis. Vivamus nec gravida arcu. Duis vel tempor mi. Suspendisse in quam eleifend leo sollicitudin commodo fringilla sit amet ligula. Curabitur vestibulum lacinia risus, vitae molestie neque viverra venenatis."/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="FInfo2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non purus sed nisl mollis faucibus eget vitae est. Sed placerat ornare dapibus. Sed euismod a nulla nec facilisis. Vivamus nec gravida arcu. Duis vel tempor mi. Suspendisse in quam eleifend leo sollicitudin commodo fringilla sit amet ligula. Curabitur vestibulum lacinia risus, vitae molestie neque viverra venenatis."/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="FInfo3">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non purus sed nisl mollis faucibus eget vitae est. Sed placerat ornare dapibus. Sed euismod a nulla nec facilisis. Vivamus nec gravida arcu. Duis vel tempor mi. Suspendisse in quam eleifend leo sollicitudin commodo fringilla sit amet ligula. Curabitur vestibulum lacinia risus, vitae molestie neque viverra venenatis."/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="FInfo4">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non purus sed nisl mollis faucibus eget vitae est. Sed placerat ornare dapibus. Sed euismod a nulla nec facilisis. Vivamus nec gravida arcu. Duis vel tempor mi. Suspendisse in quam eleifend leo sollicitudin commodo fringilla sit amet ligula. Curabitur vestibulum lacinia risus, vitae molestie neque viverra venenatis."/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="FriendIcon6">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/user.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="jLabel7"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="FInfo6">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non purus sed nisl mollis faucibus eget vitae est. Sed placerat ornare dapibus. Sed euismod a nulla nec facilisis. Vivamus nec gravida arcu. Duis vel tempor mi. Suspendisse in quam eleifend leo sollicitudin commodo fringilla sit amet ligula. Curabitur vestibulum lacinia risus, vitae molestie neque viverra venenatis."/>
       </Properties>
     </Component>
   </SubComponents>
