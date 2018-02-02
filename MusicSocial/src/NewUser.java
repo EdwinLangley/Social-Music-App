@@ -27,60 +27,58 @@ public class NewUser extends javax.swing.JFrame {
     private void initComponents() {
 
         jCheckBox14 = new javax.swing.JCheckBox();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jPasswordField3 = new javax.swing.JPasswordField();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        firstNameTextField = new javax.swing.JTextField();
+        newUserTitle = new javax.swing.JLabel();
+        firstNameLabel = new javax.swing.JLabel();
+        lastNameLabel = new javax.swing.JLabel();
         CreateNewUserButton = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-        jPasswordField2 = new javax.swing.JPasswordField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        jCheckBox7 = new javax.swing.JCheckBox();
-        jCheckBox8 = new javax.swing.JCheckBox();
-        jLabel11 = new javax.swing.JLabel();
-        jCheckBox10 = new javax.swing.JCheckBox();
-        jCheckBox11 = new javax.swing.JCheckBox();
-        jCheckBox13 = new javax.swing.JCheckBox();
-        jCheckBox15 = new javax.swing.JCheckBox();
-        jCheckBox16 = new javax.swing.JCheckBox();
-        jCheckBox17 = new javax.swing.JCheckBox();
-        jCheckBox12 = new javax.swing.JCheckBox();
-        jCheckBox18 = new javax.swing.JCheckBox();
-        jPasswordField4 = new javax.swing.JPasswordField();
-        jLabel12 = new javax.swing.JLabel();
-        jCheckBox19 = new javax.swing.JCheckBox();
-        jCheckBox20 = new javax.swing.JCheckBox();
-        jCheckBox9 = new javax.swing.JCheckBox();
-        jCheckBox21 = new javax.swing.JCheckBox();
+        userNameTextField = new javax.swing.JTextField();
+        newUserPasswordField = new javax.swing.JPasswordField();
+        userNameLabel = new javax.swing.JLabel();
+        passwordLabel = new javax.swing.JLabel();
+        rapCheckBox = new javax.swing.JCheckBox();
+        rockCheckBox = new javax.swing.JCheckBox();
+        rnbCheckBox = new javax.swing.JCheckBox();
+        popCheckBox = new javax.swing.JCheckBox();
+        countryCheckBox = new javax.swing.JCheckBox();
+        kPopCheckBox = new javax.swing.JCheckBox();
+        edmCheckBox = new javax.swing.JCheckBox();
+        latinCheckBox = new javax.swing.JCheckBox();
+        genresLabel = new javax.swing.JLabel();
+        dnbCheckBox = new javax.swing.JCheckBox();
+        jazzCheckBox = new javax.swing.JCheckBox();
+        technoCheckBox = new javax.swing.JCheckBox();
+        altrockCheckBox = new javax.swing.JCheckBox();
+        bluesCheckBox = new javax.swing.JCheckBox();
+        houseCheckBox = new javax.swing.JCheckBox();
+        dubstepCheckBox = new javax.swing.JCheckBox();
+        punkCheckBox = new javax.swing.JCheckBox();
+        emailLabel = new javax.swing.JLabel();
+        SoulCheckBox = new javax.swing.JCheckBox();
+        reggaeCheckBox = new javax.swing.JCheckBox();
+        funkCheckBox = new javax.swing.JCheckBox();
+        metalCheckBox = new javax.swing.JCheckBox();
+        lastNameTextField = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
 
         jCheckBox14.setText("Rap");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField3.setToolTipText("User Name");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        firstNameTextField.setToolTipText("User Name");
+        firstNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                firstNameTextFieldActionPerformed(evt);
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Franklin Gothic Heavy", 0, 36)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("NEW USER");
+        newUserTitle.setFont(new java.awt.Font("Franklin Gothic Heavy", 0, 36)); // NOI18N
+        newUserTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        newUserTitle.setText("NEW USER");
 
-        jPasswordField3.setToolTipText("Password");
+        firstNameLabel.setText("FIRST NAME");
 
-        jLabel9.setText("FIRST NAME");
-
-        jLabel10.setText("LAST NAME");
+        lastNameLabel.setText("LAST NAME");
 
         CreateNewUserButton.setText("CREATE USER");
         CreateNewUserButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -94,69 +92,81 @@ public class NewUser extends javax.swing.JFrame {
             }
         });
 
-        jTextField2.setToolTipText("User Name");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        userNameTextField.setToolTipText("User Name");
+        userNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                userNameTextFieldActionPerformed(evt);
             }
         });
 
-        jPasswordField2.setToolTipText("Password");
+        newUserPasswordField.setToolTipText("Password");
 
-        jLabel7.setText("USERNAME");
+        userNameLabel.setText("USERNAME");
 
-        jLabel8.setText("PASSWORD");
+        passwordLabel.setText("PASSWORD");
 
-        jCheckBox1.setText("Rap");
+        rapCheckBox.setText("Rap");
 
-        jCheckBox2.setText("Rock");
+        rockCheckBox.setText("Rock");
 
-        jCheckBox3.setText("R&B");
+        rnbCheckBox.setText("R&B");
 
-        jCheckBox4.setText("Pop");
+        popCheckBox.setText("Pop");
 
-        jCheckBox5.setText("Country");
+        countryCheckBox.setText("Country");
 
-        jCheckBox6.setText("K-Pop");
+        kPopCheckBox.setText("K-Pop");
 
-        jCheckBox7.setText("EDM");
+        edmCheckBox.setText("EDM");
 
-        jCheckBox8.setText("Latin");
+        latinCheckBox.setText("Latin");
 
-        jLabel11.setText("GENRES");
+        genresLabel.setText("GENRES");
 
-        jCheckBox10.setText("D&B");
+        dnbCheckBox.setText("D&B");
 
-        jCheckBox11.setText("Jazz");
+        jazzCheckBox.setText("Jazz");
 
-        jCheckBox13.setText("Techno");
+        technoCheckBox.setText("Techno");
 
-        jCheckBox15.setText("Alt-Rock");
+        altrockCheckBox.setText("Alt-Rock");
 
-        jCheckBox16.setText("Blues");
+        bluesCheckBox.setText("Blues");
 
-        jCheckBox17.setText("House");
+        houseCheckBox.setText("House");
 
-        jCheckBox12.setText("Dubstep");
-        jCheckBox12.addActionListener(new java.awt.event.ActionListener() {
+        dubstepCheckBox.setText("Dubstep");
+        dubstepCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox12ActionPerformed(evt);
+                dubstepCheckBoxActionPerformed(evt);
             }
         });
 
-        jCheckBox18.setText("Punk");
+        punkCheckBox.setText("Punk");
 
-        jPasswordField4.setToolTipText("Password");
+        emailLabel.setText("EMAIL");
 
-        jLabel12.setText("EMAIL");
+        SoulCheckBox.setText("Soul");
 
-        jCheckBox19.setText("Soul");
+        reggaeCheckBox.setText("Reggae");
 
-        jCheckBox20.setText("Reggae");
+        funkCheckBox.setText("Funk");
 
-        jCheckBox9.setText("Funk");
+        metalCheckBox.setText("Metal");
 
-        jCheckBox21.setText("Metal");
+        lastNameTextField.setToolTipText("User Name");
+        lastNameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lastNameTextFieldActionPerformed(evt);
+            }
+        });
+
+        emailField.setToolTipText("User Name");
+        emailField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,61 +176,61 @@ public class NewUser extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(newUserTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(23, 23, 23))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel7))
+                                    .addComponent(passwordLabel)
+                                    .addComponent(userNameLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPasswordField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(userNameTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(newUserPasswordField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10))
+                                    .addComponent(firstNameLabel)
+                                    .addComponent(lastNameLabel))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPasswordField3)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(firstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(emailLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPasswordField4, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(56, 56, 56)
-                        .addComponent(jLabel11)
+                        .addComponent(genresLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jCheckBox4)
-                            .addComponent(jCheckBox6)
-                            .addComponent(jCheckBox8)
-                            .addComponent(jCheckBox21))
+                            .addComponent(rapCheckBox)
+                            .addComponent(popCheckBox)
+                            .addComponent(kPopCheckBox)
+                            .addComponent(latinCheckBox)
+                            .addComponent(metalCheckBox))
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox9)
-                            .addComponent(jCheckBox2)
-                            .addComponent(jCheckBox3)
-                            .addComponent(jCheckBox5)
-                            .addComponent(jCheckBox7))
+                            .addComponent(funkCheckBox)
+                            .addComponent(rockCheckBox)
+                            .addComponent(rnbCheckBox)
+                            .addComponent(countryCheckBox)
+                            .addComponent(edmCheckBox))
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox15)
-                            .addComponent(jCheckBox13)
-                            .addComponent(jCheckBox11)
-                            .addComponent(jCheckBox10)
-                            .addComponent(jCheckBox19))
+                            .addComponent(altrockCheckBox)
+                            .addComponent(technoCheckBox)
+                            .addComponent(jazzCheckBox)
+                            .addComponent(dnbCheckBox)
+                            .addComponent(SoulCheckBox))
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox20)
-                            .addComponent(jCheckBox16)
-                            .addComponent(jCheckBox18)
-                            .addComponent(jCheckBox12)
-                            .addComponent(jCheckBox17))
+                            .addComponent(reggaeCheckBox)
+                            .addComponent(bluesCheckBox)
+                            .addComponent(punkCheckBox)
+                            .addComponent(dubstepCheckBox)
+                            .addComponent(houseCheckBox))
                         .addGap(39, 39, 39))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(342, 342, 342)
@@ -231,50 +241,49 @@ public class NewUser extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(newUserTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jLabel11)
-                    .addComponent(jCheckBox10)
-                    .addComponent(jCheckBox12))
+                    .addComponent(firstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(firstNameLabel)
+                    .addComponent(rapCheckBox)
+                    .addComponent(rockCheckBox)
+                    .addComponent(genresLabel)
+                    .addComponent(dnbCheckBox)
+                    .addComponent(dubstepCheckBox))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jCheckBox4)
-                    .addComponent(jCheckBox11)
-                    .addComponent(jCheckBox18))
+                    .addComponent(lastNameLabel)
+                    .addComponent(rnbCheckBox)
+                    .addComponent(popCheckBox)
+                    .addComponent(jazzCheckBox)
+                    .addComponent(punkCheckBox)
+                    .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jCheckBox5)
-                    .addComponent(jCheckBox6)
-                    .addComponent(jCheckBox13)
-                    .addComponent(jCheckBox16))
+                    .addComponent(userNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userNameLabel)
+                    .addComponent(countryCheckBox)
+                    .addComponent(kPopCheckBox)
+                    .addComponent(technoCheckBox)
+                    .addComponent(bluesCheckBox))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(jCheckBox7)
-                    .addComponent(jCheckBox8)
-                    .addComponent(jCheckBox15)
-                    .addComponent(jCheckBox17))
+                    .addComponent(newUserPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordLabel)
+                    .addComponent(edmCheckBox)
+                    .addComponent(latinCheckBox)
+                    .addComponent(altrockCheckBox)
+                    .addComponent(houseCheckBox))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jPasswordField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel12))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jCheckBox9)
-                        .addComponent(jCheckBox21)
-                        .addComponent(jCheckBox19))
-                    .addComponent(jCheckBox20))
+                        .addComponent(emailLabel)
+                        .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(funkCheckBox)
+                    .addComponent(SoulCheckBox)
+                    .addComponent(metalCheckBox)
+                    .addComponent(reggaeCheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(CreateNewUserButton)
                 .addGap(48, 48, 48))
@@ -283,26 +292,34 @@ public class NewUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void firstNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_firstNameTextFieldActionPerformed
 
     private void CreateNewUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateNewUserButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CreateNewUserButtonActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void userNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_userNameTextFieldActionPerformed
 
-    private void jCheckBox12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox12ActionPerformed
+    private void dubstepCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dubstepCheckBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox12ActionPerformed
+    }//GEN-LAST:event_dubstepCheckBoxActionPerformed
 
     private void CreateNewUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CreateNewUserButtonMouseClicked
         this.dispose();
         new MusicSocialUI().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_CreateNewUserButtonMouseClicked
+
+    private void lastNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lastNameTextFieldActionPerformed
+
+    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -341,38 +358,38 @@ public class NewUser extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CreateNewUserButton;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox10;
-    private javax.swing.JCheckBox jCheckBox11;
-    private javax.swing.JCheckBox jCheckBox12;
-    private javax.swing.JCheckBox jCheckBox13;
+    private javax.swing.JCheckBox SoulCheckBox;
+    private javax.swing.JCheckBox altrockCheckBox;
+    private javax.swing.JCheckBox bluesCheckBox;
+    private javax.swing.JCheckBox countryCheckBox;
+    private javax.swing.JCheckBox dnbCheckBox;
+    private javax.swing.JCheckBox dubstepCheckBox;
+    private javax.swing.JCheckBox edmCheckBox;
+    private javax.swing.JTextField emailField;
+    private javax.swing.JLabel emailLabel;
+    private javax.swing.JLabel firstNameLabel;
+    private javax.swing.JTextField firstNameTextField;
+    private javax.swing.JCheckBox funkCheckBox;
+    private javax.swing.JLabel genresLabel;
+    private javax.swing.JCheckBox houseCheckBox;
     private javax.swing.JCheckBox jCheckBox14;
-    private javax.swing.JCheckBox jCheckBox15;
-    private javax.swing.JCheckBox jCheckBox16;
-    private javax.swing.JCheckBox jCheckBox17;
-    private javax.swing.JCheckBox jCheckBox18;
-    private javax.swing.JCheckBox jCheckBox19;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox20;
-    private javax.swing.JCheckBox jCheckBox21;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JCheckBox jCheckBox8;
-    private javax.swing.JCheckBox jCheckBox9;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JPasswordField jPasswordField3;
-    private javax.swing.JPasswordField jPasswordField4;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JCheckBox jazzCheckBox;
+    private javax.swing.JCheckBox kPopCheckBox;
+    private javax.swing.JLabel lastNameLabel;
+    private javax.swing.JTextField lastNameTextField;
+    private javax.swing.JCheckBox latinCheckBox;
+    private javax.swing.JCheckBox metalCheckBox;
+    private javax.swing.JPasswordField newUserPasswordField;
+    private javax.swing.JLabel newUserTitle;
+    private javax.swing.JLabel passwordLabel;
+    private javax.swing.JCheckBox popCheckBox;
+    private javax.swing.JCheckBox punkCheckBox;
+    private javax.swing.JCheckBox rapCheckBox;
+    private javax.swing.JCheckBox reggaeCheckBox;
+    private javax.swing.JCheckBox rnbCheckBox;
+    private javax.swing.JCheckBox rockCheckBox;
+    private javax.swing.JCheckBox technoCheckBox;
+    private javax.swing.JLabel userNameLabel;
+    private javax.swing.JTextField userNameTextField;
     // End of variables declaration//GEN-END:variables
 }
