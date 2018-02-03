@@ -57,7 +57,7 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 		    outputData=newClient.getOutputPacket();
 		    //Code to handle network output here
 		    //Fills outputData with data from server
-		    if (outputData==null){
+		    if (outputData!=null){
 			try{
 			    output.writeObject(outputData);
 			    output.close();
