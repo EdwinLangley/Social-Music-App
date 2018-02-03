@@ -12,6 +12,7 @@ import java.io.*;
  */
 public class Server {
 
+    public static int currentUsers=0;
     /**
      * @param args the command line arguments
      */
@@ -22,10 +23,11 @@ public class Server {
         try (ServerSocket serverSocket = new ServerSocket(portNumber)){
             while (running){
             //Do server stuff
-	    new Thread(new ClientInstanceWrapper(serverSocket.accept())).start();
+	    new Thread(new ClientNetworkInterface(serverSocket.accept())).start();
+	    currentUsers++;
             }
         } catch (IOException e){
-            System.err.println("Error on port"+portNumber);
+            System.err.println("Error on port"+portNumber+e);
             System.exit(-1);
         }
     }
