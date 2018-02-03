@@ -19,6 +19,7 @@ public class DataPacket implements Serializable {
     
     //Constructors
     public void buildDataPacket (String Command, String Data, ArrayList dataArray){this.Command=Command; this.Data=Data; this.dataArray=dataArray;}
+    public void SetCommand(String command){this.Command=command;}
     public String getCommand(){return Command;}
     public String getData(){return Data;}
     public ArrayList<String> getArray() {return dataArray;}

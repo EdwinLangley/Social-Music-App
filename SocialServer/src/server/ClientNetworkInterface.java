@@ -24,11 +24,11 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
         //insert client listener in here
 	ClientHandler newClient=new ClientHandler();
 	newClient.setUpClientInstance(socket);	    
-	DataPacket inputData;
-	DataPacket outputData;
+	DataPacket inputData=new DataPacket();
+	DataPacket outputData=new DataPacket();
 	while (openConnection){
-	    inputData=null;
-	    outputData=null;
+	    inputData.buildDataPacket(null, null, null);
+	    outputData.buildDataPacket(null, null, null);
 	    try(
 		    //Client has to create this in the opposite order
 		    ObjectOutputStream output= new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
@@ -52,12 +52,18 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 			}
 		    }
 		    //Code to pass datapacket to client handler
-		    newClient.setInputPacket(inputPacket);
+		    newClient.setInputPacket(inputData);
+		    outputData=newClient.clientControlBlock();
 		    //Code to recieve data from client handler
 		    outputData=newClient.getOutputPacket();
 		    //Code to handle network output here
 		    //Fills outputData with data from server
-		    if (outputData!=null){
+		    //If there is any data to send out
+		    if("EXT".equals(outputData.getCommand())){
+			openConnection=false;
+			continue;//Think this may work;
+		    }
+		    if (outputData.getCommand()!=null){
 			try{
 			    output.writeObject(outputData);
 			    output.close();
@@ -66,6 +72,7 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 			    return;
 			}
 		    }
+		   
 		}
 	    catch (IOException e){
 		e.printStackTrace();

@@ -21,12 +21,12 @@ public class ClientHandler{
     public void setInputPacket(DataPacket inputPacket){this.inputPacket=inputPacket;}
     public DataPacket getOutputPacket(){return outputPacket;}
     //Insert commands here
-    public void decideCommand(DataPacket inputPacket){
-	String command=inputPacket.getCommand();
+    public DataPacket clientControlBlock(){
+	String command=this.inputPacket.getCommand();
 	//Case statements for each command
 	switch(command){
 	    case "EXT":
-		//Call relevant function
+		outputPacket.SetCommand("EXT");
 	    break;
 	    case "REG"://Register User
 		//Call relevant function
@@ -67,6 +67,9 @@ public class ClientHandler{
 	    case "SCT"://Start chat
 		//Call relevant function
 	    break;
+	    default: 
+		outputPacket.buildDataPacket(null, null, null);
 	}
+	return outputPacket;
     }
 }
