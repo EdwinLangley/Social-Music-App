@@ -358,6 +358,12 @@ public class NewUser extends javax.swing.JFrame {
         System.out.println(newEmail);
         System.out.println(newPassword);
         
+        DataPacket genreDataPacket = new DataPacket();
+        genreDataPacket.buildDataPacket("");
+        
+        
+        
+        
         this.dispose();
         new MusicSocialUI().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_CreateNewUserButtonMouseClicked
@@ -370,6 +376,7 @@ public class NewUser extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_emailFieldActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */

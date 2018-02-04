@@ -3,18 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package musicsocial;
-import java.lang.String;
+package MusicSocial;
+import java.util.ArrayList;
+import java.io.Serializable;
 /**
  *
  * @author Joe
  */
 //Container for data packets to be transfered over the sockets. 
 //@param T is data type
-public class DataPacket<T> {
-    String Command;
-    T data;
-    public void buildDataPacket (String Command, T data){this.Command=Command; this.data=data;}
+public class DataPacket implements Serializable {
+    private String Command=null;
+    private String Data=null;
+    private ArrayList<String> dataArray=null;
+    
+    //Constructors
+    public void buildDataPacket (String Command, String Data, ArrayList dataArray){this.Command=Command; this.Data=Data; this.dataArray=dataArray;}
+    public void SetCommand(String command){this.Command=command;}
     public String getCommand(){return Command;}
-    public T getData(){return data;}
+    public String getData(){return Data;}
+    public ArrayList<String> getArray() {return dataArray;}
+
 }
