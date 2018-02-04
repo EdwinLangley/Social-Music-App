@@ -19,7 +19,8 @@ public class Server {
     public static void main(String[] args) {
         // TODO code application logic here
         boolean running=true;
-        int portNumber=Integer.parseInt(args[0]);
+        //int portNumber=Integer.parseInt(args[0]);
+	int portNumber=9090;
         try (ServerSocket serverSocket = new ServerSocket(portNumber)){
             while (running){
             //Do server stuff

@@ -38,7 +38,6 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 		    if (input.read()!=-1){
 			try{
 			    inputData=(DataPacket) input.readObject();
-			    input.close();
 			} catch (IOException i){
 			    i.printStackTrace();
 			    return;
@@ -48,11 +47,11 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 			    return;
 			}
 		    }
+		    input.close();
 		    //Code to pass datapacket to client handler
 		    newClient.setInputPacket(inputData);
+		    //Code to recieve data from client handle
 		    outputData=newClient.clientControlBlock();
-		    //Code to recieve data from client handler
-		    outputData=newClient.getOutputPacket();
 		    //Code to handle network output here
 		    //Fills outputData with data from server
 		    //If there is any data to send out
@@ -63,12 +62,12 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 		    if (outputData.getCommand()!=null){
 			try{
 			    output.writeObject(outputData);
-			    output.close();
 			} catch (IOException i){
 			    i.printStackTrace();
 			    return;
 			}
-		    }
+		    } 
+		    output.close();
 		}
 	    catch (IOException e){
 		e.printStackTrace();
