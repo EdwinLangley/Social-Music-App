@@ -1,5 +1,7 @@
 package musicsocial;
 
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,6 +19,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        
+        mandatoryField.setVisible(false);
     }
 
     /**
@@ -37,6 +41,7 @@ public class Login extends javax.swing.JFrame {
         passwordLabel = new javax.swing.JLabel();
         LoginButton = new javax.swing.JButton();
         newUser = new javax.swing.JButton();
+        mandatoryField = new javax.swing.JLabel();
 
         jButton1.setText("LOGIN");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -63,9 +68,9 @@ public class Login extends javax.swing.JFrame {
 
         passwordField.setToolTipText("Password");
 
-        userNameLabel.setText("USERNAME");
+        userNameLabel.setText("USERNAME *");
 
-        passwordLabel.setText("PASSWORD");
+        passwordLabel.setText("PASSWORD *");
 
         LoginButton.setText("LOGIN");
         LoginButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -95,6 +100,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        mandatoryField.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        mandatoryField.setText("These Are Mandatory Fields!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,17 +114,23 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(userNameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(passwordLabel, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(passwordField)
-                            .addComponent(userNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(53, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(userNameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(passwordLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(passwordField)
+                                    .addComponent(userNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(44, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(LoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(140, 140, 140))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(LoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(140, 140, 140))))
+                        .addComponent(mandatoryField)
+                        .addGap(146, 146, 146))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +148,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(loginTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
+                        .addGap(27, 27, 27)
+                        .addComponent(mandatoryField)
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(userNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(userNameLabel))
@@ -172,13 +188,24 @@ public class Login extends javax.swing.JFrame {
     private void LoginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginButtonMouseClicked
         // TODO add your handling code here:
         String userNameRetrievedText;
+        String passwordRetrievedText = new String(passwordField.getPassword());
+        
         userNameRetrievedText = userNameField.getText();
-        char[] passwordRetrievedText;
-        passwordRetrievedText = passwordField.getPassword();
-        System.out.println(userNameRetrievedText);
-        System.out.println(passwordRetrievedText);
-        this.dispose();
-        new MusicSocialUI().setVisible(true);
+                
+        if(checkForEmptyField()){
+            this.dispose();
+            new MusicSocialUI().setVisible(true);
+        } else {
+            mandatoryField.setVisible(true);
+        }
+        
+        ArrayList<String> infoArray = new ArrayList<>();
+        
+        infoArray.add(userNameRetrievedText);
+        infoArray.add(passwordRetrievedText);
+        
+        DataPacket LoginPacket = new DataPacket();
+        LoginPacket.buildDataPacket("LGN",null,infoArray);
     }//GEN-LAST:event_LoginButtonMouseClicked
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
@@ -233,10 +260,19 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel lockIcon;
     private javax.swing.JLabel loginTitle;
+    private javax.swing.JLabel mandatoryField;
     private javax.swing.JButton newUser;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JTextField userNameField;
     private javax.swing.JLabel userNameLabel;
     // End of variables declaration//GEN-END:variables
+
+    private boolean checkForEmptyField() {
+        if(userNameField.getText().isEmpty() || passwordField.getPassword().length==0){
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
