@@ -22,7 +22,52 @@ public class ServerNetworkInterface {
     private Socket socket=null;
     public boolean openConnection=true;
     
+    public void sendData(DataPacket data){
+	DataPacket outputData=data;
+	try(
+	    ObjectOutputStream output= new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+	)
+	 {
+	      if (outputData.getCommand()!=null){
+                try{
+                    output.writeObject(outputData);
+                    
+                } catch (IOException i){
+                    i.printStackTrace();
+                    return;
+                }
+            }
+	    output.close();
+	 }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
+    public DataPacket recieveData(){
+	DataPacket inputData=new DataPacket();
+	  try(
+                ObjectInputStream input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+                )
+        {
+            if (input.read()!=-1){
+                try{
+                    inputData=(DataPacket) input.readObject();
+                } catch (IOException i){
+                    i.printStackTrace();
+                    return null;
+                } catch (ClassNotFoundException c){
+                    System.out.println("Class not found");
+                    c.printStackTrace();
+                    return null;
+                }
+            }
+            input.close();
+	}
+	    catch (IOException e) {
+            e.printStackTrace();
+	    }
+	return inputData;
+    }
     private void serverConnect(DataPacket data) {
         
         DataPacket inputData=new DataPacket();
