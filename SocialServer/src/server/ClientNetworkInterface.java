@@ -14,10 +14,7 @@ import java.io.*;
 public class ClientNetworkInterface extends ClientHandler implements Runnable {
     private Socket socket=null;
     public boolean openConnection=true;
-    public ClientNetworkInterface(Socket socket) {
-        this.socket = socket;
-	
-    }    
+    public ClientNetworkInterface(Socket socket) {this.socket = socket;}    
     
     @Override
     public void run(){
@@ -72,7 +69,6 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 			    return;
 			}
 		    }
-		   
 		}
 	    catch (IOException e){
 		e.printStackTrace();
