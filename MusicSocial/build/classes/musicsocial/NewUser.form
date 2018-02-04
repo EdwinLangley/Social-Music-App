@@ -38,71 +38,80 @@
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="passwordLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="userNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="passwordLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="userNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="userNameTextField" alignment="1" min="-2" pref="183" max="-2" attributes="0"/>
+                                          <Component id="newUserPasswordField" alignment="1" min="-2" pref="183" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="firstNameLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lastNameLabel" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="firstNameTextField" min="-2" pref="183" max="-2" attributes="0"/>
+                                          <Component id="lastNameTextField" min="-2" pref="183" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="emailLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="emailField" min="-2" pref="183" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
+                              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                              <Component id="genresLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="41" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="rapCheckBox" min="-2" max="-2" attributes="0"/>
+                                  <Component id="popCheckBox" min="-2" max="-2" attributes="0"/>
+                                  <Component id="kPopCheckBox" min="-2" max="-2" attributes="0"/>
+                                  <Component id="latinCheckBox" min="-2" max="-2" attributes="0"/>
+                                  <Component id="metalCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="funkCheckBox" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rockCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rnbCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="countryCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="edmCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="altrockCheckBox" min="-2" max="-2" attributes="0"/>
+                                  <Component id="technoCheckBox" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jazzCheckBox" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dnbCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="SoulCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="reggaeCheckBox" min="-2" max="-2" attributes="0"/>
+                                  <Component id="bluesCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="punkCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dubstepCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="houseCheckBox" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+                              <Component id="mandatoryLabel" min="-2" pref="251" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="userNameTextField" alignment="1" min="-2" pref="183" max="-2" attributes="0"/>
-                                  <Component id="newUserPasswordField" alignment="1" min="-2" pref="183" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="firstNameLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lastNameLabel" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="firstNameTextField" min="-2" pref="183" max="-2" attributes="0"/>
-                                  <Component id="lastNameTextField" min="-2" pref="183" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="emailLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="emailField" min="-2" pref="183" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                      <Component id="genresLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="50" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="rapCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="popCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="kPopCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="latinCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="metalCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="funkCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="rockCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="rnbCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="countryCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="edmCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="altrockCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="technoCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="jazzCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="dnbCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="SoulCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="reggaeCheckBox" min="-2" max="-2" attributes="0"/>
-                          <Component id="bluesCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="punkCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="dubstepCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="houseCheckBox" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -118,7 +127,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Component id="newUserTitle" min="-2" pref="81" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="firstNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="firstNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -166,7 +175,9 @@
                   <Component id="metalCheckBox" min="-2" max="-2" attributes="0"/>
                   <Component id="reggaeCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="51" max="32767" attributes="0"/>
+              <EmptySpace pref="24" max="32767" attributes="0"/>
+              <Component id="mandatoryLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="CreateNewUserButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
           </Group>
@@ -176,7 +187,7 @@
   <SubComponents>
     <Component class="javax.swing.JTextField" name="firstNameTextField">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="User Name"/>
+        <Property name="toolTipText" type="java.lang.String" value="First Name"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="firstNameTextFieldActionPerformed"/>
@@ -193,12 +204,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="firstNameLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="FIRST NAME"/>
+        <Property name="text" type="java.lang.String" value="FIRST NAME *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lastNameLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="LAST NAME"/>
+        <Property name="text" type="java.lang.String" value="LAST NAME *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="CreateNewUserButton">
@@ -225,12 +236,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="userNameLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="USERNAME"/>
+        <Property name="text" type="java.lang.String" value="USERNAME *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="passwordLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="PASSWORD"/>
+        <Property name="text" type="java.lang.String" value="PASSWORD *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="rapCheckBox">
@@ -323,7 +334,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="emailLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="EMAIL"/>
+        <Property name="text" type="java.lang.String" value="EMAIL *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="SoulCheckBox">
@@ -348,7 +359,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="lastNameTextField">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="User Name"/>
+        <Property name="toolTipText" type="java.lang.String" value="Last Name"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lastNameTextFieldActionPerformed"/>
@@ -356,11 +367,19 @@
     </Component>
     <Component class="javax.swing.JTextField" name="emailField">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="User Name"/>
+        <Property name="toolTipText" type="java.lang.String" value="Email"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="emailFieldActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="mandatoryLabel">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="12" style="3"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="These Fields Are Mandatory!"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

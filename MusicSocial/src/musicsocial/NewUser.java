@@ -3,6 +3,7 @@ package musicsocial;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import static java.util.Collections.list;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,6 +22,8 @@ public class NewUser extends javax.swing.JFrame {
      */
     public NewUser() {
         initComponents();
+        
+        mandatoryLabel.setVisible(false);
     }
 
     /**
@@ -66,12 +69,13 @@ public class NewUser extends javax.swing.JFrame {
         metalCheckBox = new javax.swing.JCheckBox();
         lastNameTextField = new javax.swing.JTextField();
         emailField = new javax.swing.JTextField();
+        mandatoryLabel = new javax.swing.JLabel();
 
         jCheckBox14.setText("Rap");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        firstNameTextField.setToolTipText("User Name");
+        firstNameTextField.setToolTipText("First Name");
         firstNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 firstNameTextFieldActionPerformed(evt);
@@ -82,9 +86,9 @@ public class NewUser extends javax.swing.JFrame {
         newUserTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         newUserTitle.setText("NEW USER");
 
-        firstNameLabel.setText("FIRST NAME");
+        firstNameLabel.setText("FIRST NAME *");
 
-        lastNameLabel.setText("LAST NAME");
+        lastNameLabel.setText("LAST NAME *");
 
         CreateNewUserButton.setText("CREATE USER");
         CreateNewUserButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -107,9 +111,9 @@ public class NewUser extends javax.swing.JFrame {
 
         newUserPasswordField.setToolTipText("Password");
 
-        userNameLabel.setText("USERNAME");
+        userNameLabel.setText("USERNAME *");
 
-        passwordLabel.setText("PASSWORD");
+        passwordLabel.setText("PASSWORD *");
 
         rapCheckBox.setText("Rap");
 
@@ -150,7 +154,7 @@ public class NewUser extends javax.swing.JFrame {
 
         punkCheckBox.setText("Punk");
 
-        emailLabel.setText("EMAIL");
+        emailLabel.setText("EMAIL *");
 
         SoulCheckBox.setText("Soul");
 
@@ -160,19 +164,22 @@ public class NewUser extends javax.swing.JFrame {
 
         metalCheckBox.setText("Metal");
 
-        lastNameTextField.setToolTipText("User Name");
+        lastNameTextField.setToolTipText("Last Name");
         lastNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lastNameTextFieldActionPerformed(evt);
             }
         });
 
-        emailField.setToolTipText("User Name");
+        emailField.setToolTipText("Email");
         emailField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailFieldActionPerformed(evt);
             }
         });
+
+        mandatoryLabel.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        mandatoryLabel.setText("These Fields Are Mandatory!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,58 +193,64 @@ public class NewUser extends javax.swing.JFrame {
                         .addGap(23, 23, 23))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(passwordLabel)
+                                            .addComponent(userNameLabel))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(userNameTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(newUserPasswordField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(firstNameLabel)
+                                            .addComponent(lastNameLabel))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(firstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(emailLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(56, 56, 56)
+                                .addComponent(genresLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(passwordLabel)
-                                    .addComponent(userNameLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(rapCheckBox)
+                                    .addComponent(popCheckBox)
+                                    .addComponent(kPopCheckBox)
+                                    .addComponent(latinCheckBox)
+                                    .addComponent(metalCheckBox))
+                                .addGap(50, 50, 50)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(userNameTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(newUserPasswordField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(funkCheckBox)
+                                    .addComponent(rockCheckBox)
+                                    .addComponent(rnbCheckBox)
+                                    .addComponent(countryCheckBox)
+                                    .addComponent(edmCheckBox))
+                                .addGap(50, 50, 50)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(altrockCheckBox)
+                                    .addComponent(technoCheckBox)
+                                    .addComponent(jazzCheckBox)
+                                    .addComponent(dnbCheckBox)
+                                    .addComponent(SoulCheckBox))
+                                .addGap(50, 50, 50)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(reggaeCheckBox)
+                                    .addComponent(bluesCheckBox)
+                                    .addComponent(punkCheckBox)
+                                    .addComponent(dubstepCheckBox)
+                                    .addComponent(houseCheckBox))
+                                .addGap(39, 39, 39))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(firstNameLabel)
-                                    .addComponent(lastNameLabel))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(firstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(emailLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(56, 56, 56)
-                        .addComponent(genresLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rapCheckBox)
-                            .addComponent(popCheckBox)
-                            .addComponent(kPopCheckBox)
-                            .addComponent(latinCheckBox)
-                            .addComponent(metalCheckBox))
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(funkCheckBox)
-                            .addComponent(rockCheckBox)
-                            .addComponent(rnbCheckBox)
-                            .addComponent(countryCheckBox)
-                            .addComponent(edmCheckBox))
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(altrockCheckBox)
-                            .addComponent(technoCheckBox)
-                            .addComponent(jazzCheckBox)
-                            .addComponent(dnbCheckBox)
-                            .addComponent(SoulCheckBox))
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(reggaeCheckBox)
-                            .addComponent(bluesCheckBox)
-                            .addComponent(punkCheckBox)
-                            .addComponent(dubstepCheckBox)
-                            .addComponent(houseCheckBox))
-                        .addGap(39, 39, 39))))
+                                .addGap(87, 87, 87)
+                                .addComponent(mandatoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(342, 342, 342)
                 .addComponent(CreateNewUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,7 +261,7 @@ public class NewUser extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(newUserTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(firstNameLabel)
@@ -290,7 +303,9 @@ public class NewUser extends javax.swing.JFrame {
                     .addComponent(SoulCheckBox)
                     .addComponent(metalCheckBox)
                     .addComponent(reggaeCheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(mandatoryLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(CreateNewUserButton)
                 .addGap(48, 48, 48))
         );
@@ -317,55 +332,33 @@ public class NewUser extends javax.swing.JFrame {
     private void CreateNewUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CreateNewUserButtonMouseClicked
         
         ArrayList<String> genreList = new ArrayList<>();
+        ArrayList<String> infoArray = new ArrayList<>();
         String newFirstName;
         String newLastName;
         String newUserName;
         String newEmail;
-        char[] newPassword;
-        
         
         newFirstName = firstNameTextField.getText();
         newLastName = lastNameTextField.getText();
         newUserName = userNameTextField.getText();
         newEmail = emailField.getText();
-        newPassword = newUserPasswordField.getPassword();
+        String newPassword = new String(newUserPasswordField.getPassword());
         
-        if (rapCheckBox.isSelected()) genreList.add("rap");
-        if (rockCheckBox.isSelected()) genreList.add("rock");
-        if (rnbCheckBox.isSelected()) genreList.add("rnb");
-        if (popCheckBox.isSelected()) genreList.add("pop");
-        if (countryCheckBox.isSelected()) genreList.add("country");
-        if (kPopCheckBox.isSelected()) genreList.add("kPop");
-        if (edmCheckBox.isSelected()) genreList.add("edm");
-        if (latinCheckBox.isSelected()) genreList.add("latin");
-        if (dnbCheckBox.isSelected()) genreList.add("dnb");
-        if (jazzCheckBox.isSelected()) genreList.add("jazz");
-        if (technoCheckBox.isSelected()) genreList.add("techno");
-        if (altrockCheckBox.isSelected()) genreList.add("alt rock");
-        if (bluesCheckBox.isSelected()) genreList.add("blues");
-        if (houseCheckBox.isSelected()) genreList.add("house");
-        if (dubstepCheckBox.isSelected()) genreList.add("dubstep");
-        if (punkCheckBox.isSelected()) genreList.add("punk");
-        if (SoulCheckBox.isSelected()) genreList.add("Soul");
-        if (reggaeCheckBox.isSelected()) genreList.add("reggae");
-        if (funkCheckBox.isSelected()) genreList.add("funk");
-        if (metalCheckBox.isSelected()) genreList.add("metal");
+        genreList = takeCheckBoxGenres();
         
-        System.out.println(Arrays.toString(genreList.toArray()));
-        System.out.println(newFirstName);
-        System.out.println(newLastName);
-        System.out.println(newUserName);
-        System.out.println(newEmail);
-        System.out.println(newPassword);
+        infoArray = constructInfoArray(newFirstName, newLastName, newUserName, newEmail, newPassword, genreList);
         
+        System.out.println(infoArray);
+                
         DataPacket genreDataPacket = new DataPacket();
-        genreDataPacket.buildDataPacket("");
+        genreDataPacket.buildDataPacket("REG", null ,infoArray);
         
-        
-        
-        
-        this.dispose();
-        new MusicSocialUI().setVisible(true);        // TODO add your handling code here:
+        if (compulsoryFieldsFull() == false){         
+            this.dispose();
+            new MusicSocialUI().setVisible(true);     
+        } else {
+            mandatoryLabel.setVisible(true);
+        }
     }//GEN-LAST:event_CreateNewUserButtonMouseClicked
 
     private void lastNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameTextFieldActionPerformed
@@ -376,7 +369,6 @@ public class NewUser extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_emailFieldActionPerformed
 
-    
     /**
      * @param args the command line arguments
      */
@@ -434,6 +426,7 @@ public class NewUser extends javax.swing.JFrame {
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JTextField lastNameTextField;
     private javax.swing.JCheckBox latinCheckBox;
+    private javax.swing.JLabel mandatoryLabel;
     private javax.swing.JCheckBox metalCheckBox;
     private javax.swing.JPasswordField newUserPasswordField;
     private javax.swing.JLabel newUserTitle;
@@ -448,4 +441,66 @@ public class NewUser extends javax.swing.JFrame {
     private javax.swing.JLabel userNameLabel;
     private javax.swing.JTextField userNameTextField;
     // End of variables declaration//GEN-END:variables
+
+    private boolean compulsoryFieldsFull() {
+        boolean wasItEmpty;
+        
+        if (firstNameTextField.getText().isEmpty() || lastNameTextField.getText().isEmpty() || 
+            userNameTextField.getText().isEmpty() || newUserPasswordField.getPassword().length==0 ||
+            emailField.getText().isEmpty() )
+        {
+            wasItEmpty = true;
+        } else {
+            wasItEmpty = false;
+        }
+        
+        return wasItEmpty;
+    }
+
+    private ArrayList<String> takeCheckBoxGenres() {
+        
+        ArrayList<String> genreList = new ArrayList<>();
+        
+        if (rapCheckBox.isSelected()) genreList.add("rap");
+        if (rockCheckBox.isSelected()) genreList.add("rock");
+        if (rnbCheckBox.isSelected()) genreList.add("rnb");
+        if (popCheckBox.isSelected()) genreList.add("pop");
+        if (countryCheckBox.isSelected()) genreList.add("country");
+        if (kPopCheckBox.isSelected()) genreList.add("kPop");
+        if (edmCheckBox.isSelected()) genreList.add("edm");
+        if (latinCheckBox.isSelected()) genreList.add("latin");
+        if (dnbCheckBox.isSelected()) genreList.add("dnb");
+        if (jazzCheckBox.isSelected()) genreList.add("jazz");
+        if (technoCheckBox.isSelected()) genreList.add("techno");
+        if (altrockCheckBox.isSelected()) genreList.add("alt rock");
+        if (bluesCheckBox.isSelected()) genreList.add("blues");
+        if (houseCheckBox.isSelected()) genreList.add("house");
+        if (dubstepCheckBox.isSelected()) genreList.add("dubstep");
+        if (punkCheckBox.isSelected()) genreList.add("punk");
+        if (SoulCheckBox.isSelected()) genreList.add("Soul");
+        if (reggaeCheckBox.isSelected()) genreList.add("reggae");
+        if (funkCheckBox.isSelected()) genreList.add("funk");
+        if (metalCheckBox.isSelected()) genreList.add("metal");
+        
+        return genreList;
+        
+    }
+
+    private ArrayList<String> constructInfoArray(String newFirstName, String newLastName, String newUserName, String newEmail, String newPassword, ArrayList<String> genreList) {
+        
+        ArrayList<String> infoArray = new ArrayList<>();
+        
+        infoArray.add(newFirstName);
+        infoArray.add(newLastName);
+        infoArray.add(newUserName);
+        infoArray.add(newPassword);
+        infoArray.add(newEmail);
+        
+        for ( String item : genreList)
+        {
+            infoArray.add(item);
+        }
+        
+        return infoArray;
+    }
 }
