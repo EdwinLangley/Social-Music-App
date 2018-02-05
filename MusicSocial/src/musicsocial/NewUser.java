@@ -1,9 +1,14 @@
 package musicsocial;
 
 
+import DataPacket.DataPacket;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import static java.util.Collections.list;
+import java.net.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -352,6 +357,19 @@ public class NewUser extends javax.swing.JFrame {
                 
         DataPacket genreDataPacket = new DataPacket();
         genreDataPacket.buildDataPacket("REG", null ,infoArray);
+        ServerNetworkInterface sendData=new ServerNetworkInterface();
+        InetAddress address = null; 
+        try {
+            address = InetAddress.getLocalHost();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            sendData.socket=new Socket(address,9090);
+        } catch (IOException ex) {
+            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        sendData.sendData(genreDataPacket);
         
         if (compulsoryFieldsFull() == false){         
             this.dispose();

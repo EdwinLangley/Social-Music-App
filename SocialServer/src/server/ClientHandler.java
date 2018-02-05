@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package server;
+
+import DataPacket.DataPacket;
+
 /**
  *    
  * @author Joe
@@ -11,7 +14,7 @@ package server;
 public class ClientHandler{
     int ID;
     java.net.InetAddress IPAddress;
-    DataPacket inputPacket=null,outputPacket=null;
+    DataPacket inputPacket,outputPacket;
     //Insert commmands here
     public void testFunction(String data){
 	DataPacket testpacket =new DataPacket();
@@ -21,15 +24,17 @@ public class ClientHandler{
     public void setInputPacket(DataPacket inputPacket){this.inputPacket=inputPacket;}
     public DataPacket getOutputPacket(){return outputPacket;}
     //Insert commands here
-    public DataPacket clientControlBlock(){
-	String command=this.inputPacket.getCommand();
+    public DataPacket clientControlBlock(DataPacket dataPacket){
+	String command=dataPacket.getCommand();
+        System.out.println(command);
 	//Case statements for each command
 	switch(command){
 	    case "EXT":
 		outputPacket.SetCommand("EXT");
 	    break;
 	    case "REG"://Register User
-		//Call relevant function
+                System.out.println("REG Switch hit");
+		RegisterUser(dataPacket);
 	    break;
 	    case "LGN"://Login
 		//Call relevant function
@@ -71,5 +76,8 @@ public class ClientHandler{
 		outputPacket.buildDataPacket(null, null, null);
 	}
 	return outputPacket;
+    }
+    private void RegisterUser(DataPacket inputData){
+        System.out.println(inputData.getData());
     }
 }

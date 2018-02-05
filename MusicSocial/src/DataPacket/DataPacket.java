@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package server;
+package DataPacket;
 import java.util.ArrayList;
 import java.io.Serializable;
 /**
@@ -13,9 +13,9 @@ import java.io.Serializable;
 //Container for data packets to be transfered over the sockets. 
 //@param T is data type
 public class DataPacket implements Serializable {
-    private String Command=null;
-    private String Data=null;
-    private ArrayList<String> dataArray=null;
+    private String Command;
+    private String Data;
+    private ArrayList<String> dataArray;
     
     //Constructors
     public void buildDataPacket (String Command, String Data, ArrayList dataArray){this.Command=Command; this.Data=Data; this.dataArray=dataArray;}

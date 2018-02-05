@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package server;
+import DataPacket.DataPacket;
 import java.net.*;
 import java.io.*;
 
@@ -24,8 +25,8 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 	DataPacket inputData=new DataPacket();
 	DataPacket outputData=new DataPacket();
 	while (openConnection){
-	    inputData.buildDataPacket(null, null, null);
-	    outputData.buildDataPacket(null, null, null);
+	    //inputData.buildDataPacket(null, null, null);
+	    //outputData.buildDataPacket(null, null, null);
 	    try(
 		    //Client has to create this in the opposite order
 		    ObjectOutputStream output= new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
@@ -35,7 +36,8 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 		    /*Code to handle network input here
 		    Fills inputData with data from client
 		    Only if there is data on the socket*/
-		    if (input.read()!=-1){
+		    //if (input.read()!=-1){
+                        System.out.println("GettingInput");
 			try{
 			    inputData=(DataPacket) input.readObject();
 			} catch (IOException i){
@@ -46,12 +48,12 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 			    c.printStackTrace();
 			    return;
 			}
-		    }
+		    //}
 		    input.close();
 		    //Code to pass datapacket to client handler
 		    newClient.setInputPacket(inputData);
 		    //Code to recieve data from client handle
-		    outputData=newClient.clientControlBlock();
+		    outputData=newClient.clientControlBlock(inputData);
 		    //Code to handle network output here
 		    //Fills outputData with data from server
 		    //If there is any data to send out

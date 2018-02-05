@@ -5,12 +5,13 @@
 */
 package musicsocial;
 
+import DataPacket.DataPacket;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
+import java.net.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,9 +20,9 @@ import java.util.logging.Logger;
  * @author Edwin
  */
 public class ServerNetworkInterface {
-    private Socket socket=null;
+    public Socket socket=null;
     public boolean openConnection=true;
-    
+    public void setSocket(InetAddress address, int port){this.socket = Socket(address,9090) ;}
     public void sendData(DataPacket data){
 	DataPacket outputData=data;
 	try(
@@ -31,6 +32,7 @@ public class ServerNetworkInterface {
 	      if (outputData.getCommand()!=null){
                 try{
                     output.writeObject(outputData);
+                    output.flush();
                     
                 } catch (IOException i){
                     i.printStackTrace();
@@ -108,6 +110,10 @@ public class ServerNetworkInterface {
         }
         
         
+    }
+
+    private Socket Socket(InetAddress address, int i) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
