@@ -24,19 +24,19 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 	newClient.setUpClientInstance(socket);	    
 	DataPacket inputData=new DataPacket();
 	DataPacket outputData=new DataPacket();
-	while (openConnection){
-	    //inputData.buildDataPacket(null, null, null);
-	    //outputData.buildDataPacket(null, null, null);
-	    try(
+        try(
 		    //Client has to create this in the opposite order
 		    ObjectOutputStream output= new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 		    ObjectInputStream input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 		)
-		{
+        {
+	while (openConnection){
+	    //inputData.buildDataPacket(null, null, null);
+	    //outputData.buildDataPacket(null, null, null);
 		    /*Code to handle network input here
 		    Fills inputData with data from client
 		    Only if there is data on the socket*/
-		    //if (input.read()!=-1){
+		    if (input.read()!=-1){
                         System.out.println("GettingInput");
 			try{
 			    inputData=(DataPacket) input.readObject();
@@ -48,8 +48,9 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 			    c.printStackTrace();
 			    return;
 			}
+                    }
 		    //}
-		    input.close();
+		    //input.close();
 		    //Code to pass datapacket to client handler
 		    newClient.setInputPacket(inputData);
 		    //Code to recieve data from client handle
@@ -58,22 +59,24 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 		    //Fills outputData with data from server
 		    //If there is any data to send out
 		    if("EXT".equals(outputData.getCommand())){
-			openConnection=false;
-			continue;//Think this may work;
+                        System.out.println("Close Connection");
+			break;
 		    }
-		    if (outputData.getCommand()!=null){
+		    if (!"null".equals(outputData.getCommand())){
 			try{
+                            System.out.println("OutputData");
 			    output.writeObject(outputData);
 			} catch (IOException i){
 			    i.printStackTrace();
 			    return;
 			}
 		    } 
-		    output.close();
+		    //output.close();
+                    System.out.println("OutputClosed");
 		}
-	    catch (IOException e){
-		e.printStackTrace();
-	    }
+	}
+        catch (IOException e){
+	e.printStackTrace();
 	}
 	Server.currentUsers--;
     }

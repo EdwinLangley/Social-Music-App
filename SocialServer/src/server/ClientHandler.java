@@ -6,6 +6,7 @@
 package server;
 
 import DataPacket.DataPacket;
+import java.util.ArrayList;
 
 /**
  *    
@@ -34,7 +35,7 @@ public class ClientHandler{
 	    break;
 	    case "REG"://Register User
                 System.out.println("REG Switch hit");
-		RegisterUser(dataPacket);
+		outputPacket=RegisterUser(dataPacket);
 	    break;
 	    case "LGN"://Login
 		//Call relevant function
@@ -73,11 +74,15 @@ public class ClientHandler{
 		//Call relevant function
 	    break;
 	    default: 
-		outputPacket.buildDataPacket(null, null, null);
+		outputPacket.buildDataPacket("null", "null", null);
 	}
 	return outputPacket;
     }
-    private void RegisterUser(DataPacket inputData){
-        System.out.println(inputData.getData());
+    private DataPacket RegisterUser(DataPacket inputData){
+        System.out.println(inputData.getArray());
+        DataPacket outputData=new DataPacket();
+        ArrayList<String> emptyList=new ArrayList();
+        outputData.buildDataPacket("null", "null", emptyList);
+        return outputData;
     }
 }
