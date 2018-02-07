@@ -31,14 +31,14 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="315" max="-2" attributes="0"/>
+              <Component id="CreateNewUserButton" min="-2" pref="203" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="newUserTitle" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -70,17 +70,26 @@
                                       <Component id="emailField" min="-2" pref="183" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                              <Component id="genresLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="41" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="rapCheckBox" min="-2" max="-2" attributes="0"/>
-                                  <Component id="popCheckBox" min="-2" max="-2" attributes="0"/>
-                                  <Component id="kPopCheckBox" min="-2" max="-2" attributes="0"/>
-                                  <Component id="latinCheckBox" min="-2" max="-2" attributes="0"/>
-                                  <Component id="metalCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <EmptySpace min="68" pref="68" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+                              <Component id="mandatoryLabel" min="-2" pref="251" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="genresLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="72" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="rapCheckBox" min="-2" max="-2" attributes="0"/>
+                          <Component id="popCheckBox" min="-2" max="-2" attributes="0"/>
+                          <Component id="kPopCheckBox" min="-2" max="-2" attributes="0"/>
+                          <Component id="latinCheckBox" min="-2" max="-2" attributes="0"/>
+                          <Component id="metalCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="funkCheckBox" min="-2" max="-2" attributes="0"/>
                                   <Component id="rockCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -91,12 +100,12 @@
                               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="altrockCheckBox" min="-2" max="-2" attributes="0"/>
-                                  <Component id="technoCheckBox" min="-2" max="-2" attributes="0"/>
                                   <Component id="jazzCheckBox" min="-2" max="-2" attributes="0"/>
                                   <Component id="dnbCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="SoulCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="technoCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="reggaeCheckBox" min="-2" max="-2" attributes="0"/>
                                   <Component id="bluesCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -104,82 +113,111 @@
                                   <Component id="dubstepCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="houseCheckBox" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
-                              <Component id="mandatoryLabel" min="-2" pref="251" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="ProfilePicButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="PPLabel" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="newUserTitle" min="-2" pref="417" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="342" max="-2" attributes="0"/>
-              <Component id="CreateNewUserButton" min="-2" pref="203" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Component id="newUserTitle" min="-2" pref="81" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="firstNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="firstNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="rapCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="rockCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="genresLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="dnbCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="dubstepCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lastNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="rnbCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="popCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jazzCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="punkCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lastNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="userNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="userNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="countryCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="kPopCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="technoCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="bluesCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="newUserPasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="passwordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="edmCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="latinCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="altrockCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="houseCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="emailLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="emailField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="newUserTitle" alignment="3" min="-2" pref="81" max="-2" attributes="0"/>
+                          <Component id="ProfilePicButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Component id="funkCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="SoulCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="metalCheckBox" min="-2" max="-2" attributes="0"/>
-                  <Component id="reggaeCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="PPLabel" min="-2" pref="100" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="24" max="32767" attributes="0"/>
-              <Component id="mandatoryLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="rapCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rockCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="genresLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dnbCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dubstepCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="rnbCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="popCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jazzCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="punkCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="countryCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="kPopCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="technoCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="bluesCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="edmCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="latinCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="altrockCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="houseCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="funkCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="SoulCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="metalCheckBox" min="-2" max="-2" attributes="0"/>
+                          <Component id="reggaeCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="firstNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="firstNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lastNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lastNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="userNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="userNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="newUserPasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="passwordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="emailLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="emailField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="31" max="32767" attributes="0"/>
+                      <Component id="mandatoryLabel" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="CreateNewUserButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -379,6 +417,23 @@
           <Font name="Tahoma" size="12" style="3"/>
         </Property>
         <Property name="text" type="java.lang.String" value="These Fields Are Mandatory!"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="ProfilePicButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Add A Picture"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ProfilePicButtonMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="PPLabel">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+            <LineBorder/>
+          </Border>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>
