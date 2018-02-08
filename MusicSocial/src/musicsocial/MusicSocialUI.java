@@ -1,11 +1,15 @@
 package musicsocial;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.ImageIcon;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
@@ -20,7 +24,13 @@ import sun.audio.AudioStream;
  * @author Edwin
  */
 public class MusicSocialUI extends javax.swing.JFrame {
-
+    
+    
+    boolean isPlaying = false;
+     AudioInputStream audioInputStream;
+     Clip clip;
+     int clipTime;
+    
     /**
      * Creates new form MusicSocialUI
      */
@@ -52,7 +62,6 @@ public class MusicSocialUI extends javax.swing.JFrame {
         TitleRecommendation = new javax.swing.JLabel();
         TitleFriends = new javax.swing.JLabel();
         TitleInYourNetwork = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,7 +69,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
 
         FirstSep.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        Play.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/play-button.png"))); // NOI18N
+        Play.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/play.png"))); // NOI18N
         Play.setText("jLabel1");
         Play.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -101,13 +110,6 @@ public class MusicSocialUI extends javax.swing.JFrame {
         TitleInYourNetwork.setFont(new java.awt.Font("Franklin Gothic Heavy", 0, 48)); // NOI18N
         TitleInYourNetwork.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TitleInYourNetwork.setText("IN YOUR NETWORK");
-
-        jButton1.setText("jButton1");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,13 +153,8 @@ public class MusicSocialUI extends javax.swing.JFrame {
                         .addGap(41, 41, 41))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(TitleRecommendation, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(100, 100, 100))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(293, 293, 293))))))
+                        .addComponent(TitleRecommendation, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,37 +188,39 @@ public class MusicSocialUI extends javax.swing.JFrame {
                         .addComponent(TitleFriends, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(TitleRecommendation, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(79, 79, 79))
+                .addGap(79, 257, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void PlayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PlayMouseClicked
-        String soundName = "D:\\Users\\Edwin\\Music\\marbles-daniel_simon.mp3"; 
-        try{
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
-        clip.start();
-        } catch(Exception e){
+        String trackName = "D:\\Users\\Edwin\\Music\\marbles-daniel_simon.wav";
         
+        try{
+            if (isPlaying == false){             
+
+            audioInputStream = AudioSystem.getAudioInputStream(new File(trackName).getAbsoluteFile());
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            if (clipTime < clip.getFrameLength()){
+                clip.setFramePosition(clipTime);
+            }
+            clip.start();
+            isPlaying = true;
+            } else{
+
+            clipTime= clip.getFramePosition();
+            clip.stop();
+            isPlaying = false;
+                
+            }
+            
+        
+        } catch(Exception e){
+            e.printStackTrace();
         }
     }//GEN-LAST:event_PlayMouseClicked
-
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-                String soundName = "D:\\Users\\Edwin\\Music\\marbles-daniel_simon.wav"; 
-        try{
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
-        clip.start();
-        } catch(Exception e){
-        
-        }
-    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -274,6 +273,5 @@ public class MusicSocialUI extends javax.swing.JFrame {
     private javax.swing.JLabel TitleFriendsPost;
     private javax.swing.JLabel TitleInYourNetwork;
     private javax.swing.JLabel TitleRecommendation;
-    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
