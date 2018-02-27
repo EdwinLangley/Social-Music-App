@@ -5,8 +5,12 @@
  */
 package server;
 
+import Chat.ChatServer;
 import DataPacket.DataPacket;
+import java.io.IOException;
+import java.net.ServerSocket;
 import java.util.ArrayList;
+
 
 /**
  *    
@@ -84,5 +88,30 @@ public class ClientHandler{
         ArrayList<String> emptyList=new ArrayList();
         outputData.buildDataPacket("null", "null", emptyList);
         return outputData;
+    }
+    private DataPacket LoginUser(DataPacket inputData){
+        ArrayList<String> loginData=new ArrayList<>();
+        loginData=inputData.getArray();
+        String username, password;
+        username=loginData.get(0);
+        password=loginData.get(1);
+        //Add find username and password things here
+        DataPacket returnData=new DataPacket();
+        returnData.buildDataPacket("GDL", "null", null);
+        return returnData;
+    }
+    private void StartChat(DataPacket inputData){
+         boolean running=true;
+        //int portNumber=Integer.parseInt(args[0]);
+	int portNumber=9091;
+        try (ServerSocket serverSocket = new ServerSocket(portNumber)){
+            while (running){
+            //Do server stuff
+	    new Thread(new ChatServer(serverSocket.accept())).start();
+            }
+        } catch (IOException e){
+            System.err.println("Error on port"+portNumber+e);
+            System.exit(-1);
+        }
     }
 }

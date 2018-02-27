@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class DataPacket implements Serializable {
     private String Command;
     private String Data;
-    private ArrayList<String> dataArray;
+    private ArrayList<String> dataArray=new ArrayList();
     
     //Constructors
     public void buildDataPacket (String Command, String Data, ArrayList dataArray){this.Command=Command; this.Data=Data; this.dataArray=dataArray;}
