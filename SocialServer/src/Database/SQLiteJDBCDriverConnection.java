@@ -55,6 +55,27 @@ public void selectAll(){
         }
     }
 
+public boolean isGoodLogin(String UserName, String Password){
+        String sql = "SELECT * FROM Users WHERE UserName = ? AND Password = ?";
+        
+        try (Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, UserName);
+            pstmt.setString(2, Password);
+            ResultSet rs = pstmt.executeQuery();
+            
+            // loop through the result set
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
 public void insertUser(String FirstName, String LastName, String UserName, String Password, String Email, String blob) {
         String sql = "INSERT INTO Users VALUES(?,?,?,?,?,?)";
  
@@ -117,7 +138,11 @@ private byte[] readFile(String file) {
         SQLiteJDBCDriverConnection app = new SQLiteJDBCDriverConnection();
         app.selectAll();
         //app.insertUser("Edwin", "Langley", "EdwinLangley1", "password", "edwin@langley.co.uk", "01010101010");
-        app.updatePicture("EdwinLangley2", "D:\\Users\\Edwin\\Downloads\\14463110_1206091416079967_1082422483814707867_n.jpg");
-        
+        //app.updatePicture("EdwinLangley2", "D:\\Users\\Edwin\\Downloads\\14463110_1206091416079967_1082422483814707867_n.jpg");
+        if(app.isGoodLogin("JoeGriffin", "password")){
+            System.out.println("Good login");
+        } else {
+            System.out.println("Bad login");
+        }
     }
 }

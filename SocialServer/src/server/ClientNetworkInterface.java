@@ -26,7 +26,11 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 	newClient.setUpClientInstance(socket);	    
 	DataPacket inputData=new DataPacket();
 	DataPacket outputData=new DataPacket();
+<<<<<<< HEAD
         ObjectOutputStream output=null;
+=======
+        ObjectOutputStream output = null;
+>>>>>>> 0b433296b786fd696ca435baf1f00b97f0e478df
         ObjectInputStream input=null;
 	while (openConnection){
             try{
