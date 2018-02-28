@@ -7,6 +7,8 @@ package server;
 import DataPacket.DataPacket;
 import java.net.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,60 +26,59 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 	newClient.setUpClientInstance(socket);	    
 	DataPacket inputData=new DataPacket();
 	DataPacket outputData=new DataPacket();
-        try(
-		    //Client has to create this in the opposite order
-		    ObjectOutputStream output= new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-		    ObjectInputStream input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-		)
-        {
+        ObjectOutputStream output;
+        ObjectInputStream input=null;
 	while (openConnection){
-	    //inputData.buildDataPacket(null, null, null);
-	    //outputData.buildDataPacket(null, null, null);
-		    /*Code to handle network input here
-		    Fills inputData with data from client
-		    Only if there is data on the socket*/
-		    if (input.read()!=-1){
-                        System.out.println("GettingInput");
-			try{
-			    inputData=(DataPacket) input.readObject();
-			} catch (IOException i){
-			    i.printStackTrace();
-			    return;
-			} catch (ClassNotFoundException c){
-			    System.out.println("Class not found");
-			    c.printStackTrace();
-			    return;
-			}
+            try{
+		    //Client has to create this in the opposite order
+		    //output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+		    input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+            try {
+                if (input.read() != -1) {
+                    System.out.println("Getting Input");
+                    try {
+                        inputData = (DataPacket) input.readObject();
+                    } catch (IOException i) {
+                        i.printStackTrace();
+                        return;
+                    } catch (ClassNotFoundException c) {
+                        System.out.println("Class not found");
+                        c.printStackTrace();
+                        return;
                     }
-		    //}
-		    //input.close();
-		    //Code to pass datapacket to client handler
-		    newClient.setInputPacket(inputData);
-		    //Code to recieve data from client handle
-		    outputData=newClient.clientControlBlock(inputData);
-		    //Code to handle network output here
-		    //Fills outputData with data from server
-		    //If there is any data to send out
-		    if("EXT".equals(outputData.getCommand())){
-                        System.out.println("Close Connection");
-			break;
-		    }
-		    if (!"null".equals(outputData.getCommand())){
-			try{
-                            System.out.println("OutputData");
-			    output.writeObject(outputData);
-			} catch (IOException i){
-			    i.printStackTrace();
-			    return;
-			}
-		    } 
-		    //output.close();
-                    System.out.println("OutputClosed");
-		}
-	}
-        catch (IOException e){
-	e.printStackTrace();
-	}
+                    newClient.setInputPacket(inputData);
+                    outputData = newClient.clientControlBlock(inputData);
+                }
+            } catch (IOException i) {
+                i.printStackTrace();
+                return;
+            } 
+
+            //Code to recieve data from client handle
+            //Code to handle network output here
+            //Fills outputData with data from server
+            //If there is any data to send out
+            if ("EXT".equals(outputData.getCommand())) {
+                System.out.println("Close Connection");
+                break;
+            }
+            if (!"null".equals(outputData.getCommand())) {
+                try {
+                    System.out.println("OutputData");
+                    output.writeObject(outputData);
+                } catch (IOException i) {
+                    i.printStackTrace();
+                    return;
+                }
+            }
+            //output.close();
+            System.out.println("OutputClosed");
+        }
+        
 	Server.currentUsers--;
     }
 }
