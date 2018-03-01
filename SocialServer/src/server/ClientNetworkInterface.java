@@ -23,17 +23,17 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
     public ClientNetworkInterface(Socket socket) {
         this.socket = socket;
     }
-
+    
     @Override
     public void run() {
         //insert client listener in here
-        ClientHandler newClient = new ClientHandler();
-        newClient.setUpClientInstance(socket);
+//        ClientHandler newClient = new ClientHandler();
+//        newClient.setUpClientInstance(socket);
         DataPacket inputData = new DataPacket();
-        DataPacket outputData = new DataPacket();
         ObjectOutputStream output = null;
         ObjectInputStream input = null;
         while (openConnection) {
+
             try {
                 //Client has to create this in the opposite order
                 //output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
@@ -54,31 +54,80 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
                         c.printStackTrace();
                         return;
                     }
-                    newClient.setInputPacket(inputData);
-                    outputData = newClient.clientControlBlock(inputData);
+                    //Insert Control block here
+                    //Case statements for each command
+                    //new Control handler object that takes input Datapacket as a control sequence and then sends appropriate data back
+                    //Also needs to switch so it then takes data input from client
+                    switch (inputData.getCommand()) {
+                        case "EXT":
+                            //Call relevant function
+                            break;
+                        case "REG"://Register User
+                            //Call relevant function
+                            break;
+                        case "LGN"://Login
+                            //Call relevant function
+                            break;
+                        case "SFR"://Search for Friend Recomendations
+                            //Call relevant function
+                            break;
+                        case "AFR"://Add Friend
+                            //Call relevant function
+                            break;
+                        case "FFR"://Friend Request Response
+                            //Call relevant function
+                            break;
+                        case "PST"://Push Posts to other clients
+                            //Call relevant function
+                            break;
+                        case "PYM"://Play music?
+                            //Call relevant function
+                            break;
+                        case "UPS"://Upload Song
+                            //Call relevant function
+                            break;
+                        case "RSL"://Request song list
+                            //Call relevant function
+                            break;
+                        case "RPD"://Request profile data
+                            //Call relevant function
+                            break;
+                        case "UFL"://Update Friends list
+                            //Call relevant function
+                            break;
+                        case "UPL"://Update Post List
+                            //Call relevant function
+                            break;
+                        case "SCT"://Start chat
+                            //Call relevant function
+                            break;
+                        default:
+
+                    }
+
                 }
             } catch (IOException i) {
                 i.printStackTrace();
                 return;
             }
 
-            //Code to recieve data from client handle
             //Code to handle network output here
-            //Fills outputData with data from server
-            //If there is any data to send out
-            if ("EXT".equals(outputData.getCommand())) {
-                System.out.println("Close Connection");
-                break;
-            }
-            if (!"null".equals(outputData.getCommand())) {
-                try {
-                    System.out.println("OutputData");
-                    output.writeObject(outputData);
-                } catch (IOException i) {
-                    i.printStackTrace();
-                    return;
-                }
-            }
+//            if ("EXT".equals(outputData.getCommand())) {
+//                System.out.println("Close Connection");
+//                break;
+//            }
+//
+//            //Output data whatever it is
+//            if (!"null".equals(outputData.getCommand())) {
+//                try {
+//                    System.out.println("OutputData");
+//                    output.writeObject(outputData);
+//                    output.flush();
+//                } catch (IOException i) {
+//                    i.printStackTrace();
+//                    return;
+//                }
+//            }
             //output.close();
             System.out.println("OutputClosed");
         }
