@@ -24,125 +24,174 @@ import java.sql.PreparedStatement;
  */
 public class SQLiteJDBCDriverConnection {
     
-    
-  
-    private Connection connect() {
+    private Connection connect()throws IOException, SQLException {
         // SQLite connection string
         String url = "jdbc:sqlite:D:/Users/Edwin/Documents/SystemsSoftware/SocialServer/db/SocialServer.db";
         Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+
+        conn = DriverManager.getConnection(url);
+
         return conn;
     }
     
     
-public void selectAll(){
-        String sql = "SELECT * FROM Users";
+    public boolean isGoodLogin(String UserName, String Password)throws IOException, SQLException{
+        String sql = "SELECT * FROM Logins WHERE UserName = ? AND Password = ?";
         
-        try (Connection conn = this.connect();
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, UserName);
+        pstmt.setString(2, Password);
+        ResultSet rs = pstmt.executeQuery();
+        conn.close();
+            // loop through the result set
+        if (rs.next()) {
+            return true;
+        } else {
+            return false;
+        }
+        
+        
+    }
+
+    public void insertUser(String FirstName, String LastName, String UserName, String Email, String GenreList, String blob) throws IOException, SQLException {
+        String sql = "INSERT INTO UserData(FirstName,LastName,UserName, Email, GenreList,Picture) VALUES(?,?,?,?,?,?)";
+        
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, FirstName);
+        pstmt.setString(2, LastName);
+        pstmt.setString(3, UserName);
+        pstmt.setString(4, Email);
+        pstmt.setString(5, GenreList);
+        pstmt.setString(6, blob);
+        pstmt.executeUpdate();
+        
+        conn.close();
+        
+        
+    }
+
+    public void insertLoginData(String UserName, String Password) throws IOException, SQLException {
+        String sql = "INSERT INTO Logins(UserName,Password) VALUES(?,?)";
+        
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, UserName);
+        pstmt.setString(2, Password);
+        pstmt.executeUpdate();
+        
+        conn.close();
+        
+        
+    }
+
+    public void insertSong(int ID, String SongName, String Data, String Artist, String GenreList, String UserName) throws IOException, SQLException {
+        String sql = "INSERT INTO Songs(ID,Name,Data,Artist,Genres,UserName) VALUES(?,?,?,?,?,?)";
+        
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, ID);
+        pstmt.setString(2, SongName);
+        pstmt.setString(3, Data);
+        pstmt.setString(4, Artist);
+        pstmt.setString(5, GenreList);
+        pstmt.setString(6, UserName);
+        pstmt.executeUpdate();
+        
+        conn.close();
+        
+        
+    }
+    
+        public void addPost(int ID, String Content, String TimeStamp, String Song, String Mood, String UserName) throws IOException, SQLException {
+        String sql = "INSERT INTO Posts(ID,Content,Time,AttachedSong,Mood,UserName) VALUES(?,?,?,?,?,?)";
+        
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, ID);
+        pstmt.setString(2, Content);
+        pstmt.setString(3, TimeStamp);
+        pstmt.setString(4, Song);
+        pstmt.setString(5, Mood);
+        pstmt.setString(6, UserName);
+        pstmt.executeUpdate();
+        
+        conn.close();
+        
+        
+    }
+    
+    public void selectAll()throws IOException, SQLException{
+        String sql = "SELECT * FROM UserData";
+        
+            Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
+             ResultSet rs    = stmt.executeQuery(sql);
             
             // loop through the result set
             while (rs.next()) {
-                System.out.println(rs.getString("FirstName") + "," + rs.getString("LastName")+ "," + rs.getString("UserName") + "," + rs.getString("Password")+ "," + rs.getString("Email"));
+                System.out.println(rs.getString("FirstName") + "," + rs.getString("LastName")+ "," + rs.getString("UserName") + ","  + rs.getString("Email"));
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+            
+        conn.close();
+            
     }
-
-public boolean isGoodLogin(String UserName, String Password){
-        String sql = "SELECT * FROM Users WHERE UserName = ? AND Password = ?";
+    
+        public void getPostsBy(String UserName)throws IOException, SQLException{
+        String sql = "SELECT * FROM Posts WHERE UserName = ? ";
         
-        try (Connection conn = this.connect();
-            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, UserName);
-            pstmt.setString(2, Password);
-            ResultSet rs = pstmt.executeQuery();
+            ResultSet rs    = pstmt.executeQuery();
             
             // loop through the result set
-            if (rs.next()) {
-                return true;
-            } else {
-                return false;
+            while (rs.next()) {
+                System.out.println(rs.getInt("ID") + "," + rs.getString("Content")+ "," + rs.getString("Time"));
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
+            
+        conn.close();
+            
     }
-
-public void insertUser(String FirstName, String LastName, String UserName, String Password, String Email, String blob) {
-        String sql = "INSERT INTO Users VALUES(?,?,?,?,?,?)";
- 
-        try (Connection conn = this.connect();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, FirstName);
-            pstmt.setString(2, LastName);
-            pstmt.setString(3, UserName);
-            pstmt.setString(4, Password);
-            pstmt.setString(5, Email);
-            pstmt.setString(6, blob);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    
-
-private byte[] readFile(String file) {
-        ByteArrayOutputStream bos = null;
-        try {
-            File f = new File(file);
-            FileInputStream fis = new FileInputStream(f);
-            byte[] buffer = new byte[1024];
-            bos = new ByteArrayOutputStream();
-            for (int len; (len = fis.read(buffer)) != -1;) {
-                bos.write(buffer, 0, len);
+        
+        public int getNextPostID()throws IOException, SQLException{
+        String sql = "SELECT ID FROM Posts ORDER BY ID DESC LIMIT 1";
+        
+        
+            Connection conn = this.connect();
+            Statement stmt  = conn.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+            
+            int Index = 0;
+            
+            while(rs.next()){
+                Index = rs.getInt("ID");
             }
-        } catch (FileNotFoundException e) {
-            System.err.println(e.getMessage());
-        } catch (IOException e2) {
-            System.err.println(e2.getMessage());
-        }
-        return bos != null ? bos.toByteArray() : null;
-    }
-    
 
-    public void updatePicture(String UserName, String filename) {
-        // update sql
-        String updateSQL = "UPDATE Users "
-                + "SET Picture = ? "
-                + "WHERE UserName=?";
- 
-        try (Connection conn = connect();
-                PreparedStatement pstmt = conn.prepareStatement(updateSQL)) {
- 
-            // set parameters
-            pstmt.setBytes(1, readFile(filename));
-            pstmt.setString(2, UserName);
- 
-            pstmt.executeUpdate();
-            System.out.println("Stored the file in the BLOB column.");
- 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+              conn.close();
+              return Index + 1;
+        
         }
-    }
+            
+
+             
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, SQLException {
         SQLiteJDBCDriverConnection app = new SQLiteJDBCDriverConnection();
         app.selectAll();
-        //app.insertUser("Edwin", "Langley", "EdwinLangley1", "password", "edwin@langley.co.uk", "01010101010");
-        //app.updatePicture("EdwinLangley2", "D:\\Users\\Edwin\\Downloads\\14463110_1206091416079967_1082422483814707867_n.jpg");
-        if(app.isGoodLogin("JoeGriffin", "password")){
-            System.out.println("Good login");
-        } else {
-            System.out.println("Bad login");
-        }
+        
+//        if(app.isGoodLogin("Edwin", "Password")){
+//            System.out.println("Good login");
+//        } else {
+//            System.out.println("Bad login");
+//        }
+
+        app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Edwin");
+        app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Edwin");
+        app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Joe");
+        
+        System.out.println("================");
+        
     }
 }
