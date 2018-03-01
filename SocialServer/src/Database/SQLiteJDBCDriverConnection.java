@@ -21,12 +21,16 @@ import java.sql.PreparedStatement;
 /**
  *
  * @author Edwin
+ * 
  */
+
+
 public class SQLiteJDBCDriverConnection {
     
+        
     private Connection connect()throws IOException, SQLException {
         // SQLite connection string
-        String url = "jdbc:sqlite:D:/Users/Edwin/Documents/SystemsSoftware/SocialServer/db/SocialServer.db";
+        String url = "jdbc:sqlite:db/SocialServer.db";
         Connection conn = null;
 
         conn = DriverManager.getConnection(url);
@@ -254,8 +258,8 @@ public class SQLiteJDBCDriverConnection {
           //app.insertUser("FirstName", "LastName", "UserName", "Email", "GenreList", "blob");
         
         System.out.println("================");
-        
-        app.updatePicture("UserName", "D:\\Users\\Edwin\\Downloads\\14463110_1206091416079967_1082422483814707867_n.jpg");
+
+        //app.updatePicture("UserName", "D:\\Users\\Edwin\\Downloads\\14463110_1206091416079967_1082422483814707867_n.jpg");
         
     }
 }
