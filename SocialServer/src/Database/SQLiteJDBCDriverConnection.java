@@ -173,6 +173,63 @@ public class SQLiteJDBCDriverConnection {
               return Index + 1;
         
         }
+        
+        public int getNextSongID()throws IOException, SQLException{
+        String sql = "SELECT ID FROM Songs ORDER BY ID DESC LIMIT 1";
+        
+        
+            Connection conn = this.connect();
+            Statement stmt  = conn.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+            
+            int Index = 0;
+            
+            while(rs.next()){
+                Index = rs.getInt("ID");
+            }
+
+              conn.close();
+              return Index + 1;
+        
+        }
+        
+        
+
+        private byte[] readFile(String file) {
+        ByteArrayOutputStream bos = null;
+        try {
+            File f = new File(file);
+            FileInputStream fis = new FileInputStream(f);
+            byte[] buffer = new byte[1024];
+            bos = new ByteArrayOutputStream();
+            for (int len; (len = fis.read(buffer)) != -1;) {
+                bos.write(buffer, 0, len);
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+        } catch (IOException e2) {
+            System.err.println(e2.getMessage());
+        }
+        return bos != null ? bos.toByteArray() : null;
+    }
+        
+        public void updatePicture(String UserName, String filename)throws IOException, SQLException {
+        // update sql
+        String updateSQL = "UPDATE UserData "
+                + "SET picture = ? "
+                + "WHERE UserName=?";
+ 
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(updateSQL);
+ 
+            // set parameters
+            pstmt.setBytes(1, readFile(filename));
+            pstmt.setString(2, UserName);
+ 
+            pstmt.executeUpdate();
+            System.out.println("Stored the file in the BLOB column.");
+ 
+    }
             
 
              
@@ -187,11 +244,18 @@ public class SQLiteJDBCDriverConnection {
 //            System.out.println("Bad login");
 //        }
 
-        app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Edwin");
-        app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Edwin");
-        app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Joe");
+//        app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Edwin");
+//        app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Edwin");
+//        app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Joe");
+//        
+//        app.insertSong(app.getNextSongID(), "SongName", "Data", "Artist", "GenreList", "UserName");
+
+
+          //app.insertUser("FirstName", "LastName", "UserName", "Email", "GenreList", "blob");
         
         System.out.println("================");
+        
+        app.updatePicture("UserName", "D:\\Users\\Edwin\\Downloads\\14463110_1206091416079967_1082422483814707867_n.jpg");
         
     }
 }
