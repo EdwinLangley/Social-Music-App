@@ -10,11 +10,15 @@ package DataPacket;
  * @author jcgri
  */
 public class LoginData extends DataPacket {
-    public String username,passsword;
-    public LoginData(){}
-    public LoginData(String username,String password){
-        this.Command="Login";
-        this.username=username;
-        this.passsword=password;
+
+    public String username, passsword;
+
+    public LoginData() {
+    }
+
+    public LoginData(String username, String password) {
+        this.Command = "Login";
+        this.username = username;
+        this.passsword = password;
     }
 }

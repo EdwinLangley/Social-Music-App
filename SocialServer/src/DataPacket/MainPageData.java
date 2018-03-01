@@ -9,6 +9,6 @@ package DataPacket;
  *
  * @author jcgri
  */
-public class MainPageData extends DataPacket{
-    
+public class MainPageData extends DataPacket {
+
 }

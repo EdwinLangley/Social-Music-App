@@ -18,19 +18,17 @@ import sun.audio.AudioStream;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Edwin
  */
 public class MusicSocialUI extends javax.swing.JFrame {
-    
-    
+
     boolean isPlaying = false;
-     AudioInputStream audioInputStream;
-     Clip clip;
-     int clipTime;
-    
+    AudioInputStream audioInputStream;
+    Clip clip;
+    int clipTime;
+
     /**
      * Creates new form MusicSocialUI
      */
@@ -196,28 +194,27 @@ public class MusicSocialUI extends javax.swing.JFrame {
 
     private void PlayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PlayMouseClicked
         String trackName = "D:\\Users\\Edwin\\Music\\marbles-daniel_simon.wav";
-        
-        try{
-            if (isPlaying == false){             
 
-            audioInputStream = AudioSystem.getAudioInputStream(new File(trackName).getAbsoluteFile());
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            if (clipTime < clip.getFrameLength()){
-                clip.setFramePosition(clipTime);
-            }
-            clip.start();
-            isPlaying = true;
-            } else{
+        try {
+            if (isPlaying == false) {
 
-            clipTime= clip.getFramePosition();
-            clip.stop();
-            isPlaying = false;
-                
+                audioInputStream = AudioSystem.getAudioInputStream(new File(trackName).getAbsoluteFile());
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                if (clipTime < clip.getFrameLength()) {
+                    clip.setFramePosition(clipTime);
+                }
+                clip.start();
+                isPlaying = true;
+            } else {
+
+                clipTime = clip.getFramePosition();
+                clip.stop();
+                isPlaying = false;
+
             }
-            
-        
-        } catch(Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_PlayMouseClicked

@@ -15,30 +15,34 @@ import javax.imageio.ImageIO;
  * @author jcgri
  */
 public class UserData extends LoginData {
-    
+
     public int userID;
     public String firstName, lastName, email;
     public ArrayList<String> genreList, songList;
     public ArrayList<Integer> postIDs;
-    public byte[] profileImage;
-    public UserData(int userID,String username,String password,String firstName, String lastName,String email,ArrayList<String> genreList,ArrayList<String> songList,ArrayList<Integer> postIDs,File profilePicture){
-        this.Command="UserData";
-        this.userID=userID;
-        this.username=username;
-        this.passsword=password;
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.email=email;
-        this.genreList=genreList;
-        this.songList=songList;
-        this.postIDs=postIDs;
-        buildByteArray(profilePicture);
+    public byte[] image;
+
+    public UserData() {
     }
-    
-    public void buildByteArray(File inputImage) {
+
+    public UserData(int userID, String username, String password, String firstName, String lastName, String email, ArrayList<String> genreList, ArrayList<String> songList, ArrayList<Integer> postIDs, File profilePicture) {
+        this.Command = "UserData";
+        this.userID = userID;
+        this.username = username;
+        this.passsword = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.genreList = genreList;
+        this.songList = songList;
+        this.postIDs = postIDs;
+        this.image = buildByteArray(profilePicture);
+    }
+
+    public byte[] buildByteArray(File inputFile) {
         ByteArrayOutputStream baos = null;
         try {
-            FileInputStream inputImageStream = new FileInputStream(inputImage);
+            FileInputStream inputImageStream = new FileInputStream(inputFile);
             baos = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             for (int len; (len = inputImageStream.read(buffer)) != -1;) {
@@ -49,12 +53,12 @@ public class UserData extends LoginData {
         } catch (IOException e2) {
             System.err.println(e2.getMessage());
         }
-        this.profileImage = baos != null ? baos.toByteArray() : null;
-        //return baos != null ? baos.toByteArray() : null;
+        //this.image = baos != null ? baos.toByteArray() : null;
+        return baos != null ? baos.toByteArray() : null;
     }
 
-    public BufferedImage buildImage(byte[] inputArray) throws IOException {
-        BufferedImage returnImage = ImageIO.read(new ByteArrayInputStream(inputArray));
+    public BufferedImage buildImage() throws IOException {
+        BufferedImage returnImage = ImageIO.read(new ByteArrayInputStream(this.image));
         return returnImage;
     }
 

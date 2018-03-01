@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package server;
+
 import DataPacket.DataPacket;
 import java.net.*;
 import java.io.*;
@@ -15,30 +16,29 @@ import java.util.logging.Logger;
  * @author Joe
  */
 public class ClientNetworkInterface extends ClientHandler implements Runnable {
-    private Socket socket=null;
-    public boolean openConnection=true;
-    public ClientNetworkInterface(Socket socket) {this.socket = socket;}    
-    
+
+    private Socket socket = null;
+    public boolean openConnection = true;
+
+    public ClientNetworkInterface(Socket socket) {
+        this.socket = socket;
+    }
+
     @Override
-    public void run(){
+    public void run() {
         //insert client listener in here
-	ClientHandler newClient=new ClientHandler();
-	newClient.setUpClientInstance(socket);	    
-	DataPacket inputData=new DataPacket();
-	DataPacket outputData=new DataPacket();
-<<<<<<< HEAD
-        ObjectOutputStream output=null;
-=======
+        ClientHandler newClient = new ClientHandler();
+        newClient.setUpClientInstance(socket);
+        DataPacket inputData = new DataPacket();
+        DataPacket outputData = new DataPacket();
         ObjectOutputStream output = null;
->>>>>>> 0b433296b786fd696ca435baf1f00b97f0e478df
-        ObjectInputStream input=null;
-	while (openConnection){
-            try{
-		    //Client has to create this in the opposite order
-		    //output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-		    input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-            }
-            catch (IOException e){
+        ObjectInputStream input = null;
+        while (openConnection) {
+            try {
+                //Client has to create this in the opposite order
+                //output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+                input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             try {
@@ -60,7 +60,7 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
             } catch (IOException i) {
                 i.printStackTrace();
                 return;
-            } 
+            }
 
             //Code to recieve data from client handle
             //Code to handle network output here
@@ -82,7 +82,7 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
             //output.close();
             System.out.println("OutputClosed");
         }
-        
-	Server.currentUsers--;
+
+        Server.currentUsers--;
     }
 }
