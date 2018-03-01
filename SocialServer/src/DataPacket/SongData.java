@@ -28,21 +28,22 @@ public class SongData extends UserData {
     private byte[] song;
 
     public SongData(int ID, String songName, String artist, String album, ArrayList<String> genre, File albumArt, File song) throws UnsupportedAudioFileException, IOException {
+        this.Command = "SongData";
         this.ID = ID;
         this.songName = songName;
         this.artist = artist;
         this.album = album;
         this.genre = genre;
-        AudioFileFormat aff=AudioSystem.getAudioFileFormat(song);
+        AudioFileFormat aff = AudioSystem.getAudioFileFormat(song);
         this.extension = aff.getFormat();
         this.songLength = aff.getFrameLength();
         this.image = buildByteArray(albumArt);
         this.song = buildByteArray(song);
     }
-    
-    public AudioInputStream buildSong() throws IOException{
-        InputStream bais=new ByteArrayInputStream(this.song);
-        AudioInputStream returnSong= new AudioInputStream(bais,this.extension,this.songLength);
+
+    public AudioInputStream buildSong() throws IOException {
+        InputStream bais = new ByteArrayInputStream(this.song);
+        AudioInputStream returnSong = new AudioInputStream(bais, this.extension, this.songLength);
         return returnSong;
     }
 

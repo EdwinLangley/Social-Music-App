@@ -5,10 +5,24 @@
  */
 package DataPacket;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author jcgri
  */
 public class MainPageData extends DataPacket {
 
+    public ArrayList<String> friends;
+    public ArrayList<PostData> friendsPosts;
+    public ArrayList<PostData> inYourNetwork;
+    public ArrayList<SongData> yourQueue;
+
+    public MainPageData(ArrayList<String> friends, ArrayList<PostData> friendsPosts, ArrayList<PostData> inYourNetwork, ArrayList<SongData> yourQueue) {
+        this.Command = "MainPageData";
+        this.friends = friends;
+        this.friendsPosts = friendsPosts;
+        this.inYourNetwork = inYourNetwork;
+        this.yourQueue = yourQueue;
+    }
 }

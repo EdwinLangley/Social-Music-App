@@ -17,7 +17,7 @@ public class LoginData extends DataPacket {
     }
 
     public LoginData(String username, String password) {
-        this.Command = "Login";
+        this.Command = "LoginData";
         this.username = username;
         this.passsword = password;
     }
