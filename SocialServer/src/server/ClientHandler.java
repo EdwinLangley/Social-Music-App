@@ -77,26 +77,26 @@ public class ClientHandler{
 		//Call relevant function
 	    break;
 	    default: 
-		outputPacket.buildDataPacket("null", "null", null);
+		//outputPacket.buildDataPacket("null", "null", null);
 	}
 	return outputPacket;
     }
     private DataPacket RegisterUser(DataPacket inputData){
-        System.out.println(inputData.getArray());
+       // System.out.println(inputData.getArray());
         DataPacket outputData=new DataPacket();
         ArrayList<String> emptyList=new ArrayList();
-        outputData.buildDataPacket("null", "null", emptyList);
+        //outputData.buildDataPacket("null", "null", emptyList);
         return outputData;
     }
     private DataPacket LoginUser(DataPacket inputData){
         ArrayList<String> loginData=new ArrayList<>();
-        loginData=inputData.getArray();
+        //loginData=inputData.getArray();
         String username, password;
         username=loginData.get(0);
         password=loginData.get(1);
         //Add find username and password things here
         DataPacket returnData=new DataPacket();
-        returnData.buildDataPacket("GDL", "null", null);
+        //returnData.buildDataPacket("GDL", "null", null);
         return returnData;
     }
     private void StartChat(DataPacket inputData){
