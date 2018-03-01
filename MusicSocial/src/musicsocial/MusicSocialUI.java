@@ -99,7 +99,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
         TimeToGo.setText("00:00");
 
         TitleRecommendation.setFont(new java.awt.Font("Franklin Gothic Heavy", 0, 48)); // NOI18N
-        TitleRecommendation.setText("RECOMMENDATIONS");
+        TitleRecommendation.setText("YOUR QUEUE");
 
         TitleFriends.setFont(new java.awt.Font("Franklin Gothic Heavy", 0, 48)); // NOI18N
         TitleFriends.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

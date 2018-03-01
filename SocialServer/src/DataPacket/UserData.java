@@ -18,14 +18,16 @@ public class UserData extends LoginData {
 
     public int userID;
     public String firstName, lastName, email;
-    public ArrayList<String> genreList, songList;
-    public ArrayList<Integer> postIDs;
+    public ArrayList<String> genreList;
+    public ArrayList<SongData> songList;
+    public ArrayList<PostData> postIDs;
+    public ArrayList<String> friendsList;
     public byte[] image;
 
     public UserData() {
     }
 
-    public UserData(int userID, String username, String password, String firstName, String lastName, String email, ArrayList<String> genreList, ArrayList<String> songList, ArrayList<Integer> postIDs, File profilePicture) {
+    public UserData(int userID, String username, String password, String firstName, String lastName, String email, ArrayList<String> genreList, ArrayList<SongData> songList, ArrayList<PostData> postIDs, File profilePicture, ArrayList<String> friendsList) {
         this.Command = "UserData";
         this.userID = userID;
         this.username = username;
@@ -36,10 +38,11 @@ public class UserData extends LoginData {
         this.genreList = genreList;
         this.songList = songList;
         this.postIDs = postIDs;
+        this.friendsList=friendsList;
         this.image = buildByteArray(profilePicture);
     }
 
-    public byte[] buildByteArray(File inputFile) {
+    public static byte[] buildByteArray(File inputFile) {
         ByteArrayOutputStream baos = null;
         try {
             FileInputStream inputImageStream = new FileInputStream(inputFile);
