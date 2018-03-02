@@ -259,7 +259,7 @@ public class SQLiteJDBCDriverConnection {
         
         System.out.println("================");
 
-        //app.updatePicture("UserName", "D:\\Users\\Edwin\\Downloads\\14463110_1206091416079967_1082422483814707867_n.jpg");
+        app.updatePicture("UserName", "D:\\Users\\Edwin\\Downloads\\14463110_1206091416079967_1082422483814707867_n.jpg");
         
     }
 }
