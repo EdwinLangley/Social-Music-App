@@ -5,8 +5,13 @@
  */
 package musicsocial;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
 /**
@@ -61,6 +66,9 @@ public class UploadSong extends javax.swing.JFrame {
         songSelectorButton = new javax.swing.JButton();
         selectedSongLabel = new javax.swing.JLabel();
         addSongButton = new javax.swing.JButton();
+        albumArtLabel = new javax.swing.JLabel();
+        albumArtFrame = new javax.swing.JLabel();
+        addArtButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -147,6 +155,22 @@ public class UploadSong extends javax.swing.JFrame {
             }
         });
 
+        albumArtLabel.setText("Album Art");
+
+        albumArtFrame.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        albumArtFrame.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                albumArtFrameMouseClicked(evt);
+            }
+        });
+
+        addArtButton.setText("Add Art");
+        addArtButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addArtButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,56 +184,58 @@ public class UploadSong extends javax.swing.JFrame {
                         .addGap(55, 55, 55)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGap(174, 174, 174)
+                                .addComponent(addSongButton, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nameLabel)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(fileSelectionLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(artistName))
+                                    .addComponent(albumArtLabel))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nameField)
+                                    .addComponent(artistField)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(genresLabel)
-                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(songSelectorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(addArtButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(rapCheckBox)
-                                            .addComponent(popCheckBox)
-                                            .addComponent(kPopCheckBox)
-                                            .addComponent(latinCheckBox)
-                                            .addComponent(metalCheckBox))
-                                        .addGap(50, 50, 50)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(funkCheckBox)
-                                            .addComponent(rockCheckBox)
-                                            .addComponent(rnbCheckBox)
-                                            .addComponent(countryCheckBox)
-                                            .addComponent(edmCheckBox))
-                                        .addGap(50, 50, 50)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(altrockCheckBox)
-                                            .addComponent(jazzCheckBox)
-                                            .addComponent(dnbCheckBox)
-                                            .addComponent(SoulCheckBox)
-                                            .addComponent(technoCheckBox)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(addSongButton, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(20, 20, 20)))
+                                            .addComponent(albumArtFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(selectedSongLabel))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(genresLabel)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rapCheckBox)
+                                    .addComponent(popCheckBox)
+                                    .addComponent(kPopCheckBox)
+                                    .addComponent(latinCheckBox)
+                                    .addComponent(metalCheckBox))
+                                .addGap(50, 50, 50)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(funkCheckBox)
+                                    .addComponent(rockCheckBox)
+                                    .addComponent(rnbCheckBox)
+                                    .addComponent(countryCheckBox)
+                                    .addComponent(edmCheckBox))
+                                .addGap(50, 50, 50)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(altrockCheckBox)
+                                    .addComponent(jazzCheckBox)
+                                    .addComponent(dnbCheckBox)
+                                    .addComponent(SoulCheckBox)
+                                    .addComponent(technoCheckBox))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(reggaeCheckBox)
                                     .addComponent(bluesCheckBox)
                                     .addComponent(punkCheckBox)
                                     .addComponent(dubstepCheckBox)
-                                    .addComponent(houseCheckBox)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nameLabel)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(fileSelectionLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(artistName)))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nameField)
-                                    .addComponent(artistField)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(songSelectorButton)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(selectedSongLabel)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))))
+                                    .addComponent(houseCheckBox))))))
                 .addContainerGap(123, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -231,6 +257,11 @@ public class UploadSong extends javax.swing.JFrame {
                     .addComponent(songSelectorButton)
                     .addComponent(selectedSongLabel))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(albumArtLabel)
+                    .addComponent(albumArtFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addArtButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rapCheckBox)
                     .addComponent(rockCheckBox)
@@ -261,9 +292,9 @@ public class UploadSong extends javax.swing.JFrame {
                     .addComponent(SoulCheckBox)
                     .addComponent(metalCheckBox)
                     .addComponent(reggaeCheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
                 .addComponent(addSongButton)
-                .addGap(25, 25, 25))
+                .addContainerGap())
         );
 
         pack();
@@ -328,6 +359,28 @@ public class UploadSong extends javax.swing.JFrame {
         
     }//GEN-LAST:event_addSongButtonMouseClicked
 
+    private void albumArtFrameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_albumArtFrameMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_albumArtFrameMouseClicked
+
+    private void addArtButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addArtButtonMouseClicked
+        JFileChooser fChooser = new JFileChooser();
+        fChooser.showOpenDialog(null);
+        File attachImage = fChooser.getSelectedFile();
+        String filename = attachImage.getAbsolutePath();
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(filename));
+        } catch (IOException e) {
+               e.printStackTrace();
+        }    
+        
+        Image dimg = img.getScaledInstance(albumArtFrame.getWidth(), albumArtFrame.getHeight(),
+        Image.SCALE_SMOOTH);
+        ImageIcon icon=new ImageIcon(dimg);
+        albumArtFrame.setIcon(icon);   
+    }//GEN-LAST:event_addArtButtonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -365,7 +418,10 @@ public class UploadSong extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox SoulCheckBox;
+    private javax.swing.JButton addArtButton;
     private javax.swing.JButton addSongButton;
+    private javax.swing.JLabel albumArtFrame;
+    private javax.swing.JLabel albumArtLabel;
     private javax.swing.JCheckBox altrockCheckBox;
     private javax.swing.JTextField artistField;
     private javax.swing.JLabel artistName;
