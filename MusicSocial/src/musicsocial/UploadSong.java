@@ -5,11 +5,18 @@
  */
 package musicsocial;
 
+import DataPacket.DataPacket;
+import DataPacket.NetworkInterfaces;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -355,7 +362,23 @@ public class UploadSong extends javax.swing.JFrame {
         
         String songName = nameField.getText();
         String songArtist = artistField.getText();
-        
+        DataPacket genreDataPacket = new DataPacket("UPS");
+        System.out.println(genreDataPacket.getCommand());
+        ServerNetworkInterface sendData=new ServerNetworkInterface();
+        InetAddress address = null;
+        try {
+            address = InetAddress.getLocalHost();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Socket socket = null;
+        try {
+            sendData.socket=new Socket(address,9090);
+            socket = new Socket(address, 9090);
+            NetworkInterfaces.SendDataPacket(socket, genreDataPacket);
+        } catch (IOException ex) {
+            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_addSongButtonMouseClicked
 

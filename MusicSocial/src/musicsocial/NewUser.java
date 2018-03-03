@@ -1,7 +1,7 @@
 package musicsocial;
 
-
-import DataPacket.DataPacket;
+import DataPacket.*;
+import DataPacket.NetworkInterfaces;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -21,7 +21,6 @@ import javax.swing.JFileChooser;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Edwin
@@ -33,7 +32,7 @@ public class NewUser extends javax.swing.JFrame {
      */
     public NewUser() {
         initComponents();
-        
+
         mandatoryLabel.setVisible(false);
     }
 
@@ -376,45 +375,51 @@ public class NewUser extends javax.swing.JFrame {
     }//GEN-LAST:event_dubstepCheckBoxActionPerformed
 
     private void CreateNewUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CreateNewUserButtonMouseClicked
-        
+
         ArrayList<String> genreList = new ArrayList<>();
         ArrayList<String> infoArray = new ArrayList<>();
         String newFirstName;
         String newLastName;
         String newUserName;
         String newEmail;
-        
+
         newFirstName = firstNameTextField.getText();
         newLastName = lastNameTextField.getText();
         newUserName = userNameTextField.getText();
         newEmail = emailField.getText();
         String newPassword = new String(newUserPasswordField.getPassword());
-        
+
         genreList = takeCheckBoxGenres();
-        
+
         infoArray = constructInfoArray(newFirstName, newLastName, newUserName, newEmail, newPassword, genreList);
-        
+        UserData newUser = new UserData(0, newUserName, newPassword, newFirstName, newLastName, newEmail, genreList);
+
         System.out.println(infoArray);
-                
-        DataPacket genreDataPacket = new DataPacket();
-        genreDataPacket.buildDataPacket("REG", null ,infoArray);
-        ServerNetworkInterface sendData=new ServerNetworkInterface();
-        InetAddress address = null; 
+
+        //DataPacket genreDataPacket = new DataPacket();
+        //genreDataPacket.buildDataPacket("REG", null ,infoArray);
+        DataPacket genreDataPacket = new DataPacket("REG");
+        System.out.println(genreDataPacket.getCommand());
+//        ServerNetworkInterface sendData = new ServerNetworkInterface();
+        InetAddress address = null;
         try {
             address = InetAddress.getLocalHost();
         } catch (UnknownHostException ex) {
             Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Socket socket = null;
         try {
-            sendData.socket=new Socket(address,9090);
+            socket = new Socket(address, 9090);
+            NetworkInterfaces.SendDataPacket(socket, genreDataPacket);
+            NetworkInterfaces.SendUserData(socket, newUser);
         } catch (IOException ex) {
             Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
         }
-        sendData.sendData(genreDataPacket);
-        
-        if (compulsoryFieldsFull() == false){         
+
+//        sendData.sendData(genreDataPacket);
+        if (compulsoryFieldsFull() == false) {
             this.dispose();
-            new MusicSocialUI().setVisible(true);     
+            new MusicSocialUI().setVisible(true);
         } else {
             mandatoryLabel.setVisible(true);
         }
@@ -437,13 +442,13 @@ public class NewUser extends javax.swing.JFrame {
         try {
             img = ImageIO.read(new File(filename));
         } catch (IOException e) {
-               e.printStackTrace();
-        }    
-        
+            e.printStackTrace();
+        }
+
         Image dimg = img.getScaledInstance(PPLabel.getWidth(), PPLabel.getHeight(),
-        Image.SCALE_SMOOTH);
-        ImageIcon icon=new ImageIcon(dimg);
-        PPLabel.setIcon(icon);     
+                Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(dimg);
+        PPLabel.setIcon(icon);
     }//GEN-LAST:event_ProfilePicButtonMouseClicked
 
     /**
@@ -523,63 +528,101 @@ public class NewUser extends javax.swing.JFrame {
 
     private boolean compulsoryFieldsFull() {
         boolean wasItEmpty;
-        
-        if (firstNameTextField.getText().isEmpty() || lastNameTextField.getText().isEmpty() || 
-            userNameTextField.getText().isEmpty() || newUserPasswordField.getPassword().length==0 ||
-            emailField.getText().isEmpty() )
-        {
+
+        if (firstNameTextField.getText().isEmpty() || lastNameTextField.getText().isEmpty()
+                || userNameTextField.getText().isEmpty() || newUserPasswordField.getPassword().length == 0
+                || emailField.getText().isEmpty()) {
             wasItEmpty = true;
         } else {
             wasItEmpty = false;
         }
-        
+
         return wasItEmpty;
     }
 
     private ArrayList<String> takeCheckBoxGenres() {
-        
+
         ArrayList<String> genreList = new ArrayList<>();
-        
-        if (rapCheckBox.isSelected()) genreList.add("rap");
-        if (rockCheckBox.isSelected()) genreList.add("rock");
-        if (rnbCheckBox.isSelected()) genreList.add("rnb");
-        if (popCheckBox.isSelected()) genreList.add("pop");
-        if (countryCheckBox.isSelected()) genreList.add("country");
-        if (kPopCheckBox.isSelected()) genreList.add("kPop");
-        if (edmCheckBox.isSelected()) genreList.add("edm");
-        if (latinCheckBox.isSelected()) genreList.add("latin");
-        if (dnbCheckBox.isSelected()) genreList.add("dnb");
-        if (jazzCheckBox.isSelected()) genreList.add("jazz");
-        if (technoCheckBox.isSelected()) genreList.add("techno");
-        if (altrockCheckBox.isSelected()) genreList.add("alt rock");
-        if (bluesCheckBox.isSelected()) genreList.add("blues");
-        if (houseCheckBox.isSelected()) genreList.add("house");
-        if (dubstepCheckBox.isSelected()) genreList.add("dubstep");
-        if (punkCheckBox.isSelected()) genreList.add("punk");
-        if (SoulCheckBox.isSelected()) genreList.add("Soul");
-        if (reggaeCheckBox.isSelected()) genreList.add("reggae");
-        if (funkCheckBox.isSelected()) genreList.add("funk");
-        if (metalCheckBox.isSelected()) genreList.add("metal");
-        
+
+        if (rapCheckBox.isSelected()) {
+            genreList.add("rap");
+        }
+        if (rockCheckBox.isSelected()) {
+            genreList.add("rock");
+        }
+        if (rnbCheckBox.isSelected()) {
+            genreList.add("rnb");
+        }
+        if (popCheckBox.isSelected()) {
+            genreList.add("pop");
+        }
+        if (countryCheckBox.isSelected()) {
+            genreList.add("country");
+        }
+        if (kPopCheckBox.isSelected()) {
+            genreList.add("kPop");
+        }
+        if (edmCheckBox.isSelected()) {
+            genreList.add("edm");
+        }
+        if (latinCheckBox.isSelected()) {
+            genreList.add("latin");
+        }
+        if (dnbCheckBox.isSelected()) {
+            genreList.add("dnb");
+        }
+        if (jazzCheckBox.isSelected()) {
+            genreList.add("jazz");
+        }
+        if (technoCheckBox.isSelected()) {
+            genreList.add("techno");
+        }
+        if (altrockCheckBox.isSelected()) {
+            genreList.add("alt rock");
+        }
+        if (bluesCheckBox.isSelected()) {
+            genreList.add("blues");
+        }
+        if (houseCheckBox.isSelected()) {
+            genreList.add("house");
+        }
+        if (dubstepCheckBox.isSelected()) {
+            genreList.add("dubstep");
+        }
+        if (punkCheckBox.isSelected()) {
+            genreList.add("punk");
+        }
+        if (SoulCheckBox.isSelected()) {
+            genreList.add("Soul");
+        }
+        if (reggaeCheckBox.isSelected()) {
+            genreList.add("reggae");
+        }
+        if (funkCheckBox.isSelected()) {
+            genreList.add("funk");
+        }
+        if (metalCheckBox.isSelected()) {
+            genreList.add("metal");
+        }
+
         return genreList;
-        
+
     }
 
     private ArrayList<String> constructInfoArray(String newFirstName, String newLastName, String newUserName, String newEmail, String newPassword, ArrayList<String> genreList) {
-        
+
         ArrayList<String> infoArray = new ArrayList<>();
-        
+
         infoArray.add(newFirstName);
         infoArray.add(newLastName);
         infoArray.add(newUserName);
         infoArray.add(newPassword);
         infoArray.add(newEmail);
-        
-        for ( String item : genreList)
-        {
+
+        for (String item : genreList) {
             infoArray.add(item);
         }
-        
+
         return infoArray;
     }
 }

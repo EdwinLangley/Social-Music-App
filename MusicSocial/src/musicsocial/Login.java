@@ -209,8 +209,9 @@ public class Login extends javax.swing.JFrame {
         infoArray.add(userNameRetrievedText);
         infoArray.add(passwordRetrievedText);
         
-        DataPacket LoginPacket = new DataPacket();
-        LoginPacket.buildDataPacket("LGN",null,infoArray);
+        DataPacket LoginPacket = new DataPacket("LGN");
+//        LoginPacket.buildDataPacket("LGN",null,infoArray);
+        
     }//GEN-LAST:event_LoginButtonMouseClicked
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed

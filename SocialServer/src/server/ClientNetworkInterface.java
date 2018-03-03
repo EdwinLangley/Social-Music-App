@@ -5,7 +5,8 @@
  */
 package server;
 
-import DataPacket.DataPacket;
+import DataPacket.*;
+import DataPacket.NetworkInterfaces;
 import java.net.*;
 import java.io.*;
 import java.util.logging.Level;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Joe
  */
-public class ClientNetworkInterface extends ClientHandler implements Runnable {
+public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnable {
 
     private Socket socket = null;
     public boolean openConnection = true;
@@ -29,106 +30,92 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
         //insert client listener in here
 //        ClientHandler newClient = new ClientHandler();
 //        newClient.setUpClientInstance(socket);
+
         DataPacket inputData = new DataPacket();
-        ObjectOutputStream output = null;
-        ObjectInputStream input = null;
-        while (openConnection) {
-
-            try {
-                //Client has to create this in the opposite order
-                output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-                input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                if (input.read() != -1) {
-                    System.out.println("Getting Input");
-                    try {
-                        inputData = (DataPacket) input.readObject();
-                    } catch (IOException i) {
-                        i.printStackTrace();
-                        return;
-                    } catch (ClassNotFoundException c) {
-                        System.out.println("Class not found");
-                        c.printStackTrace();
-                        return;
-                    }
-                    //Insert Control block here
-                    //Case statements for each command
-                    //new Control handler object that takes input Datapacket as a control sequence and then sends appropriate data back
-                    //Also needs to switch so it then takes data input from client
-                    switch (inputData.getCommand()) {
-                        case "EXT":
-                            //Call relevant function
-                            break;
-                        case "REG"://Register User
-                            //Call relevant function
-                            break;
-                        case "LGN"://Login
-                            //Call relevant function
-                            break;
-                        case "SFR"://Search for Friend Recomendations
-                            //Call relevant function
-                            break;
-                        case "AFR"://Add Friend
-                            //Call relevant function
-                            break;
-                        case "FFR"://Friend Request Response
-                            //Call relevant function
-                            break;
-                        case "PST"://Push Posts to other clients
-                            //Call relevant function
-                            break;
-                        case "PYM"://Play music?
-                            //Call relevant function
-                            break;
-                        case "UPS"://Upload Song
-                            //Call relevant function
-                            break;
-                        case "RSL"://Request song list
-                            //Call relevant function
-                            break;
-                        case "RPD"://Request profile data
-                            //Call relevant function
-                            break;
-                        case "UFL"://Update Friends list
-                            //Call relevant function
-                            break;
-                        case "UPL"://Update Post List
-                            //Call relevant function
-                            break;
-                        case "SCT"://Start chat
-                            //Call relevant function
-                            break;
-                        default:
-                    }
-                }
-            } catch (IOException i) {
-                i.printStackTrace();
-                return;
-            }
-
-            //Code to handle network output here
-//            if ("EXT".equals(outputData.getCommand())) {
-//                System.out.println("Close Connection");
-//                break;
-//            }
-//
-//            //Output data whatever it is
-//            if (!"null".equals(outputData.getCommand())) {
-//                try {
-//                    System.out.println("OutputData");
-//                    output.writeObject(outputData);
-//                    output.flush();
-//                } catch (IOException i) {
-//                    i.printStackTrace();
-//                    return;
-//                }
-//            }
-            //output.close();
+        System.out.println("Run hit for: " + Server.currentUsers);
+        try {
+            inputData = NetworkInterfaces.RecieveDataPacket(socket);
+            System.out.println("DATA PACKET RECIEVED");
+        } catch (IOException ex) {
+            Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        String inputCommand = inputData.getCommand();
+        OpenConnectionLoop:
+        while (openConnection) {
+            //Case statements for each command
+            //new Control handler object that takes input Datapacket as a control sequence and then sends appropriate data back
+            //Also needs to switch so it then takes data input from client
+            System.out.println("SwitchStatement");
+            System.out.println(inputData.getCommand());
+            switch (inputCommand) {
+                case "EXT"://Logout
+                    System.out.println("EXT Switch hit");
+                    openConnection = false;
+                    Server.currentUsers--;
+//                    break OpenConnectionLoop;
+                case "REG"://Register User
+                    System.out.println("REG Switch hit");
+                    Server.currentUsers++;
+                    UserData registerUserData = null;
+                    try {
+                        registerUserData = NetworkInterfaces.RecieveUserData(socket);
+                        System.out.println("USERDATA PACKET RECIEVED");
+                    } catch (IOException ex) {
+                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.out.println(registerUserData.firstName);
+                    System.out.println("GOT USER DATA BREAK NEXT");
+                    break OpenConnectionLoop;
+                //Call relevant function
+                case "LGN"://Login
+                    LoginData loginData;
+                    Server.currentUsers++;
+                    try {
+                        loginData = NetworkInterfaces.RecieveLoginData(socket);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    //Call relevant function
+                    break;
+                case "SFR"://Search for Friend Recomendations
+                    //Call relevant function
+                    break;
+                case "AFR"://Add Friend
+                    //Call relevant function
+                    break;
+                case "FFR"://Friend Request Response
+                    //Call relevant function
+                    break;
+                case "PST"://Push Posts to other clients
+                    //Call relevant function
+                    break;
+                case "PYM"://Play music?
+                    //Call relevant function
+                    break;
+                case "UPS"://Upload Song
+                    System.out.println("UPS Switch hit");
+                    break OpenConnectionLoop;
+                //Call relevant function
+                case "RSL"://Request song list
+                    //Call relevant function
+                    break;
+                case "RPD"://Request profile data
+                    //Call relevant function
+                    break;
+                case "UFL"://Update Friends list
+                    //Call relevant function
+                    break;
+                case "UPL"://Update Post List
+                    //Call relevant function
+                    break;
+                case "SCT"://Start chat
+                    //Call relevant function
+                    break;
+                default:
+                    break OpenConnectionLoop;
+            }
+        }
         Server.currentUsers--;
+        System.out.println("End of Thread");
     }
 }

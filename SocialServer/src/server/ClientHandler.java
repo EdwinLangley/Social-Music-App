@@ -43,7 +43,7 @@ public class ClientHandler {
     //Insert commands here
     public DataPacket clientControlBlock(DataPacket dataPacket) {
         String command = dataPacket.getCommand();
-        System.out.println(command);
+        //System.out.println(command);
         //Case statements for each command
         switch (command) {
             case "EXT":

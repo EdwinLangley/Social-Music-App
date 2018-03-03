@@ -8,7 +8,13 @@ package server;
 /**
  *
  * @author jcgri
+ * 
+ * Contains a list of static methods that are used to control data flow for the server
+ * Is only used in the switch statement in ClientNetworkInterface
+ * 
  */
 public class ControlHandler {
-//    
+    public void RegisterUser(){}
+    public void Login(){}
+    public void SearchForFriendRecommendations(){}
 }

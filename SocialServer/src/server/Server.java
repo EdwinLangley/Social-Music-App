@@ -15,6 +15,9 @@ public class Server {
     public static int currentUsers=0;
     /**
      * @param args the command line arguments
+     * 
+     * ASK ABOUT THREAD POOLS!!!!!
+     * 
      */
     public static void main(String[] args) {
         // TODO code application logic here
@@ -25,7 +28,7 @@ public class Server {
             while (running){
             //Do server stuff
 	    new Thread(new ClientNetworkInterface(serverSocket.accept())).start();
-	    currentUsers++;
+            System.out.println("New thread");
             }
         } catch (IOException e){
             System.err.println("Error on port"+portNumber+e);
