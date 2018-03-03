@@ -21,12 +21,16 @@ import java.sql.PreparedStatement;
 /**
  *
  * @author Edwin
+ * 
  */
+
+
 public class SQLiteJDBCDriverConnection {
     
+        
     private Connection connect()throws IOException, SQLException {
         // SQLite connection string
-        String url = "jdbc:sqlite:D:/Users/Edwin/Documents/SystemsSoftware/SocialServer/db/SocialServer.db";
+        String url = "jdbc:sqlite:db/SocialServer.db";
         Connection conn = null;
 
         conn = DriverManager.getConnection(url);
@@ -105,16 +109,15 @@ public class SQLiteJDBCDriverConnection {
     }
     
         public void addPost(int ID, String Content, String TimeStamp, String Song, String Mood, String UserName) throws IOException, SQLException {
-        String sql = "INSERT INTO Posts(ID,Content,Time,AttachedSong,Mood,UserName) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO Posts(ID,Content,AttachedSong,Mood,UserName) VALUES(?,?,?,?,?)";
         
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, ID);
         pstmt.setString(2, Content);
-        pstmt.setString(3, TimeStamp);
-        pstmt.setString(4, Song);
-        pstmt.setString(5, Mood);
-        pstmt.setString(6, UserName);
+        pstmt.setString(3, Song);
+        pstmt.setString(4, Mood);
+        pstmt.setString(5, UserName);
         pstmt.executeUpdate();
         
         conn.close();
@@ -244,7 +247,7 @@ public class SQLiteJDBCDriverConnection {
 //            System.out.println("Bad login");
 //        }
 
-//        app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Edwin");
+          app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Edwin");
 //        app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Edwin");
 //        app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Joe");
 //        
@@ -254,8 +257,8 @@ public class SQLiteJDBCDriverConnection {
           //app.insertUser("FirstName", "LastName", "UserName", "Email", "GenreList", "blob");
         
         System.out.println("================");
-        
-        app.updatePicture("UserName", "D:\\Users\\Edwin\\Downloads\\14463110_1206091416079967_1082422483814707867_n.jpg");
+
+        //app.updatePicture("UserName", "D:\\Users\\Edwin\\Downloads\\14463110_1206091416079967_1082422483814707867_n.jpg");
         
     }
 }
