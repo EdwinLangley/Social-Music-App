@@ -27,7 +27,8 @@ public class SongData extends UserData {
     public long songLength;
     private byte[] song;
 
-    public SongData(int ID, String songName, String artist, String album, ArrayList<String> genre, File albumArt, File song) throws UnsupportedAudioFileException, IOException {
+    public SongData(int ID, String songName, String artist, String album, ArrayList<String> genre,
+            File albumArt, File song) throws UnsupportedAudioFileException, IOException {
         this.Command = "SongData";
         this.ID = ID;
         this.songName = songName;

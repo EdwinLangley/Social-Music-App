@@ -23,7 +23,7 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
     public ClientNetworkInterface(Socket socket) {
         this.socket = socket;
     }
-    
+
     @Override
     public void run() {
         //insert client listener in here
@@ -36,7 +36,7 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 
             try {
                 //Client has to create this in the opposite order
-                //output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+                output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
                 input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -102,9 +102,7 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
                             //Call relevant function
                             break;
                         default:
-
                     }
-
                 }
             } catch (IOException i) {
                 i.printStackTrace();
@@ -129,7 +127,6 @@ public class ClientNetworkInterface extends ClientHandler implements Runnable {
 //                }
 //            }
             //output.close();
-            System.out.println("OutputClosed");
         }
 
         Server.currentUsers--;

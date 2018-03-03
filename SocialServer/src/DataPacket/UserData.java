@@ -23,11 +23,14 @@ public class UserData extends LoginData {
     public ArrayList<PostData> postIDs;
     public ArrayList<String> friendsList;
     public byte[] image;
+    public boolean isOnline;
 
     public UserData() {
     }
 
-    public UserData(int userID, String username, String password, String firstName, String lastName, String email, ArrayList<String> genreList, ArrayList<SongData> songList, ArrayList<PostData> postIDs, File profilePicture, ArrayList<String> friendsList) {
+    public UserData(int userID, String username, String password, String firstName, String lastName,
+            String email, ArrayList<String> genreList, ArrayList<SongData> songList, ArrayList<PostData> postIDs,
+            File profilePicture, ArrayList<String> friendsList, boolean isOnline) {
         this.Command = "UserData";
         this.userID = userID;
         this.username = username;
@@ -38,8 +41,9 @@ public class UserData extends LoginData {
         this.genreList = genreList;
         this.songList = songList;
         this.postIDs = postIDs;
-        this.friendsList=friendsList;
+        this.friendsList = friendsList;
         this.image = buildByteArray(profilePicture);
+        this.isOnline = isOnline;
     }
 
     public static byte[] buildByteArray(File inputFile) {
