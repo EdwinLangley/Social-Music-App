@@ -410,6 +410,10 @@ public class NewUser extends javax.swing.JFrame {
         Socket socket = null;
         try {
             socket = new Socket(address, 9090);
+            //Send multiple bits of data over same socket connection should always be in pairs
+            //First DataPacket preps server
+            //Second sends data
+            //Only close socket afterwards
             NetworkInterfaces.SendDataPacket(socket, genreDataPacket);
             NetworkInterfaces.SendUserData(socket, newUser);
         } catch (IOException ex) {

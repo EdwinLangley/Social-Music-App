@@ -364,7 +364,6 @@ public class UploadSong extends javax.swing.JFrame {
         String songArtist = artistField.getText();
         DataPacket genreDataPacket = new DataPacket("UPS");
         System.out.println(genreDataPacket.getCommand());
-        ServerNetworkInterface sendData=new ServerNetworkInterface();
         InetAddress address = null;
         try {
             address = InetAddress.getLocalHost();
@@ -373,7 +372,6 @@ public class UploadSong extends javax.swing.JFrame {
         }
         Socket socket = null;
         try {
-            sendData.socket=new Socket(address,9090);
             socket = new Socket(address, 9090);
             NetworkInterfaces.SendDataPacket(socket, genreDataPacket);
         } catch (IOException ex) {

@@ -24,6 +24,10 @@ public class NetworkInterfaces {
      * @param socket
      * @param outputObject
      * @throws IOException
+     * 
+     * Don't close any input or output, messes with flow
+     * Socket will be closed at the end of the ClientNetworkInterface(Hopefully)
+     * 
      */
     public static void SendDataPacket(Socket socket, DataPacket outputObject) throws IOException {
         ObjectOutputStream output = null;
@@ -32,7 +36,6 @@ public class NetworkInterfaces {
         System.out.println(outputObject.getCommand());
         output.writeObject(outputObject);
         output.flush();
-//        output.close();
         System.out.println("OutputClosed");
     }
 
@@ -47,7 +50,6 @@ public class NetworkInterfaces {
             System.out.println("Class not found");
             c.printStackTrace();
         }
-//        input.close();
         return inputData;
     }
 
@@ -65,16 +67,12 @@ public class NetworkInterfaces {
         ObjectInputStream input = null;
         LoginData inputData = null;
         input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-        if (input.read() != -1) {
-            System.out.println("Getting Input:LoginData");
-            try {
-                inputData = (LoginData) input.readObject();
-            } catch (ClassNotFoundException c) {
-                System.out.println("Class not found");
-                c.printStackTrace();
-            }
-//            input.close();
-            return inputData;
+        System.out.println("Getting Input:LoginData");
+        try {
+            inputData = (LoginData) input.readObject();
+        } catch (ClassNotFoundException c) {
+            System.out.println("Class not found");
+            c.printStackTrace();
         }
         return inputData;
     }
@@ -85,24 +83,19 @@ public class NetworkInterfaces {
         System.out.println("OutputData");
         output.writeObject(outputObject);
         output.flush();
-//        output.close();
         System.out.println("OutputClosed");
     }
 
     public static UserData RecieveUserData(Socket socket) throws IOException {
         ObjectInputStream input = null;
         UserData inputData = null;
-        input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-        if (input.read() != -1) {
-            System.out.println("Getting Input:UserData");
-            try {
-                inputData = (UserData) input.readObject();
-            } catch (ClassNotFoundException c) {
-                System.out.println("Class not found");
-                c.printStackTrace();
-            }
-            input.close();
-            return inputData;
+        input = new ObjectInputStream(socket.getInputStream());
+        System.out.println("Getting Input:UserData");
+        try {
+            inputData = (UserData) input.readObject();
+        } catch (ClassNotFoundException c) {
+            System.out.println("Class not found");
+            c.printStackTrace();
         }
         return inputData;
     }
@@ -113,7 +106,6 @@ public class NetworkInterfaces {
         System.out.println("OutputData");
         output.writeObject(outputObject);
         output.flush();
-        output.close();
         System.out.println("OutputClosed");
     }
 
@@ -121,16 +113,12 @@ public class NetworkInterfaces {
         ObjectInputStream input = null;
         PostData inputData = null;
         input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-        if (input.read() != -1) {
-            System.out.println("Getting Input:PostData");
-            try {
-                inputData = (PostData) input.readObject();
-            } catch (ClassNotFoundException c) {
-                System.out.println("Class not found");
-                c.printStackTrace();
-            }
-            input.close();
-            return inputData;
+        System.out.println("Getting Input:PostData");
+        try {
+            inputData = (PostData) input.readObject();
+        } catch (ClassNotFoundException c) {
+            System.out.println("Class not found");
+            c.printStackTrace();
         }
         return inputData;
     }
@@ -141,7 +129,6 @@ public class NetworkInterfaces {
         System.out.println("OutputData");
         output.writeObject(outputObject);
         output.flush();
-        output.close();
         System.out.println("OutputClosed");
     }
 
@@ -149,18 +136,15 @@ public class NetworkInterfaces {
         ObjectInputStream input = null;
         SongData inputData = null;
         input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-        if (input.read() != -1) {
-            System.out.println("Getting Input:SongData");
-            try {
-                inputData = (SongData) input.readObject();
-            } catch (ClassNotFoundException c) {
-                System.out.println("Class not found");
-                c.printStackTrace();
-            }
-            input.close();
-            return inputData;
+        System.out.println("Getting Input:SongData");
+        try {
+            inputData = (SongData) input.readObject();
+        } catch (ClassNotFoundException c) {
+            System.out.println("Class not found");
+            c.printStackTrace();
         }
         return inputData;
+
     }
 
     public void SendMainPageData(Socket socket, MainPageData outputObject) throws IOException {
@@ -169,7 +153,6 @@ public class NetworkInterfaces {
         System.out.println("OutputData");
         output.writeObject(outputObject);
         output.flush();
-        output.close();
         System.out.println("OutputClosed");
     }
 
@@ -177,17 +160,14 @@ public class NetworkInterfaces {
         ObjectInputStream input = null;
         MainPageData inputData = null;
         input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-        if (input.read() != -1) {
-            System.out.println("Getting Input:MainPageData");
-            try {
-                inputData = (MainPageData) input.readObject();
-            } catch (ClassNotFoundException c) {
-                System.out.println("Class not found");
-                c.printStackTrace();
-            }
-            input.close();
-            return inputData;
+        System.out.println("Getting Input:MainPageData");
+        try {
+            inputData = (MainPageData) input.readObject();
+        } catch (ClassNotFoundException c) {
+            System.out.println("Class not found");
+            c.printStackTrace();
         }
         return inputData;
     }
+
 }

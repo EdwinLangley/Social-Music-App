@@ -49,8 +49,8 @@ public class UserData extends LoginData {
     public UserData(int userID, String username, String password, String firstName, String lastName, String email, ArrayList<String> genreList) {
         this.Command = "UserData";
         this.userID = userID;
-        this.username=username;
-        this.passsword=password;
+        this.username = username;
+        this.passsword = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

@@ -42,9 +42,13 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
         String inputCommand = inputData.getCommand();
         OpenConnectionLoop:
         while (openConnection) {
-            //Case statements for each command
-            //new Control handler object that takes input Datapacket as a control sequence and then sends appropriate data back
-            //Also needs to switch so it then takes data input from client
+           /** 
+            * Case statements for each command
+            * new Control handler object that takes input Datapacket as a control sequence and then sends appropriate data back
+            * Also needs to switch so it then takes data input from client
+            * Ensure break after each major statement
+            * 
+            */
             System.out.println("SwitchStatement");
             System.out.println(inputData.getCommand());
             switch (inputCommand) {
@@ -115,7 +119,6 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                     break OpenConnectionLoop;
             }
         }
-        Server.currentUsers--;
         System.out.println("End of Thread");
     }
 }
