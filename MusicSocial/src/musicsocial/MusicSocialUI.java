@@ -2,6 +2,8 @@ package musicsocial;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -10,8 +12,11 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
+import javax.swing.WindowConstants;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
+import java.awt.event.*;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,9 +38,13 @@ public class MusicSocialUI extends javax.swing.JFrame {
      * Creates new form MusicSocialUI
      */
     public MusicSocialUI() {
-        initComponents();
-    }
+        
+        initComponents();   
+        initListeners();
+                
 
+    }
+    
     /**
      * This method is called from within the constructor to initialise the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,7 +71,8 @@ public class MusicSocialUI extends javax.swing.JFrame {
         TitleInYourNetwork = new javax.swing.JLabel();
         addSongButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Music Social");
 
         SecondSep.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -207,6 +217,19 @@ public class MusicSocialUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void initListeners(){
+        
+        addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e){
+                System.out.println("ARRGHH");
+                System.exit(0);
+            }
+        
+        });
+        
+    }
+    
     private void PlayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PlayMouseClicked
         String trackName = "D:\\Users\\Edwin\\Music\\marbles-daniel_simon.wav";
 
@@ -242,6 +265,8 @@ public class MusicSocialUI extends javax.swing.JFrame {
         new UploadSong().setVisible(true);
     }//GEN-LAST:event_addSongButtonMouseClicked
 
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -273,6 +298,9 @@ public class MusicSocialUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MusicSocialUI().setVisible(true);
+                
+                
+                
             }
         });
     }

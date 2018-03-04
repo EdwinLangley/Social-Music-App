@@ -78,6 +78,7 @@ public class UploadSong extends javax.swing.JFrame {
         addArtButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Song Uploader");
 
         newSongLabel.setFont(new java.awt.Font("Franklin Gothic Heavy", 0, 48)); // NOI18N
         newSongLabel.setText("Upload New Song");

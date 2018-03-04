@@ -44,6 +44,7 @@ public class Messaging extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Chat");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
