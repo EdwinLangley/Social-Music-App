@@ -47,7 +47,7 @@ public class ClientHandler {
         //Case statements for each command
         switch (command) {
             case "EXT":
-                outputPacket.SetCommand("EXT");
+                outputPacket.setCommand("EXT");
                 break;
             case "REG"://Register User
                 System.out.println("REG Switch hit");

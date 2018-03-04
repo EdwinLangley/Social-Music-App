@@ -19,6 +19,7 @@ public class UserData extends LoginData {
     public int userID;
     public String firstName, lastName, email;
     public ArrayList<String> genreList;
+    public String genreListString;
     public ArrayList<SongData> songList;
     public ArrayList<PostData> postIDs;
     public ArrayList<String> friendsList;
@@ -31,7 +32,7 @@ public class UserData extends LoginData {
     public UserData(int userID, String username, String password, String firstName, String lastName,
             String email, ArrayList<String> genreList, ArrayList<SongData> songList, ArrayList<PostData> postIDs,
             File profilePicture, ArrayList<String> friendsList, boolean isOnline) {
-        this.Command = "UserData";
+        this.command = "UserData";
         this.userID = userID;
         this.username = username;
         this.passsword = password;
@@ -44,10 +45,12 @@ public class UserData extends LoginData {
         this.friendsList = friendsList;
         this.image = buildByteArray(profilePicture);
         this.isOnline = isOnline;
+        arrayToString();
+
     }
 
     public UserData(int userID, String username, String password, String firstName, String lastName, String email, ArrayList<String> genreList) {
-        this.Command = "UserData";
+        this.command = "UserData";
         this.userID = userID;
         this.username = username;
         this.passsword = password;
@@ -55,6 +58,7 @@ public class UserData extends LoginData {
         this.lastName = lastName;
         this.email = email;
         this.genreList = genreList;
+        arrayToString();
     }
 
     public static byte[] buildByteArray(File inputFile) {
@@ -78,6 +82,13 @@ public class UserData extends LoginData {
     public BufferedImage buildImage() throws IOException {
         BufferedImage returnImage = ImageIO.read(new ByteArrayInputStream(this.image));
         return returnImage;
+    }
+    
+    public void arrayToString(){
+        for (int i=0; i<this.genreList.size();i++){
+         this.genreListString.concat(genreList.get(i));
+         this.genreListString.concat(",");
+        }
     }
 
 }

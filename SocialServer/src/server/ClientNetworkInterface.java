@@ -9,6 +9,7 @@ import DataPacket.*;
 import DataPacket.NetworkInterfaces;
 import java.net.*;
 import java.io.*;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,13 +43,13 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
         String inputCommand = inputData.getCommand();
         OpenConnectionLoop:
         while (openConnection) {
-           /** 
-            * Case statements for each command
-            * new Control handler object that takes input Datapacket as a control sequence and then sends appropriate data back
-            * Also needs to switch so it then takes data input from client
-            * Ensure break after each major statement
-            * 
-            */
+            /**
+             * Case statements for each command new Control handler object that
+             * takes input Datapacket as a control sequence and then sends
+             * appropriate data back Also needs to switch so it then takes data
+             * input from client Ensure break after each major statement
+             *
+             */
             System.out.println("SwitchStatement");
             System.out.println(inputData.getCommand());
             switch (inputCommand) {
@@ -56,7 +57,7 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                     System.out.println("EXT Switch hit");
                     openConnection = false;
                     Server.currentUsers--;
-//                    break OpenConnectionLoop;
+                    break OpenConnectionLoop;
                 case "REG"://Register User
                     System.out.println("REG Switch hit");
                     Server.currentUsers++;
@@ -67,20 +68,26 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                     } catch (IOException ex) {
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    ControlHandler.RegisterUser(registerUserData);
                     System.out.println(registerUserData.firstName);
                     System.out.println("GOT USER DATA BREAK NEXT");
                     break OpenConnectionLoop;
                 //Call relevant function
                 case "LGN"://Login
-                    LoginData loginData;
+                    LoginData loginData = null;
                     Server.currentUsers++;
+                    NotificationPacket loginResponse = new NotificationPacket();
                     try {
                         loginData = NetworkInterfaces.RecieveLoginData(socket);
-                    } catch (IOException ex) {
+                        if (ControlHandler.Login(loginData)) {
+                            loginResponse.setCommand("OKAY");
+                            loginResponse.setNotification("Good Login");
+                            NetworkInterfaces.SendNotificationPacket(socket, loginResponse);
+                        }
+                    } catch (IOException | SQLException ex) {
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    //Call relevant function
-                    break;
+                    break OpenConnectionLoop;
                 case "SFR"://Search for Friend Recomendations
                     //Call relevant function
                     break;
@@ -103,13 +110,9 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                 case "RSL"://Request song list
                     //Call relevant function
                     break;
-                case "RPD"://Request profile data
-                    //Call relevant function
-                    break;
-                case "UFL"://Update Friends list
-                    //Call relevant function
-                    break;
-                case "UPL"://Update Post List
+                case "UMP"://Update the Main Page
+                    System.out.println("UMP Switch hit");
+                    
                     //Call relevant function
                     break;
                 case "SCT"://Start chat

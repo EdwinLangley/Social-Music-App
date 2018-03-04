@@ -24,10 +24,10 @@ public class NetworkInterfaces {
      * @param socket
      * @param outputObject
      * @throws IOException
-     * 
-     * Don't close any input or output, messes with flow
-     * Socket will be closed at the end of the ClientNetworkInterface(Hopefully)
-     * 
+     *
+     * Don't close any input or output, messes with flow Socket will be closed
+     * at the end of the ClientNetworkInterface(Hopefully)
+     *
      */
     public static void SendDataPacket(Socket socket, DataPacket outputObject) throws IOException {
         ObjectOutputStream output = null;
@@ -163,6 +163,29 @@ public class NetworkInterfaces {
         System.out.println("Getting Input:MainPageData");
         try {
             inputData = (MainPageData) input.readObject();
+        } catch (ClassNotFoundException c) {
+            System.out.println("Class not found");
+            c.printStackTrace();
+        }
+        return inputData;
+    }
+
+    public void SendNotificationPacket(Socket socket, NotificationPacket outputObject) throws IOException {
+        ObjectOutputStream output = null;
+        output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        System.out.println("OutputData");
+        output.writeObject(outputObject);
+        output.flush();
+        System.out.println("OutputClosed");
+    }
+
+    public static NotificationPacket RecieveNotificationPacket(Socket socket) throws IOException {
+        ObjectInputStream input = null;
+        NotificationPacket inputData = null;
+        input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+        System.out.println("Getting Input:NotificationPacket");
+        try {
+            inputData = (NotificationPacket) input.readObject();
         } catch (ClassNotFoundException c) {
             System.out.println("Class not found");
             c.printStackTrace();

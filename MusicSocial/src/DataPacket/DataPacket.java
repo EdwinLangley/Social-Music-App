@@ -16,7 +16,7 @@ import java.io.Serializable;
 //@param T is data type
 public class DataPacket implements Serializable {
 
-    public String Command;
+    public String command, username;
     //private String Data;
     //private ArrayList<String> dataArray=new ArrayList();
 
@@ -26,17 +26,27 @@ public class DataPacket implements Serializable {
     }
 
     public DataPacket(String Command) {
-        this.Command = Command;
-    }
-
-    public void SetCommand(String command) {
-        this.Command = command;
+        this.command = Command;
     }
 
     public String getCommand() {
-        return Command;
+        return command;
     }
-    //public String getData(){return Data;}
-    //public ArrayList<String> getArray() {return dataArray;}
 
+    public void setCommand(String command) {
+        this.command = command;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public DataPacket(String command, String username) {
+        this.command = command;
+        this.username = username;
+    }
 }

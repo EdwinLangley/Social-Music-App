@@ -22,7 +22,7 @@ public class MainPageData extends DataPacket {
     }
 
     public MainPageData(ArrayList<String> friends, ArrayList<PostData> friendsPosts, ArrayList<PostData> inYourNetwork, ArrayList<SongData> yourQueue) {
-        this.Command = "MainPageData";
+        this.command = "MainPageData";
         this.friends = friends;
         this.friendsPosts = friendsPosts;
         this.inYourNetwork = inYourNetwork;

@@ -11,13 +11,13 @@ package DataPacket;
  */
 public class LoginData extends DataPacket {
 
-    public String username, passsword;
+    public String passsword;
 
     public LoginData() {
     }
 
     public LoginData(String username, String password) {
-        this.Command = "LoginData";
+        this.command = "LoginData";
         this.username = username;
         this.passsword = password;
     }

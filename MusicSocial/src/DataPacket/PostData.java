@@ -28,7 +28,7 @@ public class PostData extends DataPacket {
 
     //Everything
     public PostData(int ID, Date datePosted, Time timePosted, SongData attachedSong, String postMessage, String postMood) {
-        this.Command = "PostData";
+        this.command = "PostData";
         this.ID = ID;
         this.datePosted = Date.valueOf(LocalDate.now());
         this.timePosted = Time.valueOf(LocalTime.now());
@@ -39,7 +39,7 @@ public class PostData extends DataPacket {
 
     //No mood but song
     public PostData(int ID, Date datePosted, Time timePosted, SongData attachedSong, String postMessage) {
-        this.Command = "PostData";
+        this.command = "PostData";
         this.ID = ID;
         this.datePosted = Date.valueOf(LocalDate.now());
         this.timePosted = Time.valueOf(LocalTime.now());
@@ -49,7 +49,7 @@ public class PostData extends DataPacket {
 
     //Mood but no song
     public PostData(int ID, Date datePosted, Time timePosted, String postMessage, String postMood) {
-        this.Command = "PostData";
+        this.command = "PostData";
         this.ID = ID;
         this.datePosted = Date.valueOf(LocalDate.now());
         this.timePosted = Time.valueOf(LocalTime.now());
@@ -59,7 +59,7 @@ public class PostData extends DataPacket {
 
     //Just message
     public PostData(int ID, Date datePosted, Time timePosted, String postMessage) {
-        this.Command = "PostData";
+        this.command = "PostData";
         this.ID = ID;
         this.datePosted = Date.valueOf(LocalDate.now());
         this.timePosted = Time.valueOf(LocalTime.now());

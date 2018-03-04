@@ -147,7 +147,7 @@ public class NetworkInterfaces {
 
     }
 
-    public void SendMainPageData(Socket socket, MainPageData outputObject) throws IOException {
+    public static void SendMainPageData(Socket socket, MainPageData outputObject) throws IOException {
         ObjectOutputStream output = null;
         output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         System.out.println("OutputData");
@@ -169,5 +169,29 @@ public class NetworkInterfaces {
         }
         return inputData;
     }
+    
+    public static void SendNotificationPacket(Socket socket, NotificationPacket outputObject) throws IOException {
+        ObjectOutputStream output = null;
+        output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        System.out.println("OutputData");
+        output.writeObject(outputObject);
+        output.flush();
+        System.out.println("OutputClosed");
+    }
+
+    public static NotificationPacket RecieveNotificationPacket(Socket socket) throws IOException {
+        ObjectInputStream input = null;
+        NotificationPacket inputData = null;
+        input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+        System.out.println("Getting Input:NotificationPacket");
+        try {
+            inputData = (NotificationPacket) input.readObject();
+        } catch (ClassNotFoundException c) {
+            System.out.println("Class not found");
+            c.printStackTrace();
+        }
+        return inputData;
+    }
+
 
 }
