@@ -68,7 +68,11 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                     } catch (IOException ex) {
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    ControlHandler.RegisterUser(registerUserData);
+                    try {
+                        ControlHandler.RegisterUser(registerUserData);
+                    } catch (IOException | SQLException ex) {
+                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     System.out.println(registerUserData.firstName);
                     System.out.println("GOT USER DATA BREAK NEXT");
                     break OpenConnectionLoop;
@@ -112,7 +116,7 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                     break;
                 case "UMP"://Update the Main Page
                     System.out.println("UMP Switch hit");
-                    
+
                     //Call relevant function
                     break;
                 case "SCT"://Start chat
