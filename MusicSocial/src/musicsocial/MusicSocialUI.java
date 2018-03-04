@@ -41,7 +41,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
         
         initComponents();   
         initListeners();
-                
+             
 
     }
     

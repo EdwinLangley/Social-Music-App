@@ -1,11 +1,16 @@
 package musicsocial;
 
 import DataPacket.DataPacket;
+import DataPacket.NetworkInterfaces;
+import DataPacket.LoginData;
+import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -211,7 +216,29 @@ public class Login extends javax.swing.JFrame {
         infoArray.add(passwordRetrievedText);
         
         DataPacket LoginPacket = new DataPacket("LGN");
-//        LoginPacket.buildDataPacket("LGN",null,infoArray);
+        //LoginPacket.buildDataPacket("LGN",null,infoArray);
+        
+        LoginData LoginDataPacket = new LoginData(userNameRetrievedText, passwordRetrievedText);
+        
+        InetAddress address = null;
+        try {
+            address = InetAddress.getLocalHost();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Socket socket = null;
+        
+        try {
+          
+        socket = new Socket(address, 9090);    
+        
+        NetworkInterfaces.SendDataPacket(socket, LoginPacket);
+        NetworkInterfaces.SendLoginData(socket, LoginDataPacket);
+        
+        } catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
     }//GEN-LAST:event_LoginButtonMouseClicked
 
