@@ -11,6 +11,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -237,6 +238,16 @@ public class Login extends javax.swing.JFrame {
         
         } catch (IOException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        boolean wasCorrectLogin = false;
+        
+        if(wasCorrectLogin == true){
+            this.dispose();
+            new MusicSocialUI().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Sorry, this login was not correct.");
         }
         
         
