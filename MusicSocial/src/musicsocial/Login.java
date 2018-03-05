@@ -241,13 +241,9 @@ public class Login extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
-        boolean wasCorrectLogin = false;
+
         
         if ("ACK".equals(serverResponse.command)){
-            wasCorrectLogin =true;
-        }
-        if(wasCorrectLogin == true){
             this.dispose();
             new MusicSocialUI().setVisible(true);
         } else {
