@@ -11,7 +11,7 @@ package DataPacket;
  */
 public class LoginData extends DataPacket {
 
-    public String passsword;
+    public String username, passsword;
 
     public LoginData() {
     }

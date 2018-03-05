@@ -59,7 +59,6 @@ public class NetworkInterfaces {
         System.out.println("OutputData");
         output.writeObject(outputObject);
         output.flush();
-        output.close();
         System.out.println("OutputClosed");
     }
 

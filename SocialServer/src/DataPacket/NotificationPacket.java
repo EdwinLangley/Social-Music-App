@@ -17,7 +17,8 @@ public class NotificationPacket extends DataPacket {
         super(Command);
         this.notification = notification;
     }
-
+    
+   
     public NotificationPacket(String notification) {
         this.notification = notification;
     }

@@ -84,8 +84,13 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                     try {
                         loginData = NetworkInterfaces.RecieveLoginData(socket);
                         if (ControlHandler.Login(loginData)) {
-                            loginResponse.setCommand("OKAY");
+                            loginResponse.setCommand("ACK");
                             loginResponse.setNotification("Good Login");
+                            NetworkInterfaces.SendNotificationPacket(socket, loginResponse);
+                        }
+                        else{
+                            loginResponse.setCommand("NAK");
+                            loginResponse.setNotification("Bad Login");
                             NetworkInterfaces.SendNotificationPacket(socket, loginResponse);
                         }
                     } catch (IOException | SQLException ex) {

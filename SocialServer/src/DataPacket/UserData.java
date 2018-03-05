@@ -83,12 +83,14 @@ public class UserData extends LoginData {
         BufferedImage returnImage = ImageIO.read(new ByteArrayInputStream(this.image));
         return returnImage;
     }
-    
-    public void arrayToString(){
-        for (int i=0; i<this.genreList.size();i++){
-         this.genreListString.concat(genreList.get(i));
-         this.genreListString.concat(",");
+
+    public void arrayToString() {
+        StringBuilder sb = new StringBuilder();
+        for (String s : this.genreList) {
+            sb.append(s);
+            sb.append(",");
         }
+        this.genreListString=sb.toString();
     }
 
 }

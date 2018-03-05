@@ -23,8 +23,8 @@ public class ControlHandler {
     public static SQLiteJDBCDriverConnection databaseCheck = new SQLiteJDBCDriverConnection();
     
     public static void RegisterUser(UserData userInfo) throws IOException, SQLException {
-        String imageInfo=new String(userInfo.image);
-        databaseCheck.insertUser(userInfo.firstName, userInfo.lastName, userInfo.username, userInfo.email, userInfo.genreListString, imageInfo);
+        databaseCheck.insertUser(userInfo.firstName, userInfo.lastName, userInfo.username, userInfo.email, userInfo.genreListString,userInfo.image);
+        databaseCheck.insertLoginData(userInfo.username, userInfo.passsword);
     }
 
     public static boolean Login(LoginData loginInfo) throws IOException, SQLException {

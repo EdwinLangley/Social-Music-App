@@ -19,6 +19,7 @@ public class UserData extends LoginData {
     public int userID;
     public String firstName, lastName, email;
     public ArrayList<String> genreList;
+    public String genreListString;
     public ArrayList<SongData> songList;
     public ArrayList<PostData> postIDs;
     public ArrayList<String> friendsList;
@@ -44,6 +45,8 @@ public class UserData extends LoginData {
         this.friendsList = friendsList;
         this.image = buildByteArray(profilePicture);
         this.isOnline = isOnline;
+        arrayToString();
+
     }
 
     public UserData(int userID, String username, String password, String firstName, String lastName, String email, ArrayList<String> genreList) {
@@ -55,6 +58,7 @@ public class UserData extends LoginData {
         this.lastName = lastName;
         this.email = email;
         this.genreList = genreList;
+        arrayToString();
     }
 
     public static byte[] buildByteArray(File inputFile) {
@@ -78,6 +82,15 @@ public class UserData extends LoginData {
     public BufferedImage buildImage() throws IOException {
         BufferedImage returnImage = ImageIO.read(new ByteArrayInputStream(this.image));
         return returnImage;
+    }
+
+    public void arrayToString() {
+        StringBuilder sb = new StringBuilder();
+        for (String s : this.genreList) {
+            sb.append(s);
+            sb.append(",");
+        }
+        this.genreListString=sb.toString();
     }
 
 }

@@ -1,7 +1,6 @@
 package musicsocial;
 
-import DataPacket.DataPacket;
-import DataPacket.NetworkInterfaces;
+import DataPacket.*;
 import DataPacket.LoginData;
 import java.io.IOException;
 import java.net.Inet4Address;
@@ -220,6 +219,7 @@ public class Login extends javax.swing.JFrame {
         //LoginPacket.buildDataPacket("LGN",null,infoArray);
         
         LoginData LoginDataPacket = new LoginData(userNameRetrievedText, passwordRetrievedText);
+        NotificationPacket serverResponse = new NotificationPacket();
         
         InetAddress address = null;
         try {
@@ -235,6 +235,7 @@ public class Login extends javax.swing.JFrame {
         
         NetworkInterfaces.SendDataPacket(socket, LoginPacket);
         NetworkInterfaces.SendLoginData(socket, LoginDataPacket);
+        serverResponse = NetworkInterfaces.RecieveNotificationPacket(socket);
         
         } catch (IOException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
@@ -243,6 +244,9 @@ public class Login extends javax.swing.JFrame {
         
         boolean wasCorrectLogin = false;
         
+        if ("ACK".equals(serverResponse.command)){
+            wasCorrectLogin =true;
+        }
         if(wasCorrectLogin == true){
             this.dispose();
             new MusicSocialUI().setVisible(true);
