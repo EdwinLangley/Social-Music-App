@@ -247,7 +247,7 @@ public class Login extends javax.swing.JFrame {
         
         if(isCorrectLogin) {
           this.dispose();
-            new MusicSocialUI().setVisible(true);  
+            new MusicSocialUI(userNameRetrievedText).setVisible(true);  
         } else {
             JOptionPane.showMessageDialog(null, "Sorry, this login was not correct.");
         }        

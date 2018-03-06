@@ -421,7 +421,7 @@ public class NewUser extends javax.swing.JFrame {
 //        sendData.sendData(genreDataPacket);
         if (compulsoryFieldsFull() == false) {
             this.dispose();
-            new MusicSocialUI().setVisible(true);
+            new MusicSocialUI(newUserName).setVisible(true);
         } else {
             mandatoryLabel.setVisible(true);
         }

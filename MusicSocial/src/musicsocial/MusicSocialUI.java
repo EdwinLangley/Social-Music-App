@@ -42,6 +42,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
     AudioInputStream audioInputStream;
     Clip clip;
     int clipTime;
+    String currentUser = "";
 
     /**
      * Creates new form MusicSocialUI
@@ -50,7 +51,14 @@ public class MusicSocialUI extends javax.swing.JFrame {
         
         initComponents();   
         initListeners();
-             
+                    
+
+    }
+
+    public MusicSocialUI(String username) {
+        initComponents();   
+        initListeners();
+        currentUser = username;
 
     }
     
@@ -291,7 +299,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
         addWindowListener(new WindowAdapter(){
             @Override
             public void windowClosing(WindowEvent e){
-                System.out.println("ARRGHH");
+                DataPacket extPacket = new DataPacket("EXT", currentUser);
                 System.exit(0);
             }
         
