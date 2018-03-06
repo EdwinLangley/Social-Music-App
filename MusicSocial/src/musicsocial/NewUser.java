@@ -27,6 +27,8 @@ import javax.swing.JFileChooser;
  */
 public class NewUser extends javax.swing.JFrame {
 
+    
+    File attachImage = null;
     /**
      * Creates new form NewUser
      */
@@ -388,7 +390,7 @@ public class NewUser extends javax.swing.JFrame {
         genreList = takeCheckBoxGenres();
 
         infoArray = constructInfoArray(newFirstName, newLastName, newUserName, newEmail, newPassword, genreList);
-        UserData newUser = new UserData(0, newUserName, newPassword, newFirstName, newLastName, newEmail, genreList);
+        UserData newUser = new UserData(0, newUserName, newPassword, newFirstName, newLastName, newEmail, genreList,attachImage);
 
         System.out.println(infoArray);
 
@@ -436,7 +438,7 @@ public class NewUser extends javax.swing.JFrame {
     private void ProfilePicButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfilePicButtonMouseClicked
         JFileChooser fChooser = new JFileChooser();
         fChooser.showOpenDialog(null);
-        File attachImage = fChooser.getSelectedFile();
+        attachImage = fChooser.getSelectedFile();
         String filename = attachImage.getAbsolutePath();
         BufferedImage img = null;
         try {

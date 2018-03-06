@@ -204,8 +204,6 @@ public class Login extends javax.swing.JFrame {
         userNameRetrievedText = userNameField.getText();
                 
         if(checkForEmptyField()){
-            this.dispose();
-            new MusicSocialUI().setVisible(true);
         } else {
             mandatoryField.setVisible(true);
         }
@@ -241,14 +239,18 @@ public class Login extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-
+        boolean isCorrectLogin = false;
         
-        if ("ACK".equals(serverResponse.command)){
-            this.dispose();
-            new MusicSocialUI().setVisible(true);
+        if("ACK".equals(serverResponse.command)){
+            isCorrectLogin = true;
+        }
+        
+        if(isCorrectLogin) {
+          this.dispose();
+            new MusicSocialUI().setVisible(true);  
         } else {
             JOptionPane.showMessageDialog(null, "Sorry, this login was not correct.");
-        }
+        }        
         
         
     }//GEN-LAST:event_LoginButtonMouseClicked
