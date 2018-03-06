@@ -57,7 +57,7 @@
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="albumArtFrame" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <Component id="albumArtFrame" min="-2" pref="220" max="-2" attributes="0"/>
                                           <Component id="selectedSongLabel" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -130,7 +130,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="albumArtLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="albumArtFrame" min="-2" pref="100" max="-2" attributes="0"/>
+                  <Component id="albumArtFrame" min="-2" pref="220" max="-2" attributes="0"/>
                   <Component id="addArtButton" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="23" max="32767" attributes="0"/>

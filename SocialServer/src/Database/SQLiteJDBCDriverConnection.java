@@ -5,6 +5,8 @@
  */
 package Database;
 
+import DataPacket.PostData;
+import DataPacket.SongData;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,6 +18,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 
 /**
@@ -90,14 +94,14 @@ public class SQLiteJDBCDriverConnection {
         
     }
 
-    public void insertSong(int ID, String SongName, String Data, String Artist, String GenreList, String UserName) throws IOException, SQLException {
+    public void insertSong(int ID, String SongName, byte[] Data, String Artist, String GenreList, String UserName) throws IOException, SQLException {
         String sql = "INSERT INTO Songs(ID,Name,Data,Artist,Genres,UserName) VALUES(?,?,?,?,?,?)";
         
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, ID);
         pstmt.setString(2, SongName);
-        pstmt.setString(3, Data);
+        pstmt.setBytes(3, Data);
         pstmt.setString(4, Artist);
         pstmt.setString(5, GenreList);
         pstmt.setString(6, UserName);
@@ -158,6 +162,52 @@ public class SQLiteJDBCDriverConnection {
             
     }
         
+        public PostData getPostsByID(int ID)throws IOException, SQLException,UnsupportedAudioFileException{
+            PostData returnPost = null;
+            
+        String sql = "SELECT * FROM Posts WHERE ID = ? ";
+        
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, ID);
+            ResultSet rs    = pstmt.executeQuery();
+            
+            // loop through the result set
+            while (rs.next()) {
+                returnPost = new PostData(rs.getInt("ID"), this.getSongByID(ID), rs.getString("Content"), rs.getString("Mood"));
+            }
+            
+        conn.close();
+            
+        return returnPost;
+    }
+        
+        public SongData getSongByID(int ID)throws IOException, SQLException, UnsupportedAudioFileException{
+        File albumArt = null;
+        File song = null;
+        ArrayList<String> Genres = new ArrayList<String>();
+        SongData returnSong = null;
+        String sql = "SELECT * FROM Songs WHERE ID = ? ";
+        
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, ID);
+            ResultSet rs    = pstmt.executeQuery();
+            
+            // loop through the result set
+            while (rs.next()) {
+                Genres.add(rs.getString("Genres"));
+                returnSong = new SongData(rs.getInt("ID"), rs.getString("Name"), rs.getString("Artist"),rs.getString("Album") , Genres, albumArt, song);
+            }
+            
+        conn.close();
+        
+        return returnSong;
+            
+    }
+        
+        
+        
         public int getNextPostID()throws IOException, SQLException{
         String sql = "SELECT ID FROM Posts ORDER BY ID DESC LIMIT 1";
         
@@ -174,6 +224,25 @@ public class SQLiteJDBCDriverConnection {
 
               conn.close();
               return Index + 1;
+        
+        }
+        
+        public int getCurrentPostID()throws IOException, SQLException{
+        String sql = "SELECT ID FROM Posts ORDER BY ID DESC LIMIT 1";
+        
+        
+            Connection conn = this.connect();
+            Statement stmt  = conn.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+            
+            int Index = 0;
+            
+            while(rs.next()){
+                Index = rs.getInt("ID");
+            }
+
+              conn.close();
+              return Index;
         
         }
         
@@ -196,6 +265,7 @@ public class SQLiteJDBCDriverConnection {
         
         }
         
+           
         
 
         private byte[] readFile(String file) {
@@ -237,9 +307,9 @@ public class SQLiteJDBCDriverConnection {
 
              
     
-    public static void main(String[] args) throws IOException, SQLException {
+    public static void main(String[] args) throws IOException, SQLException,UnsupportedAudioFileException {
         SQLiteJDBCDriverConnection app = new SQLiteJDBCDriverConnection();
-        app.selectAll();
+        //app.selectAll();
         
 //        if(app.isGoodLogin("Edwin", "Password")){
 //            System.out.println("Good login");
@@ -247,7 +317,7 @@ public class SQLiteJDBCDriverConnection {
 //            System.out.println("Bad login");
 //        }
 
-          app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Edwin");
+          
 //        app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Edwin");
 //        app.addPost(app.getNextPostID(), "Content", "TimeStamp", "Song", "Mood", "Joe");
 //        
@@ -256,6 +326,10 @@ public class SQLiteJDBCDriverConnection {
 
           //app.insertUser("FirstName", "LastName", "UserName", "Email", "GenreList", "blob");
         
+          
+          //PostData posts = app.getPostsByID(0);
+          
+          //System.out.println(posts.ID + posts.postMessage + posts.username + posts.postMood);
         System.out.println("================");
 
         //app.updatePicture("UserName", "D:\\Users\\Edwin\\Downloads\\14463110_1206091416079967_1082422483814707867_n.jpg");

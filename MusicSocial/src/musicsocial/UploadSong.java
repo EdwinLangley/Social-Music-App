@@ -7,6 +7,7 @@ package musicsocial;
 
 import DataPacket.DataPacket;
 import DataPacket.NetworkInterfaces;
+import DataPacket.SongData;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
@@ -27,6 +29,8 @@ import javax.swing.JFileChooser;
  */
 public class UploadSong extends javax.swing.JFrame {
 
+    File attachImage = null;
+    File attachSong = null;
     /**
      * Creates new form UploadSong
      */
@@ -211,7 +215,7 @@ public class UploadSong extends javax.swing.JFrame {
                                             .addComponent(addArtButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(albumArtFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(albumArtFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(selectedSongLabel))
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
@@ -267,7 +271,7 @@ public class UploadSong extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(albumArtLabel)
-                    .addComponent(albumArtFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(albumArtFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addArtButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -348,7 +352,7 @@ public class UploadSong extends javax.swing.JFrame {
     private void songSelectorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_songSelectorButtonMouseClicked
         JFileChooser fChooser = new JFileChooser();
         fChooser.showOpenDialog(null);
-        File attachSong = fChooser.getSelectedFile();
+        attachSong = fChooser.getSelectedFile();
         String filename = attachSong.getAbsolutePath();
         
         selectedSongLabel.setText(filename);
@@ -364,6 +368,14 @@ public class UploadSong extends javax.swing.JFrame {
         String songName = nameField.getText();
         String songArtist = artistField.getText();
         DataPacket genreDataPacket = new DataPacket("UPS");
+        SongData songContent = null;
+        try {
+            songContent = new SongData(0, songName, songArtist, songName, genreArrayList, attachImage, attachSong);
+        } catch (UnsupportedAudioFileException ex) {
+            Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println(genreDataPacket.getCommand());
         InetAddress address = null;
         try {
@@ -375,6 +387,7 @@ public class UploadSong extends javax.swing.JFrame {
         try {
             socket = new Socket(address, 9090);
             NetworkInterfaces.SendDataPacket(socket, genreDataPacket);
+            NetworkInterfaces.SendSongData(socket, songContent);
         } catch (IOException ex) {
             Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -388,7 +401,7 @@ public class UploadSong extends javax.swing.JFrame {
     private void addArtButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addArtButtonMouseClicked
         JFileChooser fChooser = new JFileChooser();
         fChooser.showOpenDialog(null);
-        File attachImage = fChooser.getSelectedFile();
+        attachImage = fChooser.getSelectedFile();
         String filename = attachImage.getAbsolutePath();
         BufferedImage img = null;
         try {

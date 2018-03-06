@@ -9,6 +9,8 @@ import DataPacket.*;
 import Database.SQLiteJDBCDriverConnection;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  *
@@ -35,4 +37,18 @@ public class ControlHandler {
     public static void SearchForFriendRecommendations() {
 
     }
+    
+    public static ArrayList<PostData> getPosts()throws IOException, SQLException, UnsupportedAudioFileException {
+        
+        ArrayList<PostData> postList = new ArrayList<PostData>();
+
+        for( int i = databaseCheck.getCurrentPostID(); i > (databaseCheck.getCurrentPostID() - 5); i-- ){
+            postList.add(databaseCheck.getPostsByID(i));
+        }
+        
+        return postList;
+        
+    }
+    
+    
 }

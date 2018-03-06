@@ -36,6 +36,14 @@ public class PostData extends DataPacket {
         this.postMessage = postMessage;
         this.postMood = postMood;
     }
+    
+    public PostData(int ID, SongData attachedSong, String postMessage, String postMood) {
+        this.command = "PostData";
+        this.ID = ID;
+        this.attachedSong = attachedSong;
+        this.postMessage = postMessage;
+        this.postMood = postMood;
+    }
 
     //No mood but song
     public PostData(int ID, Date datePosted, Time timePosted, SongData attachedSong, String postMessage) {
