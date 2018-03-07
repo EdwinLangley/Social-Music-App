@@ -199,6 +199,35 @@ public class SQLiteJDBCDriverConnection {
         return returnSong;
 
     }
+    
+        public SongData getSongByUserName(String UserName) throws IOException, SQLException, UnsupportedAudioFileException {
+        File albumArt = null;
+        File song = null;
+        SongData returnSong = null;
+        String sql = "SELECT * FROM Songs WHERE UserName = ? ";
+
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, UserName);
+        ResultSet rs = pstmt.executeQuery();
+
+        // loop through the result set
+        while (rs.next()) {
+            
+            
+            String genreList = rs.getString("GenreList");
+            List<String> genres = Arrays.asList(genreList.split("\\s*,\\s*"));
+            ArrayList<String> genreArrayList = new ArrayList<>(genres);
+            
+            
+            returnSong = new SongData(rs.getInt("ID"), rs.getString("Name"), rs.getString("Artist"), rs.getString("Album"), genreArrayList, albumArt, song);
+        }
+
+        conn.close();
+
+        return returnSong;
+
+    }
 
     public int getNextPostID() throws IOException, SQLException {
         String sql = "SELECT ID FROM Posts ORDER BY ID DESC LIMIT 1";
