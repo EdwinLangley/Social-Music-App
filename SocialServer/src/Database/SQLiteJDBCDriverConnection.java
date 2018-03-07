@@ -265,6 +265,21 @@ public class SQLiteJDBCDriverConnection {
         
         }
         
+         public void addNewFriend(String username1, String username2)throws IOException, SQLException{
+        String sql = "INSERT INTO Friendships VALUES(?,?)";
+        
+        
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username1);
+            pstmt.setString(2, username2);
+            pstmt.executeUpdate();
+            
+            conn.close();
+              
+        
+        }
+        
            
         
 
@@ -326,6 +341,7 @@ public class SQLiteJDBCDriverConnection {
 
           //app.insertUser("FirstName", "LastName", "UserName", "Email", "GenreList", "blob");
         
+          app.addNewFriend("Ed", "Joe");
           
           //PostData posts = app.getPostsByID(0);
           
