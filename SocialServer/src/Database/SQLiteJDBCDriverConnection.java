@@ -139,7 +139,9 @@ public class SQLiteJDBCDriverConnection {
 
     }
 
-    public void getPostsBy(String UserName) throws IOException, SQLException {
+    public ArrayList<PostData> getPostsBy(String UserName) throws IOException, SQLException {
+        
+        ArrayList<PostData> posts = new ArrayList<PostData>();
         String sql = "SELECT * FROM Posts WHERE UserName = ? ";
 
         Connection conn = this.connect();
@@ -149,11 +151,13 @@ public class SQLiteJDBCDriverConnection {
 
         // loop through the result set
         while (rs.next()) {
-            System.out.println(rs.getInt("ID") + "," + rs.getString("Content") + "," + rs.getString("Time"));
+            PostData temppost = new PostData(rs.getInt("ID"),rs.getInt("AttachedSong"), rs.getString("Content"), rs.getString("Mood"));
+            posts.add(temppost);
         }
 
         conn.close();
-
+        
+        return posts;
     }
 
     public PostData getPostsByID(int ID) throws IOException, SQLException, UnsupportedAudioFileException {
