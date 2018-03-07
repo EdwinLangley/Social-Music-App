@@ -50,5 +50,12 @@ public class ControlHandler {
         
     }
     
+        public static void addFriend()throws IOException, SQLException {
+        
+            //databaseCheck.addNewFriend(username1, username2);
+        
+        
+    }
+    
     
 }
