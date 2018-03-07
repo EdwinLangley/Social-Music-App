@@ -7,6 +7,7 @@ package Database;
 
 import DataPacket.PostData;
 import DataPacket.SongData;
+import DataPacket.UserData;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,6 +20,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
@@ -263,6 +266,64 @@ public class SQLiteJDBCDriverConnection {
         conn.close();
 
     }
+    
+    public ArrayList<UserData> returnFriends(String username) throws IOException, SQLException {//ArrayList<UserData>
+        
+        ArrayList<UserData> returnedFriendsData = new ArrayList<UserData>();
+        String sql = "SELECT username2 FROM Friendships where username1 = ?";
+
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, username);
+        ResultSet rs = pstmt.executeQuery();
+        
+        ArrayList<String> returnedFriends = new ArrayList<String>();
+        
+        while(rs.next()){
+            returnedFriends.add(rs.getString("username2"));
+        }
+
+        conn.close();
+        
+        for (int i = 0; i < returnedFriends.size(); i++) {
+			returnedFriendsData.add(this.getUserDataByUserName(returnedFriends.get(i)));
+	}
+
+        return returnedFriendsData; 
+               
+
+    }
+    
+    public UserData getUserDataByUserName(String username) throws IOException, SQLException {//ArrayList<UserData>
+        
+        UserData returnedFriends = null;
+        String sql = "SELECT * FROM UserData WHERE UserName = ? ";
+
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, username);
+        ResultSet rs = pstmt.executeQuery();
+        
+        File file = new File("./src/images/6027fe7edf669a864347e7b011d7c126.jpg");
+        String password = "";
+        
+        while(rs.next()){
+            //UserData newUser = new UserData(UserData(rs.getInt("ID"),rs.getString("UserName"),password,rs.getString("FirstName"),rs.getString("LastName"),rs.getString("Email"), rs.getString("GenreList"), file))
+            String genreList = rs.getString("GenreList");
+            List<String> genres = Arrays.asList(genreList.split("\\s*,\\s*"));
+            ArrayList<String> genreArrayList = new ArrayList<>(genres);
+            
+            returnedFriends = new UserData(rs.getInt("ID"),rs.getString("UserName"),password,rs.getString("FirstName"),rs.getString("LastName"),rs.getString("Email"),genreArrayList, file);
+            
+        }
+        
+        conn.close();
+        
+        return returnedFriends;
+
+        
+
+    }
 
     private byte[] readFile(String file) {
         ByteArrayOutputStream bos = null;
@@ -318,6 +379,9 @@ public class SQLiteJDBCDriverConnection {
 
         //PostData posts = app.getPostsByID(0);
         //System.out.println(posts.ID + posts.postMessage + posts.username + posts.postMood);
+        
+        app.returnFriends("Ed");
+        //app.getUserDataByUserName("griffindore");
         System.out.println("================");
 
         //app.updatePicture("UserName", "D:\\Users\\Edwin\\Downloads\\14463110_1206091416079967_1082422483814707867_n.jpg");
