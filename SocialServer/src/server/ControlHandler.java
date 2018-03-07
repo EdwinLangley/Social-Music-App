@@ -42,7 +42,7 @@ public class ControlHandler {
         
         ArrayList<PostData> postList = new ArrayList<PostData>();
 
-        for( int i = databaseCheck.getCurrentPostID(); i > (databaseCheck.getCurrentPostID() - 5); i-- ){
+        for( int i = databaseCheck.getCurrentPostID(); ((i > (databaseCheck.getCurrentPostID() - 5)) || (i < 0) ); i-- ){
             postList.add(databaseCheck.getPostsByID(i));
         }
         
