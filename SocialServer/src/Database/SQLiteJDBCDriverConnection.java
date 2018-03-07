@@ -113,14 +113,14 @@ public class SQLiteJDBCDriverConnection {
         
     }
     
-        public void addPost(int ID, String Content, String TimeStamp, String Song, String Mood, String UserName) throws IOException, SQLException {
+        public void addPost(int ID, String Content, int Song, String Mood, String UserName) throws IOException, SQLException {
         String sql = "INSERT INTO Posts(ID,Content,AttachedSong,Mood,UserName) VALUES(?,?,?,?,?)";
         
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, ID);
         pstmt.setString(2, Content);
-        pstmt.setString(3, Song);
+        pstmt.setInt(3, Song);
         pstmt.setString(4, Mood);
         pstmt.setString(5, UserName);
         pstmt.executeUpdate();

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
@@ -105,6 +106,14 @@ public class NetworkInterfaces {
         System.out.println("OutputData");
         output.writeObject(outputObject);
         output.flush();
+        System.out.println("OutputClosed");    
+    }
+    public static void SendPostsData(Socket socket, ArrayList<PostData> outputObject) throws IOException {
+        ObjectOutputStream output = null;
+        output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        System.out.println("OutputData");
+        output.writeObject(outputObject);
+        output.flush();
         System.out.println("OutputClosed");
     }
 
@@ -185,6 +194,29 @@ public class NetworkInterfaces {
         System.out.println("Getting Input:NotificationPacket");
         try {
             inputData = (NotificationPacket) input.readObject();
+        } catch (ClassNotFoundException c) {
+            System.out.println("Class not found");
+            c.printStackTrace();
+        }
+        return inputData;
+    }
+    
+    public static void SendFriendData(Socket socket, FriendData outputObject) throws IOException {
+        ObjectOutputStream output = null;
+        output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        System.out.println("OutputData");
+        output.writeObject(outputObject);
+        output.flush();
+        System.out.println("OutputClosed");
+    }
+
+    public static FriendData RecieveFriendData(Socket socket) throws IOException {
+        ObjectInputStream input = null;
+        FriendData inputData = null;
+        input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+        System.out.println("Getting Input:NotificationPacket");
+        try {
+            inputData = (FriendData) input.readObject();
         } catch (ClassNotFoundException c) {
             System.out.println("Class not found");
             c.printStackTrace();

@@ -6,13 +6,14 @@
 package server;
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
 /**
  *
  * @author Joe
  */
 public class Server {
 
-    public static int currentUsers=0;
+    public static ArrayList<String> currentUsers;
     /**
      * @param args the command line arguments
      * 

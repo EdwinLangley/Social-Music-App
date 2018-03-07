@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,10 +25,10 @@ public class NetworkInterfaces {
      * @param socket
      * @param outputObject
      * @throws IOException
-     * 
-     * Don't close any input or output, messes with flow
-     * Socket will be closed at the end of the ClientNetworkInterface(Hopefully)
-     * 
+     *
+     * Don't close any input or output, messes with flow Socket will be closed
+     * at the end of the ClientNetworkInterface(Hopefully)
+     *
      */
     public static void SendDataPacket(Socket socket, DataPacket outputObject) throws IOException {
         ObjectOutputStream output = null;
@@ -108,6 +109,15 @@ public class NetworkInterfaces {
         System.out.println("OutputClosed");
     }
 
+    public static void SendPostsData(Socket socket, ArrayList<PostData> outputObject) throws IOException {
+        ObjectOutputStream output = null;
+        output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        System.out.println("OutputData");
+        output.writeObject(outputObject);
+        output.flush();
+        System.out.println("OutputClosed");
+    }
+
     public static PostData RecievePostData(Socket socket) throws IOException {
         ObjectInputStream input = null;
         PostData inputData = null;
@@ -168,7 +178,7 @@ public class NetworkInterfaces {
         }
         return inputData;
     }
-    
+
     public static void SendNotificationPacket(Socket socket, NotificationPacket outputObject) throws IOException {
         ObjectOutputStream output = null;
         output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
@@ -192,5 +202,18 @@ public class NetworkInterfaces {
         return inputData;
     }
 
+    public static FriendData RecieveFriendData(Socket socket) throws IOException {
+        ObjectInputStream input = null;
+        FriendData inputData = null;
+        input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+        System.out.println("Getting Input:NotificationPacket");
+        try {
+            inputData = (FriendData) input.readObject();
+        } catch (ClassNotFoundException c) {
+            System.out.println("Class not found");
+            c.printStackTrace();
+        }
+        return inputData;
+    }
 
 }

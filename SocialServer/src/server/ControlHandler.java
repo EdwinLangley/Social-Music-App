@@ -23,39 +23,44 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class ControlHandler {
 
     public static SQLiteJDBCDriverConnection databaseCheck = new SQLiteJDBCDriverConnection();
-    
+
     public static void RegisterUser(UserData userInfo) throws IOException, SQLException {
-        databaseCheck.insertUser(userInfo.firstName, userInfo.lastName, userInfo.username, userInfo.email, userInfo.genreListString,userInfo.image);
+        databaseCheck.insertUser(userInfo.firstName, userInfo.lastName, userInfo.username, userInfo.email, userInfo.genreListString, userInfo.image);
         databaseCheck.insertLoginData(userInfo.username, userInfo.passsword);
     }
 
     public static boolean Login(LoginData loginInfo) throws IOException, SQLException {
-        
+
         return databaseCheck.isGoodLogin(loginInfo.username, loginInfo.passsword) == true;
     }
 
     public static void SearchForFriendRecommendations() {
 
     }
-    
-    public static ArrayList<PostData> getPosts()throws IOException, SQLException, UnsupportedAudioFileException {
-        
+
+    public static ArrayList<PostData> getPosts() throws IOException, SQLException, UnsupportedAudioFileException {
+
         ArrayList<PostData> postList = new ArrayList<PostData>();
 
-        for( int i = databaseCheck.getCurrentPostID(); ((i > (databaseCheck.getCurrentPostID() - 5)) || (i < 0) ); i-- ){
+        for (int i = databaseCheck.getCurrentPostID(); ((i > (databaseCheck.getCurrentPostID() - 5)) || (i < 0)); i--) {
             postList.add(databaseCheck.getPostsByID(i));
         }
-        
+
         return postList;
-        
+
     }
-    
-        public static void addFriend()throws IOException, SQLException {
-        
-            //databaseCheck.addNewFriend(username1, username2);
-        
-        
+
+    public static void addFriend(FriendData friendData) throws IOException, SQLException {
+        databaseCheck.addNewFriend(friendData.username, friendData.otherUsername);
+        databaseCheck.addNewFriend(friendData.otherUsername, friendData.username);
     }
-    
-    
+
+    public static void uploadSong(SongData songInfo) throws IOException, SQLException {
+        databaseCheck.insertSong(databaseCheck.getNextSongID(), songInfo.songName, songInfo.song, songInfo.image, songInfo.artist, songInfo.genreListString, songInfo.username);
+    }
+
+    public static void uploadPost(PostData postData) throws IOException, SQLException {
+        databaseCheck.addPost(databaseCheck.getNextPostID(), postData.postMessage, postData.attachedSong, postData.postMood, postData.username);
+    }
+
 }

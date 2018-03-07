@@ -28,7 +28,7 @@ public class ClientHandler {
     }
 
     public void setUpClientInstance(java.net.Socket socket) {
-        this.ID = Server.currentUsers;
+        //this.ID = Server.currentUsers;
         this.IPAddress = socket.getInetAddress();
     }
 

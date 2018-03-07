@@ -58,11 +58,11 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                 case "EXT"://Logout
                     System.out.println("EXT Switch hit");
                     openConnection = false;
-                    Server.currentUsers--;
+                    Server.currentUsers.remove(inputData.username);
                     break OpenConnectionLoop;
                 case "REG"://Register User
                     System.out.println("REG Switch hit");
-                    Server.currentUsers++;
+                    Server.currentUsers.add(inputData.username);
                     UserData registerUserData = null;
                     try {
                         registerUserData = NetworkInterfaces.RecieveUserData(socket);
@@ -80,8 +80,8 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                     break OpenConnectionLoop;
                 //Call relevant function
                 case "LGN"://Login
+                    Server.currentUsers.add(inputData.username);
                     LoginData loginData = null;
-                    Server.currentUsers++;
                     NotificationPacket loginResponse = new NotificationPacket();
                     try {
                         loginData = NetworkInterfaces.RecieveLoginData(socket);
@@ -89,8 +89,7 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                             loginResponse.setCommand("ACK");
                             loginResponse.setNotification("Good Login");
                             NetworkInterfaces.SendNotificationPacket(socket, loginResponse);
-                        }
-                        else{
+                        } else {
                             loginResponse.setCommand("NAK");
                             loginResponse.setNotification("Bad Login");
                             NetworkInterfaces.SendNotificationPacket(socket, loginResponse);
@@ -103,33 +102,58 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                     //Call relevant function
                     break;
                 case "AFR"://Add Friend
-                    //Call relevant function
-                    break;
+                    try {
+                        FriendData friendData = NetworkInterfaces.RecieveFriendData(socket);
+                        ControlHandler.addFriend(friendData);
+                    } catch (IOException | SQLException ex) {
+                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break OpenConnectionLoop;
                 case "FFR"://Friend Request Response
                     //Call relevant function
                     break;
-                case "PST":
-                    //Push Posts to other clients
-                    //Call relevant function
-
-                    break;
+                case "PST"://Upload Post
+                    System.out.println("PST Switch hit");
+                    try {
+                        PostData postData = NetworkInterfaces.RecievePostData(socket);
+                        ControlHandler.uploadPost(postData);
+                    } catch (IOException | SQLException ex) {
+                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break OpenConnectionLoop;
+                case "RPT"://Request Posts
+                    System.out.println("RPT Switch hit");
+                    try {
+                        NetworkInterfaces.SendPostsData(socket, ControlHandler.getPosts());
+                    } catch (IOException ex) {
+                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (UnsupportedAudioFileException ex) {
+                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break OpenConnectionLoop;
                 case "PYM"://Play music?
+                    
                     //Call relevant function
-                    break;
+                    break OpenConnectionLoop;
                 case "UPS"://Upload Song
                     System.out.println("UPS Switch hit");
+                    try {
+                        SongData songData = NetworkInterfaces.RecieveSongData(socket);
+                        ControlHandler.uploadSong(songData);
+                    } catch (IOException | SQLException ex) {
+                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     break OpenConnectionLoop;
-                //Call relevant function
                 case "RSL"://Request song list
                     //Call relevant function
                     break;
                 case "UMP"://Update the Main Page
                     System.out.println("UMP Switch hit");
 
-                    //Call relevant function
                     break;
                 case "SCT"://Start chat
-                    //Call relevant function
                     break;
                 default:
                     break OpenConnectionLoop;

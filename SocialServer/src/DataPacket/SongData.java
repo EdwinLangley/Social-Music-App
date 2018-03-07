@@ -23,9 +23,9 @@ public class SongData extends UserData {
     public String artist;
     public String album;
     public ArrayList<String> genre;
-    private AudioFormat extension;
+    private File songFile;
     public long songLength;
-    private byte[] song;
+    public byte[] song;
 
     public SongData() {
     }
@@ -39,16 +39,23 @@ public class SongData extends UserData {
         this.album = album;
         this.genre = genre;
         AudioFileFormat aff = AudioSystem.getAudioFileFormat(song);
-        this.extension = aff.getFormat();
+        this.songFile = song;
         this.songLength = aff.getFrameLength();
         this.image = buildByteArray(albumArt);
         this.song = buildByteArray(song);
     }
 
-    public AudioInputStream buildSong() throws IOException {
+    public AudioInputStream buildSong() throws IOException, UnsupportedAudioFileException {
         InputStream bais = new ByteArrayInputStream(this.song);
-        AudioInputStream returnSong = new AudioInputStream(bais, this.extension, this.songLength);
+        AudioInputStream returnSong = new AudioInputStream(bais, getFormat(), this.songLength);
         return returnSong;
+    }
+
+    public AudioFormat getFormat() throws UnsupportedAudioFileException, IOException {
+        AudioFileFormat aff = AudioSystem.getAudioFileFormat(this.songFile);
+        AudioFormat extension;
+        extension = aff.getFormat();
+        return extension;
     }
 
 }
