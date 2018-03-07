@@ -17,6 +17,7 @@ import java.io.Serializable;
 public class DataPacket implements Serializable {
 
     public String command, username;
+    public int ID;
     //private String Data;
     //private ArrayList<String> dataArray=new ArrayList();
 

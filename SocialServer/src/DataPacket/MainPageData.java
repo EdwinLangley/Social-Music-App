@@ -13,17 +13,19 @@ import java.util.ArrayList;
  */
 public class MainPageData extends DataPacket {
 
-    public ArrayList<String> friends;
+    public ArrayList<UserData> allFriends;
+    public ArrayList<UserData> onlineFriends;
     public ArrayList<PostData> friendsPosts;
-    public ArrayList<PostData> inYourNetwork;
+    public ArrayList<SongData> inYourNetwork;
     public ArrayList<SongData> yourQueue;
 
     public MainPageData() {
     }
 
-    public MainPageData(ArrayList<String> friends, ArrayList<PostData> friendsPosts, ArrayList<PostData> inYourNetwork, ArrayList<SongData> yourQueue) {
+    public MainPageData(ArrayList<UserData> allFriends, ArrayList<UserData> onlineFriends, ArrayList<PostData> friendsPosts, ArrayList<SongData> inYourNetwork, ArrayList<SongData> yourQueue) {
         this.command = "MainPageData";
-        this.friends = friends;
+        this.allFriends = allFriends;
+        this.onlineFriends = onlineFriends;
         this.friendsPosts = friendsPosts;
         this.inYourNetwork = inYourNetwork;
         this.yourQueue = yourQueue;

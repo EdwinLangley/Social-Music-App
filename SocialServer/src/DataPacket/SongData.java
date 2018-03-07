@@ -30,6 +30,15 @@ public class SongData extends UserData {
     public SongData() {
     }
 
+    public SongData(int ID, String songName, String artist, String album, ArrayList<String> genre, long songLength) {
+        this.ID = ID;
+        this.songName = songName;
+        this.artist = artist;
+        this.album = album;
+        this.genre = genre;
+        this.songLength = songLength;
+    }
+
     public SongData(int ID, String songName, String artist, String album, ArrayList<String> genre,
             File albumArt, File song) throws UnsupportedAudioFileException, IOException {
         this.command = "SongData";

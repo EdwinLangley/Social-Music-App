@@ -133,10 +133,6 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break OpenConnectionLoop;
-                case "PYM"://Play music?
-                    
-                    //Call relevant function
-                    break OpenConnectionLoop;
                 case "UPS"://Upload Song
                     System.out.println("UPS Switch hit");
                     try {
@@ -146,7 +142,16 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break OpenConnectionLoop;
-                case "RSL"://Request song list
+                case "RSG"://Request song
+                    try {
+                        NetworkInterfaces.SendSongData(socket, ControlHandler.getSong(inputData));
+                    } catch (IOException ex) {
+                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (UnsupportedAudioFileException ex) {
+                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     //Call relevant function
                     break;
                 case "UMP"://Update the Main Page

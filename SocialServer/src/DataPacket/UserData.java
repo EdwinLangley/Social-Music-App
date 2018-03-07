@@ -49,7 +49,7 @@ public class UserData extends LoginData {
 
     }
 
-    public UserData(int userID, String username, String password, String firstName, String lastName, String email, ArrayList<String> genreList, File profilePicture ) {
+    public UserData(int userID, String username, String password, String firstName, String lastName, String email, ArrayList<String> genreList, File profilePicture) {
         this.command = "UserData";
         this.userID = userID;
         this.username = username;
@@ -91,7 +91,7 @@ public class UserData extends LoginData {
             sb.append(s);
             sb.append(",");
         }
-        this.genreListString=sb.toString();
+        this.genreListString = sb.toString();
     }
 
 }

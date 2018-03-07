@@ -63,4 +63,15 @@ public class ControlHandler {
         databaseCheck.addPost(databaseCheck.getNextPostID(), postData.postMessage, postData.attachedSong, postData.postMood, postData.username);
     }
 
+    public static SongData getSong(DataPacket dataPacket) throws IOException, UnsupportedAudioFileException, SQLException {
+        SongData requestedSong = databaseCheck.getSongByID(dataPacket.ID);
+        return requestedSong;
+    }
+    
+    public static MainPageData buildMainPage(DataPacket dataPacket){
+        MainPageData mainPage=null;
+        
+        return mainPage;
+    }
+
 }
