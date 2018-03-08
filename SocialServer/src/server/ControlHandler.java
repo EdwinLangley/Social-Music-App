@@ -70,6 +70,7 @@ public class ControlHandler {
 
     public static MainPageData buildMainPage(DataPacket dataPacket) throws IOException, SQLException, UnsupportedAudioFileException {
         ArrayList<UserData> allFriends = databaseCheck.returnFriends(dataPacket.username);
+        ArrayList<UserData> allUsers = databaseCheck.returnAllUsers();
         ArrayList<UserData> onlineFriends = new ArrayList<>();
         if(server.Server.currentUsers.size() != 0){
             for (int i = 0; i < server.Server.currentUsers.size(); i++) {
@@ -89,7 +90,7 @@ public class ControlHandler {
         }
         ArrayList<SongData> yourQueue = new ArrayList<>();
         yourQueue = databaseCheck.getSongByUserName(dataPacket.username);
-        MainPageData mainPage = new MainPageData(allFriends, onlineFriends, friendsPosts, inYourNetwork, yourQueue);
+        MainPageData mainPage = new MainPageData(allFriends,allUsers, onlineFriends, friendsPosts, inYourNetwork, yourQueue);
         return mainPage;
     }
 

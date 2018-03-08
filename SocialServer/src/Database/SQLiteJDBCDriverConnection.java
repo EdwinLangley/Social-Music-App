@@ -219,7 +219,7 @@ public class SQLiteJDBCDriverConnection {
         // loop through the result set
         while (rs.next()) {
 
-            String genreList = rs.getString("GenreList");
+            String genreList = rs.getString("Genres");
             List<String> genres = Arrays.asList(genreList.split("\\s*,\\s*"));
             ArrayList<String> genreArrayList = new ArrayList<>(genres);
 
@@ -413,5 +413,35 @@ public class SQLiteJDBCDriverConnection {
         System.out.println("================");
 
         //app.updatePicture("UserName", "D:\\Users\\Edwin\\Downloads\\14463110_1206091416079967_1082422483814707867_n.jpg");
+    }
+
+    public ArrayList<UserData> returnAllUsers()throws IOException, SQLException, UnsupportedAudioFileException {
+        ArrayList<UserData> returnedUserData = new ArrayList<UserData>();
+        String sql = "SELECT * FROM UserData";
+
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
+        
+        File file = new File("./src/images/6027fe7edf669a864347e7b011d7c126.jpg");
+        
+        while(rs.next()){
+            
+            String genreList = rs.getString("GenreList");
+            List<String> genres = Arrays.asList(genreList.split("\\s*,\\s*"));
+            ArrayList<String> genreArrayList = new ArrayList<>(genres);
+            
+            UserData tempUser = new UserData(rs.getInt("ID"), rs.getString("UserName"), "", rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), genreArrayList, file);
+            
+            returnedUserData.add(tempUser);
+            
+        }
+        
+        conn.close();
+
+        
+
+        return returnedUserData;
+
     }
 }

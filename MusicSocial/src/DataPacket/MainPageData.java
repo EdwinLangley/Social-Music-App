@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class MainPageData extends DataPacket {
 
     public ArrayList<UserData> allFriends;
+    public ArrayList<UserData> allUsers;
     public ArrayList<UserData> onlineFriends;
     public ArrayList<PostData> friendsPosts;
     public ArrayList<SongData> inYourNetwork;
@@ -22,9 +23,10 @@ public class MainPageData extends DataPacket {
     public MainPageData() {
     }
 
-    public MainPageData(ArrayList<UserData> allFriends, ArrayList<UserData> onlineFriends, ArrayList<PostData> friendsPosts, ArrayList<SongData> inYourNetwork, ArrayList<SongData> yourQueue) {
+    public MainPageData(ArrayList<UserData> allFriends,ArrayList<UserData> allUsers, ArrayList<UserData> onlineFriends, ArrayList<PostData> friendsPosts, ArrayList<SongData> inYourNetwork, ArrayList<SongData> yourQueue) {
         this.command = "MainPageData";
         this.allFriends = allFriends;
+        this.allUsers = allUsers;
         this.onlineFriends = onlineFriends;
         this.friendsPosts = friendsPosts;
         this.inYourNetwork = inYourNetwork;
