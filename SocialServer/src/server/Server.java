@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class Server {
 
-    public static ArrayList<UserData> currentUsers;
+    public static ArrayList<UserData> currentUsers = new ArrayList<UserData>();
     /**
      * @param args the command line arguments
      * 

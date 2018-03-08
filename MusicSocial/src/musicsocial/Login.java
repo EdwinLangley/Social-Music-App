@@ -247,7 +247,11 @@ public class Login extends javax.swing.JFrame {
         
         if(isCorrectLogin) {
           this.dispose();
-            new MusicSocialUI(userNameRetrievedText).setVisible(true);  
+            try {  
+                new MusicSocialUI(userNameRetrievedText).setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Sorry, this login was not correct.");
         }        
