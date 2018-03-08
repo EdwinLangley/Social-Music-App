@@ -151,7 +151,7 @@ public class SQLiteJDBCDriverConnection {
 
         // loop through the result set
         while (rs.next()) {
-            PostData temppost = new PostData(rs.getInt("ID"), rs.getInt("AttachedSong"), rs.getString("Content"), rs.getString("Mood"));
+            PostData temppost = new PostData(rs.getInt("ID"),rs.getString("UserName"), rs.getString("Time") ,rs.getInt("AttachedSong"), rs.getString("Content"), rs.getString("Mood"));
             posts.add(temppost);
         }
 

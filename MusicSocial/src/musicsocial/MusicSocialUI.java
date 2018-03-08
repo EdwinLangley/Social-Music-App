@@ -55,6 +55,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
     MainPageData mpd;
     DefaultListModel friendsModel = new DefaultListModel();
     DefaultListModel allModel = new DefaultListModel();
+    DefaultListModel allFriendsPostsModel = new DefaultListModel();
 
     /**
      * Creates new form MusicSocialUI
@@ -85,7 +86,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
         
         setFriends();
         
-        getAllPosts();
+        //getAllPosts();
 
     }
     
@@ -449,6 +450,17 @@ public class MusicSocialUI extends javax.swing.JFrame {
         }
         
         AllUsersList.setModel(allModel);
+        
+        ArrayList<PostData> AllFriendsPostsArray = mpd.friendsPosts;
+        
+        for(int i = 0; i < AllFriendsPostsArray.size(); i++){
+            PostData singlePost = AllFriendsPostsArray.get(i);
+            String singlePostString = (singlePost.TimePostedString + "    " + singlePost.username + "  posted:  \"" + singlePost.postMessage + "\"" );
+            
+            allFriendsPostsModel.addElement(singlePostString);
+        }
+        
+        PostsDisplay.setModel(allFriendsPostsModel);
             
     } 
     
