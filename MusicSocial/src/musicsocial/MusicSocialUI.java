@@ -1,6 +1,7 @@
 package musicsocial;
 
 import DataPacket.DataPacket;
+import DataPacket.MainPageData;
 import DataPacket.NetworkInterfaces;
 import DataPacket.PostData;
 import java.awt.BorderLayout;
@@ -49,6 +50,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
     int clipTime;
     String currentUser = "";
     JScrollPane scrollPane;
+    MainPageData mpd;
 
     /**
      * Creates new form MusicSocialUI
@@ -60,10 +62,11 @@ public class MusicSocialUI extends javax.swing.JFrame {
                     
         setAlbumArt();
         
+        
         getAllPosts();
     }
 
-    public MusicSocialUI(String username) {
+    public MusicSocialUI(String username) throws IOException {
         initComponents();   
         initListeners();
         currentUser = username;
@@ -71,6 +74,8 @@ public class MusicSocialUI extends javax.swing.JFrame {
         WelcomeLabel.setText("Welcome to MusicSocial " + username + "!");
         
         setAlbumArt();
+        
+        getMainPageData();
         
         getAllPosts();
 
@@ -406,6 +411,31 @@ public class MusicSocialUI extends javax.swing.JFrame {
         });
         
     }
+    
+    private void getMainPageData() throws IOException { 
+        
+        DataPacket MainPagePacket = new DataPacket("UMP", currentUser);
+        
+        InetAddress address = null;
+        try {
+            address = InetAddress.getLocalHost();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Socket socket = null;
+        
+        try {
+          
+        socket = new Socket(address, 9090);    
+        
+        NetworkInterfaces.SendDataPacket(socket, MainPagePacket);
+        mpd = NetworkInterfaces.RecieveMainPageData(socket);
+        
+        } catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Hi");
+    } 
     
     private void PlayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PlayMouseClicked
         String trackName = "D:\\Users\\Edwin\\Music\\marbles-daniel_simon.wav";

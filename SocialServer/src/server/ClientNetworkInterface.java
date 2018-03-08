@@ -127,11 +127,7 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                     System.out.println("RPT Switch hit");
                     try {
                         NetworkInterfaces.SendPostsData(socket, ControlHandler.getPosts());
-                    } catch (IOException ex) {
-                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (UnsupportedAudioFileException ex) {
+                    } catch (IOException | SQLException | UnsupportedAudioFileException ex) {
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break OpenConnectionLoop;
@@ -147,17 +143,19 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                 case "RSG"://Request song
                     try {
                         NetworkInterfaces.SendSongData(socket, ControlHandler.getSong(inputData));
-                    } catch (IOException ex) {
-                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (UnsupportedAudioFileException ex) {
+                    } catch (IOException | SQLException | UnsupportedAudioFileException ex) {
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     //Call relevant function
                     break;
                 case "UMP"://Update the Main Page
                     System.out.println("UMP Switch hit");
+                    try {
+                        NetworkInterfaces.SendMainPageData(socket, ControlHandler.buildMainPage(inputData));
+                    } catch (IOException | SQLException | UnsupportedAudioFileException ex) {
+                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            
 
                     break;
                 case "SCT"://Start chat
