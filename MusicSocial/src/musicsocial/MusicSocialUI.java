@@ -136,6 +136,8 @@ public class MusicSocialUI extends javax.swing.JFrame {
         AddFriendButton = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         AllUsersList = new javax.swing.JList<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        InYourNetworkTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Music Social");
@@ -258,6 +260,40 @@ public class MusicSocialUI extends javax.swing.JFrame {
 
         jScrollPane6.setViewportView(AllUsersList);
 
+        InYourNetworkTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Song", "Artist", "Genres", "Belongs To User"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(InYourNetworkTable);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -285,6 +321,9 @@ public class MusicSocialUI extends javax.swing.JFrame {
                 .addComponent(FirstSep, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(TitleInYourNetwork))
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(TitleFriendsPost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -299,11 +338,9 @@ public class MusicSocialUI extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(PostButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1)
-                            .addComponent(jScrollPane2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(TitleInYourNetwork)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane4))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(SecondSep, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,7 +402,9 @@ public class MusicSocialUI extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(TitleInYourNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(199, 199, 199))
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -472,9 +511,10 @@ public class MusicSocialUI extends javax.swing.JFrame {
             for(int x = 0; x < mySingleSong.genre.size(); x++){
                 genreOutputString += mySingleSong.genre.get(x)+",";
             }
-            String singleMySongString = (mySingleSong.songName + "    " + mySingleSong.artist + "    " + genreOutputString + "    " + mySingleSong.username);
             
-            allMySongsModel.addElement(singleMySongString);
+            String singleMySongString = (mySingleSong.songName + "\t\t" + mySingleSong.artist + "\t\t" + genreOutputString + "\t\t" + mySingleSong.username);
+            
+            allMySongsModel.addElement(mySingleSong.songName + "\t\t" + mySingleSong.artist + "\t\t" + genreOutputString + "\t\t" + mySingleSong.username);
         }
         
         SongsToPlay.setModel(allMySongsModel);
@@ -660,6 +700,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
     private javax.swing.JLabel AttatchedSongLabel;
     private javax.swing.JButton ChatButton;
     private javax.swing.JSeparator FirstSep;
+    private javax.swing.JTable InYourNetworkTable;
     private javax.swing.JComboBox<String> MoodDropDown;
     private javax.swing.JLabel MoodLabel;
     private javax.swing.JLabel Mute;
@@ -685,6 +726,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     // End of variables declaration//GEN-END:variables
