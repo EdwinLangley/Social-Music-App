@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package server;
+import DataPacket.UserData;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  */
 public class Server {
 
-    public static ArrayList<String> currentUsers;
+    public static ArrayList<UserData> currentUsers;
     /**
      * @param args the command line arguments
      * 

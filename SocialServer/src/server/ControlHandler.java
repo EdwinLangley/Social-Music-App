@@ -67,10 +67,26 @@ public class ControlHandler {
         SongData requestedSong = databaseCheck.getSongByID(dataPacket.ID);
         return requestedSong;
     }
-    
-    public static MainPageData buildMainPage(DataPacket dataPacket){
-        MainPageData mainPage=null;
-        
+
+    public static MainPageData buildMainPage(DataPacket dataPacket) throws IOException, SQLException, UnsupportedAudioFileException {
+        ArrayList<UserData> allFriends = databaseCheck.returnFriends(dataPacket.username);
+        ArrayList<UserData> onlineFriends = new ArrayList<>();
+        for (int i = 0; i < server.Server.currentUsers.size(); i++) {
+            if (allFriends.contains(server.Server.currentUsers.get(i))) {
+                onlineFriends.add(server.Server.currentUsers.get(i));
+            }
+        }
+        ArrayList<PostData> friendsPosts = new ArrayList<>();
+        ArrayList<SongData> inYourNetwork = new ArrayList<>();
+        for (int i = 0; i < allFriends.size(); i++) {
+            //Get Posts
+            friendsPosts.addAll(databaseCheck.getPostsBy(allFriends.get(i).username));
+            //Get friends songs
+            inYourNetwork.addAll(databaseCheck.getSongByUserName(allFriends.get(i).username));
+        }
+        ArrayList<SongData> yourQueue = new ArrayList<>();
+        yourQueue = databaseCheck.getSongByUserName(dataPacket.username);
+        MainPageData mainPage = new MainPageData(allFriends, onlineFriends, friendsPosts, inYourNetwork, yourQueue);
         return mainPage;
     }
 

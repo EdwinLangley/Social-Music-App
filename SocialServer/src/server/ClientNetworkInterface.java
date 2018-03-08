@@ -62,7 +62,7 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                     break OpenConnectionLoop;
                 case "REG"://Register User
                     System.out.println("REG Switch hit");
-                    Server.currentUsers.add(inputData.username);
+                    
                     UserData registerUserData = null;
                     try {
                         registerUserData = NetworkInterfaces.RecieveUserData(socket);
@@ -75,12 +75,13 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                     } catch (IOException | SQLException ex) {
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    Server.currentUsers.add(registerUserData);
                     System.out.println(registerUserData.firstName);
                     System.out.println("GOT USER DATA BREAK NEXT");
                     break OpenConnectionLoop;
                 //Call relevant function
                 case "LGN"://Login
-                    Server.currentUsers.add(inputData.username);
+                    
                     LoginData loginData = null;
                     NotificationPacket loginResponse = new NotificationPacket();
                     try {
@@ -97,6 +98,7 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                     } catch (IOException | SQLException ex) {
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
+//                    Server.currentUsers.add(inputData.username);
                     break OpenConnectionLoop;
                 case "SFR"://Search for Friend Recomendations
                     //Call relevant function
