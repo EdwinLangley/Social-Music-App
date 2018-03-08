@@ -140,7 +140,7 @@ public class SQLiteJDBCDriverConnection {
     }
 
     public ArrayList<PostData> getPostsBy(String UserName) throws IOException, SQLException {
-        
+
         ArrayList<PostData> posts = new ArrayList<PostData>();
         String sql = "SELECT * FROM Posts WHERE UserName = ? ";
 
@@ -151,12 +151,12 @@ public class SQLiteJDBCDriverConnection {
 
         // loop through the result set
         while (rs.next()) {
-            PostData temppost = new PostData(rs.getInt("ID"),rs.getInt("AttachedSong"), rs.getString("Content"), rs.getString("Mood"));
+            PostData temppost = new PostData(rs.getInt("ID"), rs.getInt("AttachedSong"), rs.getString("Content"), rs.getString("Mood"));
             posts.add(temppost);
         }
 
         conn.close();
-        
+
         return posts;
     }
 
@@ -203,7 +203,7 @@ public class SQLiteJDBCDriverConnection {
         return returnSong;
 
     }
-    
+
     public ArrayList<SongData> getSongByUserName(String UserName) throws IOException, SQLException, UnsupportedAudioFileException {
         ArrayList<SongData> songs = new ArrayList<SongData>();
         File albumArt = null;
@@ -218,13 +218,11 @@ public class SQLiteJDBCDriverConnection {
 
         // loop through the result set
         while (rs.next()) {
-            
-            
+
             String genreList = rs.getString("GenreList");
             List<String> genres = Arrays.asList(genreList.split("\\s*,\\s*"));
             ArrayList<String> genreArrayList = new ArrayList<>(genres);
-            
-            
+
             returnSong = new SongData(rs.getInt("ID"), rs.getString("Name"), rs.getString("Artist"), rs.getString("Album"), genreArrayList, albumArt, song);
             songs.add(returnSong);
         }
@@ -301,9 +299,9 @@ public class SQLiteJDBCDriverConnection {
         conn.close();
 
     }
-    
+
     public ArrayList<UserData> returnFriends(String username) throws IOException, SQLException {//ArrayList<UserData>
-        
+
         ArrayList<UserData> returnedFriendsData = new ArrayList<UserData>();
         String sql = "SELECT username2 FROM Friendships where username1 = ?";
 
@@ -311,26 +309,25 @@ public class SQLiteJDBCDriverConnection {
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, username);
         ResultSet rs = pstmt.executeQuery();
-        
+
         ArrayList<String> returnedFriends = new ArrayList<String>();
-        
-        while(rs.next()){
+
+        while (rs.next()) {
             returnedFriends.add(rs.getString("username2"));
         }
 
         conn.close();
-        
-        for (int i = 0; i < returnedFriends.size(); i++) {
-			returnedFriendsData.add(this.getUserDataByUserName(returnedFriends.get(i)));
-	}
 
-        return returnedFriendsData; 
-               
+        for (int i = 0; i < returnedFriends.size(); i++) {
+            returnedFriendsData.add(this.getUserDataByUserName(returnedFriends.get(i)));
+        }
+
+        return returnedFriendsData;
 
     }
-    
+
     public UserData getUserDataByUserName(String username) throws IOException, SQLException {//ArrayList<UserData>
-        
+
         UserData returnedFriends = null;
         String sql = "SELECT * FROM UserData WHERE UserName = ? ";
 
@@ -338,25 +335,23 @@ public class SQLiteJDBCDriverConnection {
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, username);
         ResultSet rs = pstmt.executeQuery();
-        
+
         File file = new File("./src/images/6027fe7edf669a864347e7b011d7c126.jpg");
         String password = "";
-        
-        while(rs.next()){
+
+        while (rs.next()) {
             //UserData newUser = new UserData(UserData(rs.getInt("ID"),rs.getString("UserName"),password,rs.getString("FirstName"),rs.getString("LastName"),rs.getString("Email"), rs.getString("GenreList"), file))
             String genreList = rs.getString("GenreList");
             List<String> genres = Arrays.asList(genreList.split("\\s*,\\s*"));
             ArrayList<String> genreArrayList = new ArrayList<>(genres);
-            
-            returnedFriends = new UserData(rs.getInt("ID"),rs.getString("UserName"),password,rs.getString("FirstName"),rs.getString("LastName"),rs.getString("Email"),genreArrayList, file);
-            
-        }
-        
-        conn.close();
-        
-        return returnedFriends;
 
-        
+            returnedFriends = new UserData(rs.getInt("ID"), rs.getString("UserName"), password, rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), genreArrayList, file);
+
+        }
+
+        conn.close();
+
+        return returnedFriends;
 
     }
 
@@ -411,10 +406,8 @@ public class SQLiteJDBCDriverConnection {
 //        app.insertSong(app.getNextSongID(), "SongName", "Data", "Artist", "GenreList", "UserName");
         //app.insertUser("FirstName", "LastName", "UserName", "Email", "GenreList", "blob");
         //app.addNewFriend("Ed", "Joe");
-
         //PostData posts = app.getPostsByID(0);
         //System.out.println(posts.ID + posts.postMessage + posts.username + posts.postMood);
-        
         app.returnFriends("Ed");
         //app.getUserDataByUserName("griffindore");
         System.out.println("================");
