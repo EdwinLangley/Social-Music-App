@@ -5,6 +5,7 @@
  */
 package DataPacket;
 
+import static DataPacket.UserData.buildByteArray;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +31,15 @@ public class SongData extends UserData {
     public SongData() {
     }
 
+    public SongData(int ID, String songName, String artist, String album, ArrayList<String> genre, long songLength) {
+        this.ID = ID;
+        this.songName = songName;
+        this.artist = artist;
+        this.album = album;
+        this.genre = genre;
+        this.songLength = songLength;
+    }
+
     public SongData(int ID, String songName, String artist, String album, ArrayList<String> genre,
             File albumArt, File song) throws UnsupportedAudioFileException, IOException {
         this.command = "SongData";
@@ -43,6 +53,16 @@ public class SongData extends UserData {
         this.songLength = aff.getFrameLength();
         this.image = buildByteArray(albumArt);
         this.song = buildByteArray(song);
+    }
+    
+    public SongData(int ID, String songName, String artist, String album, ArrayList<String> genre, String UserName) throws UnsupportedAudioFileException, IOException {
+        this.command = "SongData";
+        this.ID = ID;
+        this.songName = songName;
+        this.artist = artist;
+        this.album = album;
+        this.genre = genre;
+        this.username = UserName;
     }
 
     public AudioInputStream buildSong() throws IOException, UnsupportedAudioFileException {

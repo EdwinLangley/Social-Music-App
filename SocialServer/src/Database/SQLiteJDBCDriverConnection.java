@@ -223,7 +223,7 @@ public class SQLiteJDBCDriverConnection {
             List<String> genres = Arrays.asList(genreList.split("\\s*,\\s*"));
             ArrayList<String> genreArrayList = new ArrayList<>(genres);
 
-            returnSong = new SongData(rs.getInt("ID"), rs.getString("Name"), rs.getString("Artist"), rs.getString("Album"), genreArrayList, albumArt, song);
+            returnSong = new SongData(rs.getInt("ID"), rs.getString("Name"), rs.getString("Artist"), rs.getString("Album"), genreArrayList,rs.getString("UserName") );
             songs.add(returnSong);
         }
 

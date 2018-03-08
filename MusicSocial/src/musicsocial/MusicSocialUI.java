@@ -4,6 +4,7 @@ import DataPacket.DataPacket;
 import DataPacket.MainPageData;
 import DataPacket.NetworkInterfaces;
 import DataPacket.PostData;
+import DataPacket.SongData;
 import DataPacket.UserData;
 import java.awt.BorderLayout;
 import java.awt.Image;
@@ -56,6 +57,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
     DefaultListModel friendsModel = new DefaultListModel();
     DefaultListModel allModel = new DefaultListModel();
     DefaultListModel allFriendsPostsModel = new DefaultListModel();
+    DefaultListModel allMySongsModel = new DefaultListModel();
 
     /**
      * Creates new form MusicSocialUI
@@ -461,6 +463,21 @@ public class MusicSocialUI extends javax.swing.JFrame {
         }
         
         PostsDisplay.setModel(allFriendsPostsModel);
+        
+        ArrayList<SongData> AllMySongsArray = mpd.yourQueue;
+        
+        for(int i = 0; i < AllMySongsArray.size(); i++){
+            String genreOutputString = "";
+            SongData mySingleSong = AllMySongsArray.get(i);
+            for(int x = 0; x < mySingleSong.genre.size(); x++){
+                genreOutputString += mySingleSong.genre.get(x)+",";
+            }
+            String singleMySongString = (mySingleSong.songName + "    " + mySingleSong.artist + "    " + genreOutputString + "    " + mySingleSong.username);
+            
+            allMySongsModel.addElement(singleMySongString);
+        }
+        
+        SongsToPlay.setModel(allMySongsModel);
             
     } 
     

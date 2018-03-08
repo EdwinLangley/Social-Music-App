@@ -53,6 +53,16 @@ public class SongData extends UserData {
         this.image = buildByteArray(albumArt);
         this.song = buildByteArray(song);
     }
+    
+        public SongData(int ID, String songName, String artist, String album, ArrayList<String> genre, String UserName) throws UnsupportedAudioFileException, IOException {
+        this.command = "SongData";
+        this.ID = ID;
+        this.songName = songName;
+        this.artist = artist;
+        this.album = album;
+        this.genre = genre;
+        this.username = UserName;
+    }
 
     public AudioInputStream buildSong() throws IOException, UnsupportedAudioFileException {
         InputStream bais = new ByteArrayInputStream(this.song);
