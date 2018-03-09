@@ -654,12 +654,12 @@ public class MusicSocialUI extends javax.swing.JFrame {
     private void PostButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PostButtonMouseClicked
         String retrievedPostContent = PostField.getText();
         String retrievedMood = MoodDropDown.getSelectedItem().toString();
-        String retrievedSong = AttatchedSong.getSelectedItem().toString();
+        int retrievedSong = (int) AttatchedSong.getSelectedItem(); //AttatchedSong.getSelectedItem().toInt();
         
         //PostData postData = new PostData(AttatchedSong, retrievedPostContent, retrievedMood);
         
         DataPacket PostDataPacket = new DataPacket("PST");
-        //PostData PostContent = new PostData(0, retrievedSong, retrievedPostContent, retrievedMood);
+        PostData PostContent = new PostData(0, retrievedSong, retrievedPostContent, retrievedMood, currentUser);
         
         InetAddress address = null;
         
@@ -677,7 +677,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
             //Second sends data
             //Only close socket afterwards
             NetworkInterfaces.SendDataPacket(socket, PostDataPacket);
-            //NetworkInterfaces.SendPostData(socket, postData);
+            NetworkInterfaces.SendPostData(socket, PostContent);
         } catch (IOException ex) {
             Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
         }
