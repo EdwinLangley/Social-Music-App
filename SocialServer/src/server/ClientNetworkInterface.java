@@ -157,7 +157,7 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                     }
             
 
-                    break;
+                   break OpenConnectionLoop;
                 case "SCT"://Start chat
                     break;
                 default:
