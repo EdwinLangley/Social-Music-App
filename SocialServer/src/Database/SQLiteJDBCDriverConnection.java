@@ -12,7 +12,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -186,16 +188,29 @@ public class SQLiteJDBCDriverConnection {
         ArrayList<String> Genres = new ArrayList<String>();
         SongData returnSong = null;
         String sql = "SELECT * FROM Songs WHERE ID = ? ";
+        
+        FileOutputStream fos = null;
 
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, ID);
         ResultSet rs = pstmt.executeQuery();
+        
+        File PPicFile = new File("PPic");
+        fos = new FileOutputStream(PPicFile);
 
         // loop through the result set
         while (rs.next()) {
-            Genres.add(rs.getString("Genres"));
-            returnSong = new SongData(rs.getInt("ID"), rs.getString("Name"), rs.getString("Artist"), rs.getString("Album"), rs.getString("Genres"),rs.getString("UserName") );
+            InputStream input = rs.getBinaryStream("Art");
+            
+            byte[] buffer = new byte[1024];
+            
+            while (input.read(buffer) > 0) {
+                    fos.write(buffer);
+            }
+            
+
+            returnSong = new SongData(PPicFile,rs.getBytes("Data"));
         }
 
         conn.close();

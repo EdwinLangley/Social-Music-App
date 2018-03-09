@@ -6,11 +6,13 @@
 package DataPacket;
 
 import static DataPacket.UserData.buildByteArray;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 
 /**
@@ -28,6 +30,7 @@ public class SongData extends UserData {
     public long songLength;
     public byte[] song;
     public String userName;
+    public File AlbumArt;
 
     public SongData() {
     }
@@ -64,7 +67,7 @@ public class SongData extends UserData {
         this.artist = artist;
         this.album = album;
         this.genre = genre;
-        this.userName = UserName;
+        this.username = UserName;
     }
 
     public AudioInputStream buildSong() throws IOException, UnsupportedAudioFileException {
@@ -78,6 +81,16 @@ public class SongData extends UserData {
         AudioFormat extension;
         extension = aff.getFormat();
         return extension;
+    }
+    
+    public SongData(File albumArt, byte[] song) throws UnsupportedAudioFileException, IOException {
+        this.AlbumArt = albumArt;
+        this.song = song;
+    }
+    
+    public BufferedImage buildImageAlbumArt(byte[] img) throws IOException {
+        BufferedImage returnImage = ImageIO.read(new ByteArrayInputStream(img));
+        return returnImage;
     }
 
 }

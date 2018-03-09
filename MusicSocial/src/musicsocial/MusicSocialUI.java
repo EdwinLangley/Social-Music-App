@@ -60,6 +60,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
     String currentUser = "";
     JScrollPane scrollPane;
     MainPageData mpd;
+    SongData currentSongData;
     DefaultListModel friendsModel = new DefaultListModel();
     DefaultListModel allModel = new DefaultListModel();
     DefaultListModel allFriendsPostsModel = new DefaultListModel();
@@ -487,13 +488,36 @@ public class MusicSocialUI extends javax.swing.JFrame {
         
         YourQueueTable.getSelectionModel().addListSelectionListener(e ->{
             if (! e.getValueIsAdjusting()){
-            System.out.println(YourQueueTable.getValueAt(YourQueueTable.getSelectedRow(), 0).toString());
+            //System.out.println(YourQueueTable.getValueAt(YourQueueTable.getSelectedRow(), 0).toString());
+            DataPacket reqSong = new DataPacket("RSG",(int) YourQueueTable.getValueAt(YourQueueTable.getSelectedRow(), 0));
+            
+            InetAddress address = null;
+            try {
+                address = InetAddress.getLocalHost();
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Socket socket = null;
+
+            try {
+
+            socket = new Socket(address, 9090);    
+
+            NetworkInterfaces.SendDataPacket(socket, reqSong);
+            currentSongData = NetworkInterfaces.RecieveSongData(socket);
+
+            } catch (IOException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            setAlbumArtFromDB(currentSongData.AlbumArt);
+            
             }
         });
 
         InYourNetworkTable.getSelectionModel().addListSelectionListener(e ->{
             if (! e.getValueIsAdjusting()){
-            System.out.println(InYourNetworkTable.getValueAt(InYourNetworkTable.getSelectedRow(), 0).toString());
+                System.out.println(InYourNetworkTable.getValueAt(InYourNetworkTable.getSelectedRow(), 0).toString());
             }
         });
 
@@ -661,6 +685,21 @@ public class MusicSocialUI extends javax.swing.JFrame {
         AlbumArt.setIcon(icon);
    }                                          
 
+    private void setAlbumArtFromDB(File inImage) { 
+
+        File file = inImage;
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(inImage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Image dimg = img.getScaledInstance(AlbumArt.getWidth(), AlbumArt.getHeight(),
+                Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(dimg);
+        AlbumArt.setIcon(icon);
+   }   
     
     private void PostButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PostButtonMouseClicked
         String retrievedPostContent = PostField.getText();

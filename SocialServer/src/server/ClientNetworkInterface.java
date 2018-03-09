@@ -147,7 +147,8 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     //Call relevant function
-                    break;
+                    break OpenConnectionLoop;
+                    
                 case "UMP"://Update the Main Page
                     System.out.println("UMP Switch hit");
                     try {
