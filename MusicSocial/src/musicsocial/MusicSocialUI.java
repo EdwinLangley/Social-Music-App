@@ -524,11 +524,9 @@ public class MusicSocialUI extends javax.swing.JFrame {
         for(int i = 0; i < AllMySongsArray.size(); i++){
             String genreOutputString = "";
             SongData mySingleSong = AllMySongsArray.get(i);
-            for(int x = 0; x < mySingleSong.genre.size(); x++){
-                genreOutputString += mySingleSong.genre.get(x)+",";
-            }
+
             
-            allMySongsTableModel.addRow(new Object[]{mySingleSong.ID,mySingleSong.songName,mySingleSong.artist, genreOutputString, mySingleSong.username});
+            allMySongsTableModel.addRow(new Object[]{mySingleSong.ID,mySingleSong.songName,mySingleSong.artist, mySingleSong.genre, mySingleSong.username});
         }
         
         TableColumnModel allMyQueueColumnModel = YourQueueTable.getColumnModel();
@@ -541,11 +539,8 @@ public class MusicSocialUI extends javax.swing.JFrame {
         for(int i = 0; i < inYourNetwoekQueue.size(); i++){
             String genreOutputString = "";
             SongData yourSingleSong = inYourNetwoekQueue.get(i);
-            for(int x = 0; x < yourSingleSong.genre.size(); x++){
-                genreOutputString += yourSingleSong.genre.get(x)+",";
-            }
             
-            allNetworkSongsTableModel.addRow(new Object[]{yourSingleSong.ID,yourSingleSong.songName,yourSingleSong.artist, genreOutputString, yourSingleSong.username});
+            allNetworkSongsTableModel.addRow(new Object[]{yourSingleSong.ID,yourSingleSong.songName,yourSingleSong.artist, yourSingleSong.genre, yourSingleSong.username});
         }
       
         TableColumnModel allNetworkSongsTableColumnModel = InYourNetworkTable.getColumnModel();
@@ -629,7 +624,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
     }//GEN-LAST:event_addSongButtonActionPerformed
 
     private void addSongButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addSongButtonMouseClicked
-        new UploadSong().setVisible(true);
+        new UploadSong(currentUser).setVisible(true);
     }//GEN-LAST:event_addSongButtonMouseClicked
 
         private void setAlbumArt() { 

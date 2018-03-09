@@ -31,11 +31,18 @@ public class UploadSong extends javax.swing.JFrame {
 
     File attachImage = null;
     File attachSong = null;
+    String GlobalUserName = "";
     /**
      * Creates new form UploadSong
      */
     public UploadSong() {
         initComponents();
+    }
+    
+    public UploadSong(String inputUserName) {
+        
+        initComponents();
+        GlobalUserName = inputUserName;
     }
 
     /**
@@ -365,12 +372,22 @@ public class UploadSong extends javax.swing.JFrame {
     private void addSongButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addSongButtonMouseClicked
         ArrayList<String> genreArrayList = takeCheckBoxGenres();
         
+        String GenreString = "";
+        
+        for(int i = 0; i < genreArrayList.size() ; i++){
+            GenreString += genreArrayList.get(i);
+            if(i != (genreArrayList.size() - 1) ){
+                GenreString+=",";
+            }
+        }
+        
+        
         String songName = nameField.getText();
         String songArtist = artistField.getText();
-        DataPacket genreDataPacket = new DataPacket("UPS");
+        DataPacket genreDataPacket = new DataPacket("UPS",GlobalUserName);
         SongData songContent = null;
         try {
-            songContent = new SongData(0, songName, songArtist, songName, genreArrayList, attachImage, attachSong);
+            songContent = new SongData(0, songName, songArtist, songName, GenreString, GlobalUserName, attachImage, attachSong);
         } catch (UnsupportedAudioFileException ex) {
             Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

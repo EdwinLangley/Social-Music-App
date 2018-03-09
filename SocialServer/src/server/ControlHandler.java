@@ -56,7 +56,8 @@ public class ControlHandler {
     }
 
     public static void uploadSong(SongData songInfo) throws IOException, SQLException {
-        databaseCheck.insertSong(databaseCheck.getNextSongID(), songInfo.songName, songInfo.song, songInfo.image, songInfo.artist, songInfo.genreListString, songInfo.username);
+        System.out.println(songInfo.userName);
+        databaseCheck.insertSong(databaseCheck.getNextSongID(), songInfo.songName, songInfo.song, songInfo.image, songInfo.artist, songInfo.genre, songInfo.userName);
     }
 
     public static void uploadPost(PostData postData) throws IOException, SQLException {

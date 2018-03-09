@@ -172,7 +172,7 @@ public class SQLiteJDBCDriverConnection {
 
         // loop through the result set
         while (rs.next()) {
-            returnPost = new PostData(rs.getInt("ID"), this.getSongByID(ID).ID, rs.getString("Content"), rs.getString("Mood"));
+            returnPost = new PostData(rs.getInt("ID"),rs.getString("UserName"), rs.getString("Time") ,rs.getInt("AttachedSong"), rs.getString("Content"), rs.getString("Mood"));
         }
 
         conn.close();
@@ -195,7 +195,7 @@ public class SQLiteJDBCDriverConnection {
         // loop through the result set
         while (rs.next()) {
             Genres.add(rs.getString("Genres"));
-            returnSong = new SongData(rs.getInt("ID"), rs.getString("Name"), rs.getString("Artist"), rs.getString("Album"), Genres, albumArt, song);
+            returnSong = new SongData(rs.getInt("ID"), rs.getString("Name"), rs.getString("Artist"), rs.getString("Album"), rs.getString("Genres"), albumArt, song);
         }
 
         conn.close();
@@ -223,7 +223,7 @@ public class SQLiteJDBCDriverConnection {
             List<String> genres = Arrays.asList(genreList.split("\\s*,\\s*"));
             ArrayList<String> genreArrayList = new ArrayList<>(genres);
 
-            returnSong = new SongData(rs.getInt("ID"), rs.getString("Name"), rs.getString("Artist"), rs.getString("Album"), genreArrayList,rs.getString("UserName") );
+            returnSong = new SongData(rs.getInt("ID"), rs.getString("Name"), rs.getString("Artist"), rs.getString("Album"), rs.getString("Genres"),rs.getString("UserName") );
             songs.add(returnSong);
         }
 

@@ -23,15 +23,16 @@ public class SongData extends UserData {
     public String songName;
     public String artist;
     public String album;
-    public ArrayList<String> genre;
+    public String genre;
     private File songFile;
     public long songLength;
     public byte[] song;
+    public String userName;
 
     public SongData() {
     }
 
-    public SongData(int ID, String songName, String artist, String album, ArrayList<String> genre, long songLength) {
+    public SongData(int ID, String songName, String artist, String album, String genre, long songLength) {
         this.ID = ID;
         this.songName = songName;
         this.artist = artist;
@@ -40,7 +41,7 @@ public class SongData extends UserData {
         this.songLength = songLength;
     }
 
-    public SongData(int ID, String songName, String artist, String album, ArrayList<String> genre,
+    public SongData(int ID, String songName, String artist, String album, String genre, String UserName,
             File albumArt, File song) throws UnsupportedAudioFileException, IOException {
         this.command = "SongData";
         this.ID = ID;
@@ -53,16 +54,17 @@ public class SongData extends UserData {
         this.songLength = aff.getFrameLength();
         this.image = buildByteArray(albumArt);
         this.song = buildByteArray(song);
+        this.userName = UserName;
     }
     
-    public SongData(int ID, String songName, String artist, String album, ArrayList<String> genre, String UserName) throws UnsupportedAudioFileException, IOException {
+    public SongData(int ID, String songName, String artist, String album, String genre, String UserName) throws UnsupportedAudioFileException, IOException {
         this.command = "SongData";
         this.ID = ID;
         this.songName = songName;
         this.artist = artist;
         this.album = album;
         this.genre = genre;
-        this.username = UserName;
+        this.userName = UserName;
     }
 
     public AudioInputStream buildSong() throws IOException, UnsupportedAudioFileException {
