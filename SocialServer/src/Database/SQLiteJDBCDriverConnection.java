@@ -195,7 +195,7 @@ public class SQLiteJDBCDriverConnection {
         // loop through the result set
         while (rs.next()) {
             Genres.add(rs.getString("Genres"));
-            returnSong = new SongData(rs.getInt("ID"), rs.getString("Name"), rs.getString("Artist"), rs.getString("Album"), rs.getString("Genres"), albumArt, song);
+            returnSong = new SongData(rs.getInt("ID"), rs.getString("Name"), rs.getString("Artist"), rs.getString("Album"), rs.getString("Genres"),rs.getString("UserName") );
         }
 
         conn.close();
