@@ -35,6 +35,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 
 /*
@@ -262,14 +263,14 @@ public class MusicSocialUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Song", "Artist", "Genres", "Belongs To User"
+                "ID", "Song", "Artist", "Genres", "Belongs To User"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -287,14 +288,14 @@ public class MusicSocialUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Song", "Artist", "Genres", "Belongs To User"
+                "ID", "Song", "Artist", "Genres", "Belongs To User"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -523,8 +524,11 @@ public class MusicSocialUI extends javax.swing.JFrame {
                 genreOutputString += mySingleSong.genre.get(x)+",";
             }
             
-            allMySongsTableModel.addRow(new Object[]{mySingleSong.songName,mySingleSong.artist, genreOutputString, mySingleSong.username});
+            allMySongsTableModel.addRow(new Object[]{mySingleSong.ID,mySingleSong.songName,mySingleSong.artist, genreOutputString, mySingleSong.username});
         }
+        
+        TableColumnModel allMyQueueColumnModel = YourQueueTable.getColumnModel();
+        allMyQueueColumnModel.getColumn(0).setPreferredWidth(10);
       
         YourQueueTable.setModel(allMySongsTableModel);
         
@@ -537,9 +541,12 @@ public class MusicSocialUI extends javax.swing.JFrame {
                 genreOutputString += yourSingleSong.genre.get(x)+",";
             }
             
-            allNetworkSongsTableModel.addRow(new Object[]{yourSingleSong.songName,yourSingleSong.artist, genreOutputString, yourSingleSong.username});
+            allNetworkSongsTableModel.addRow(new Object[]{yourSingleSong.ID,yourSingleSong.songName,yourSingleSong.artist, genreOutputString, yourSingleSong.username});
         }
       
+        TableColumnModel allNetworkSongsTableColumnModel = InYourNetworkTable.getColumnModel();
+        allNetworkSongsTableColumnModel.getColumn(0).setPreferredWidth(10);
+        
         InYourNetworkTable.setModel(allNetworkSongsTableModel);
         
         
