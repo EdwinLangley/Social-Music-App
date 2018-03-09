@@ -8,6 +8,7 @@ import DataPacket.SongData;
 import DataPacket.UserData;
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.awt.List;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -32,6 +33,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
@@ -91,7 +93,9 @@ public class MusicSocialUI extends javax.swing.JFrame {
         
         // you want to put any updates here because above this point the main page data will not exist yet
         
-        setFriends();
+        LoadMainPageDataIntoUI();
+        
+        LoadSongIDsIntoComboBox();
         
         //getAllPosts();
 
@@ -481,7 +485,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
         
     }
     
-    private void setFriends() throws IOException { 
+     private void LoadMainPageDataIntoUI() throws IOException { 
     
         ArrayList<UserData> friends = mpd.allFriends;
         
@@ -551,6 +555,20 @@ public class MusicSocialUI extends javax.swing.JFrame {
         
         
             
+    } 
+    
+    private void LoadSongIDsIntoComboBox() throws IOException { 
+        
+        ArrayList<Integer> ComboBoxOptions;
+        ComboBoxOptions = new ArrayList<Integer>();
+        
+        for(int i = 0; i < mpd.yourQueue.size(); i++){
+            SongData temp = mpd.yourQueue.get(i);
+            ComboBoxOptions.add(temp.ID);
+        }
+        
+        AttatchedSong.setModel(new DefaultComboBoxModel(ComboBoxOptions.toArray()));
+        
     } 
     
     
