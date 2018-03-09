@@ -36,6 +36,8 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -483,6 +485,20 @@ public class MusicSocialUI extends javax.swing.JFrame {
         
         });
         
+        YourQueueTable.getSelectionModel().addListSelectionListener(e ->{
+            if (! e.getValueIsAdjusting()){
+            System.out.println(YourQueueTable.getValueAt(YourQueueTable.getSelectedRow(), 0).toString());
+            }
+        });
+
+        InYourNetworkTable.getSelectionModel().addListSelectionListener(e ->{
+            if (! e.getValueIsAdjusting()){
+            System.out.println(InYourNetworkTable.getValueAt(InYourNetworkTable.getSelectedRow(), 0).toString());
+            }
+        });
+
+        
+
     }
     
      private void LoadMainPageDataIntoUI() throws IOException { 
