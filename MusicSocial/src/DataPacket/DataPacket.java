@@ -50,4 +50,9 @@ public class DataPacket implements Serializable {
         this.command = command;
         this.username = username;
     }
+    
+    public DataPacket(String command, int Id) {
+        this.command = command;
+        this.ID = Id;
+    }
 }

@@ -12,7 +12,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -151,7 +153,7 @@ public class SQLiteJDBCDriverConnection {
 
         // loop through the result set
         while (rs.next()) {
-            PostData temppost = new PostData(rs.getInt("ID"), rs.getInt("AttachedSong"), rs.getString("Content"), rs.getString("Mood"));
+            PostData temppost = new PostData(rs.getInt("ID"),rs.getString("UserName"), rs.getString("Time") ,rs.getInt("AttachedSong"), rs.getString("Content"), rs.getString("Mood"));
             posts.add(temppost);
         }
 
@@ -172,7 +174,7 @@ public class SQLiteJDBCDriverConnection {
 
         // loop through the result set
         while (rs.next()) {
-            returnPost = new PostData(rs.getInt("ID"), this.getSongByID(ID).ID, rs.getString("Content"), rs.getString("Mood"));
+            returnPost = new PostData(rs.getInt("ID"),rs.getString("UserName"), rs.getString("Time") ,rs.getInt("AttachedSong"), rs.getString("Content"), rs.getString("Mood"));
         }
 
         conn.close();
@@ -186,16 +188,29 @@ public class SQLiteJDBCDriverConnection {
         ArrayList<String> Genres = new ArrayList<String>();
         SongData returnSong = null;
         String sql = "SELECT * FROM Songs WHERE ID = ? ";
+        
+        FileOutputStream fos = null;
 
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, ID);
         ResultSet rs = pstmt.executeQuery();
+        
+        File PPicFile = new File("PPic");
+        fos = new FileOutputStream(PPicFile);
 
         // loop through the result set
         while (rs.next()) {
-            Genres.add(rs.getString("Genres"));
-            returnSong = new SongData(rs.getInt("ID"), rs.getString("Name"), rs.getString("Artist"), rs.getString("Album"), Genres, albumArt, song);
+            InputStream input = rs.getBinaryStream("Art");
+            
+            byte[] buffer = new byte[1024];
+            
+            while (input.read(buffer) > 0) {
+                    fos.write(buffer);
+            }
+            
+
+            returnSong = new SongData(PPicFile,rs.getBytes("Data"));
         }
 
         conn.close();
@@ -219,11 +234,11 @@ public class SQLiteJDBCDriverConnection {
         // loop through the result set
         while (rs.next()) {
 
-            String genreList = rs.getString("GenreList");
+            String genreList = rs.getString("Genres");
             List<String> genres = Arrays.asList(genreList.split("\\s*,\\s*"));
             ArrayList<String> genreArrayList = new ArrayList<>(genres);
 
-            returnSong = new SongData(rs.getInt("ID"), rs.getString("Name"), rs.getString("Artist"), rs.getString("Album"), genreArrayList, albumArt, song);
+            returnSong = new SongData(rs.getInt("ID"), rs.getString("Name"), rs.getString("Artist"), rs.getString("Album"), rs.getString("Genres"),rs.getString("UserName") );
             songs.add(returnSong);
         }
 
@@ -413,5 +428,35 @@ public class SQLiteJDBCDriverConnection {
         System.out.println("================");
 
         //app.updatePicture("UserName", "D:\\Users\\Edwin\\Downloads\\14463110_1206091416079967_1082422483814707867_n.jpg");
+    }
+
+    public ArrayList<UserData> returnAllUsers()throws IOException, SQLException, UnsupportedAudioFileException {
+        ArrayList<UserData> returnedUserData = new ArrayList<UserData>();
+        String sql = "SELECT * FROM UserData";
+
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
+        
+        File file = new File("./src/images/6027fe7edf669a864347e7b011d7c126.jpg");
+        
+        while(rs.next()){
+            
+            String genreList = rs.getString("GenreList");
+            List<String> genres = Arrays.asList(genreList.split("\\s*,\\s*"));
+            ArrayList<String> genreArrayList = new ArrayList<>(genres);
+            
+            UserData tempUser = new UserData(rs.getInt("ID"), rs.getString("UserName"), "", rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), genreArrayList, file);
+            
+            returnedUserData.add(tempUser);
+            
+        }
+        
+        conn.close();
+
+        
+
+        return returnedUserData;
+
     }
 }

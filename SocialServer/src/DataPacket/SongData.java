@@ -5,11 +5,14 @@
  */
 package DataPacket;
 
+import static DataPacket.UserData.buildByteArray;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 
 /**
@@ -22,15 +25,17 @@ public class SongData extends UserData {
     public String songName;
     public String artist;
     public String album;
-    public ArrayList<String> genre;
+    public String genre;
     private File songFile;
     public long songLength;
     public byte[] song;
+    public String userName;
+    public File AlbumArt;
 
     public SongData() {
     }
 
-    public SongData(int ID, String songName, String artist, String album, ArrayList<String> genre, long songLength) {
+    public SongData(int ID, String songName, String artist, String album, String genre, long songLength) {
         this.ID = ID;
         this.songName = songName;
         this.artist = artist;
@@ -39,7 +44,7 @@ public class SongData extends UserData {
         this.songLength = songLength;
     }
 
-    public SongData(int ID, String songName, String artist, String album, ArrayList<String> genre,
+    public SongData(int ID, String songName, String artist, String album, String genre, String UserName,
             File albumArt, File song) throws UnsupportedAudioFileException, IOException {
         this.command = "SongData";
         this.ID = ID;
@@ -52,6 +57,17 @@ public class SongData extends UserData {
         this.songLength = aff.getFrameLength();
         this.image = buildByteArray(albumArt);
         this.song = buildByteArray(song);
+        this.userName = UserName;
+    }
+    
+    public SongData(int ID, String songName, String artist, String album, String genre, String UserName) throws UnsupportedAudioFileException, IOException {
+        this.command = "SongData";
+        this.ID = ID;
+        this.songName = songName;
+        this.artist = artist;
+        this.album = album;
+        this.genre = genre;
+        this.username = UserName;
     }
 
     public AudioInputStream buildSong() throws IOException, UnsupportedAudioFileException {
@@ -65,6 +81,16 @@ public class SongData extends UserData {
         AudioFormat extension;
         extension = aff.getFormat();
         return extension;
+    }
+    
+    public SongData(File albumArt, byte[] song) throws UnsupportedAudioFileException, IOException {
+        this.AlbumArt = albumArt;
+        this.song = song;
+    }
+    
+    public BufferedImage buildImageAlbumArt(byte[] img) throws IOException {
+        BufferedImage returnImage = ImageIO.read(new ByteArrayInputStream(img));
+        return returnImage;
     }
 
 }

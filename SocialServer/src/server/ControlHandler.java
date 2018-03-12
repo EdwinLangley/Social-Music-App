@@ -56,7 +56,8 @@ public class ControlHandler {
     }
 
     public static void uploadSong(SongData songInfo) throws IOException, SQLException {
-        databaseCheck.insertSong(databaseCheck.getNextSongID(), songInfo.songName, songInfo.song, songInfo.image, songInfo.artist, songInfo.genreListString, songInfo.username);
+        System.out.println(songInfo.userName);
+        databaseCheck.insertSong(databaseCheck.getNextSongID(), songInfo.songName, songInfo.song, songInfo.image, songInfo.artist, songInfo.genre, songInfo.userName);
     }
 
     public static void uploadPost(PostData postData) throws IOException, SQLException {
@@ -70,12 +71,16 @@ public class ControlHandler {
 
     public static MainPageData buildMainPage(DataPacket dataPacket) throws IOException, SQLException, UnsupportedAudioFileException {
         ArrayList<UserData> allFriends = databaseCheck.returnFriends(dataPacket.username);
+        ArrayList<UserData> allUsers = databaseCheck.returnAllUsers();
         ArrayList<UserData> onlineFriends = new ArrayList<>();
-        for (int i = 0; i < server.Server.currentUsers.size(); i++) {
-            if (allFriends.contains(server.Server.currentUsers.get(i))) {
-                onlineFriends.add(server.Server.currentUsers.get(i));
+        if(server.Server.currentUsers.size() != 0){
+            for (int i = 0; i < server.Server.currentUsers.size(); i++) {
+                if (allFriends.contains(server.Server.currentUsers.get(i))) {
+                    onlineFriends.add(server.Server.currentUsers.get(i));
+                }
             }
         }
+        
         ArrayList<PostData> friendsPosts = new ArrayList<>();
         ArrayList<SongData> inYourNetwork = new ArrayList<>();
         for (int i = 0; i < allFriends.size(); i++) {
@@ -86,7 +91,7 @@ public class ControlHandler {
         }
         ArrayList<SongData> yourQueue = new ArrayList<>();
         yourQueue = databaseCheck.getSongByUserName(dataPacket.username);
-        MainPageData mainPage = new MainPageData(allFriends, onlineFriends, friendsPosts, inYourNetwork, yourQueue);
+        MainPageData mainPage = new MainPageData(allFriends,allUsers, onlineFriends, friendsPosts, inYourNetwork, yourQueue);
         return mainPage;
     }
 
