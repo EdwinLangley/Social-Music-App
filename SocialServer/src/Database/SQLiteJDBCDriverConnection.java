@@ -182,42 +182,42 @@ public class SQLiteJDBCDriverConnection {
         return returnPost;
     }
 
-    public SongData getSongByID(int ID) throws IOException, SQLException, UnsupportedAudioFileException {
-        File albumArt = null;
-        File song = null;
-        ArrayList<String> Genres = new ArrayList<String>();
-        SongData returnSong = null;
-        String sql = "SELECT * FROM Songs WHERE ID = ? ";
-        
-        FileOutputStream fos = null;
-
-        Connection conn = this.connect();
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setInt(1, ID);
-        ResultSet rs = pstmt.executeQuery();
-        
-        File PPicFile = new File("PPic");
-        fos = new FileOutputStream(PPicFile);
-
-        // loop through the result set
-        while (rs.next()) {
-            InputStream input = rs.getBinaryStream("Art");
-            
-            byte[] buffer = new byte[1024];
-            
-            while (input.read(buffer) > 0) {
-                    fos.write(buffer);
-            }
-            
-
-            returnSong = new SongData(PPicFile,rs.getBytes("Data"));
-        }
-
-        conn.close();
-
-        return returnSong;
-
-    }
+//    public SongData getSongByID(int ID) throws IOException, SQLException, UnsupportedAudioFileException {
+//        File albumArt = null;
+//        File song = null;
+//        ArrayList<String> Genres = new ArrayList<String>();
+//        SongData returnSong = null;
+//        String sql = "SELECT * FROM Songs WHERE ID = ? ";
+//        
+//        FileOutputStream fos = null;
+//
+//        Connection conn = this.connect();
+//        PreparedStatement pstmt = conn.prepareStatement(sql);
+//        pstmt.setInt(1, ID);
+//        ResultSet rs = pstmt.executeQuery();
+//        
+//        File PPicFile = new File("PPic");
+//        fos = new FileOutputStream(PPicFile);
+//
+//        // loop through the result set
+//        while (rs.next()) {
+//            InputStream input = rs.getBinaryStream("Art");
+//            
+//            byte[] buffer = new byte[1024];
+//            
+//            while (input.read(buffer) > 0) {
+//                    fos.write(buffer);
+//            }
+//            
+//
+//            returnSong = new SongData(PPicFile,rs.getBytes("Data"));
+//        }
+//
+//        conn.close();
+//
+//        return returnSong;
+//
+//    }
 
     public ArrayList<SongData> getSongByUserName(String UserName) throws IOException, SQLException, UnsupportedAudioFileException {
         ArrayList<SongData> songs = new ArrayList<SongData>();

@@ -7,6 +7,8 @@ package server;
 
 import DataPacket.*;
 import Database.SQLiteJDBCDriverConnection;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -57,6 +59,17 @@ public class ControlHandler {
 
     public static void uploadSong(SongData songInfo) throws IOException, SQLException {
         System.out.println(songInfo.userName);
+        File AudioDir = new File("Audio/" + songInfo.songName +".wav");
+        File ImgDir = new File("IMG/" + songInfo.songName +".png");
+        
+        byte[] songData = songInfo.song;
+        FileOutputStream retreievdClientSong = new FileOutputStream(AudioDir);
+        retreievdClientSong.write(songData);
+        
+        byte[] artData = songInfo.AlbumArt;
+        FileOutputStream retreievdAlbumArt = new FileOutputStream(ImgDir);
+        retreievdAlbumArt.write(artData);
+        
         databaseCheck.insertSong(databaseCheck.getNextSongID(), songInfo.songName, songInfo.song, songInfo.image, songInfo.artist, songInfo.genre, songInfo.userName);
     }
 
@@ -64,10 +77,10 @@ public class ControlHandler {
         databaseCheck.addPost(databaseCheck.getNextPostID(), postData.postMessage, postData.attachedSong, postData.postMood, postData.username);
     }
 
-    public static SongData getSong(DataPacket dataPacket) throws IOException, UnsupportedAudioFileException, SQLException {
-        SongData requestedSong = databaseCheck.getSongByID(dataPacket.ID);
-        return requestedSong;
-    }
+//    public static SongData getSong(DataPacket dataPacket) throws IOException, UnsupportedAudioFileException, SQLException {
+//        //SongData requestedSong = databaseCheck.getSongByID(dataPacket.ID);
+//        return requestedSong;
+//    }
 
     public static MainPageData buildMainPage(DataPacket dataPacket) throws IOException, SQLException, UnsupportedAudioFileException {
         ArrayList<UserData> allFriends = databaseCheck.returnFriends(dataPacket.username);

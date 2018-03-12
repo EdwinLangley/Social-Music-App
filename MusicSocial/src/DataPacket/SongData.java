@@ -30,7 +30,7 @@ public class SongData extends UserData {
     public long songLength;
     public byte[] song;
     public String userName;
-    public File AlbumArt;
+    public byte[] AlbumArt;
 
     public SongData() {
     }
@@ -45,19 +45,21 @@ public class SongData extends UserData {
     }
 
     public SongData(int ID, String songName, String artist, String album, String genre, String UserName,
-            File albumArt, File song) throws UnsupportedAudioFileException, IOException {
+            byte[] albumArt, byte[] song) throws UnsupportedAudioFileException, IOException {
         this.command = "SongData";
         this.ID = ID;
         this.songName = songName;
         this.artist = artist;
         this.album = album;
         this.genre = genre;
-        AudioFileFormat aff = AudioSystem.getAudioFileFormat(song);
-        this.songFile = song;
-        this.songLength = aff.getFrameLength();
-        this.image = buildByteArray(albumArt);
-        this.song = buildByteArray(song);
+        //AudioFileFormat aff = AudioSystem.getAudioFileFormat(song);
+        //this.songFile = song;
+        //this.songLength = aff.getFrameLength();
+        //this.image = buildByteArray(albumArt);
+        //this.song = buildByteArray(song);
         this.userName = UserName;
+        this.AlbumArt = albumArt;
+        this.song = song;
     }
     
     public SongData(int ID, String songName, String artist, String album, String genre, String UserName) throws UnsupportedAudioFileException, IOException {
@@ -83,7 +85,7 @@ public class SongData extends UserData {
         return extension;
     }
     
-    public SongData(File albumArt, byte[] song) throws UnsupportedAudioFileException, IOException {
+    public SongData(byte[] albumArt, byte[] song) throws UnsupportedAudioFileException, IOException {
         this.AlbumArt = albumArt;
         this.song = song;
     }

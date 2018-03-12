@@ -685,20 +685,20 @@ public class MusicSocialUI extends javax.swing.JFrame {
         AlbumArt.setIcon(icon);
    }                                          
 
-    private void setAlbumArtFromDB(File inImage) { 
+    private void setAlbumArtFromDB(byte[] inImage) { 
 
-        File file = inImage;
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(inImage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Image dimg = img.getScaledInstance(AlbumArt.getWidth(), AlbumArt.getHeight(),
-                Image.SCALE_SMOOTH);
-        ImageIcon icon = new ImageIcon(dimg);
-        AlbumArt.setIcon(icon);
+//        File file = inImage;
+//        BufferedImage img = null;
+//        try {
+//            img = ImageIO.read(inImage);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Image dimg = img.getScaledInstance(AlbumArt.getWidth(), AlbumArt.getHeight(),
+//                Image.SCALE_SMOOTH);
+//        ImageIcon icon = new ImageIcon(dimg);
+//        AlbumArt.setIcon(icon);
    }   
     
     private void PostButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PostButtonMouseClicked
