@@ -30,7 +30,7 @@ public class ChatHandler implements Runnable {
         ChatData recievedMessage = new ChatData();
         try {
             recievedMessage = NetworkInterfaces.RecieveChat(socket);
-            NetworkInterfaces.SendChat(/*Call get ip address function*/, recievedMessage);
+//            NetworkInterfaces.SendChat(/*Call get ip address function*/, recievedMessage);
         } catch (IOException ex) {
             Logger.getLogger(ChatHandler.class.getName()).log(Level.SEVERE, null, ex);
         }

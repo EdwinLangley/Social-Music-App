@@ -390,7 +390,12 @@ public class NewUser extends javax.swing.JFrame {
         genreList = takeCheckBoxGenres();
 
         infoArray = constructInfoArray(newFirstName, newLastName, newUserName, newEmail, newPassword, genreList);
-        UserData newUser = new UserData(0, newUserName, newPassword, newFirstName, newLastName, newEmail, genreList,attachImage);
+        UserData newUser = null;
+        try {
+            newUser = new UserData(0, newUserName, newPassword, newFirstName, newLastName, newEmail, genreList,attachImage);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         System.out.println(infoArray);
 
