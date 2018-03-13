@@ -146,7 +146,7 @@ public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnabl
                     } catch (IOException | SQLException | UnsupportedAudioFileException ex) {
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    //Call relevant function
+//                    Call relevant function
                     break OpenConnectionLoop;
                     
                 case "UMP"://Update the Main Page

@@ -91,15 +91,15 @@ public class SQLiteJDBCDriverConnection {
 
     }
 
-    public void insertSong(int ID, String SongName, byte[] songData, byte[] picData, String Artist, String GenreList, String UserName) throws IOException, SQLException {
+    public void insertSong(int ID, String SongName, String songData, String picData, String Artist, String GenreList, String UserName) throws IOException, SQLException {
         String sql = "INSERT INTO Songs(ID,Name,Data,Art,Artist,Genres,UserName) VALUES(?,?,?,?,?,?,?)";
 
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, ID);
         pstmt.setString(2, SongName);
-        pstmt.setBytes(3, songData);
-        pstmt.setBytes(4, picData);
+        pstmt.setString(3, songData);
+        pstmt.setString(4, picData);
         pstmt.setString(5, Artist);
         pstmt.setString(6, GenreList);
         pstmt.setString(7, UserName);
@@ -182,40 +182,27 @@ public class SQLiteJDBCDriverConnection {
         return returnPost;
     }
 
-    public SongData getSongByID(int ID) throws IOException, SQLException, UnsupportedAudioFileException {
-        File albumArt = null;
-        File song = null;
-        ArrayList<String> Genres = new ArrayList<String>();
-        SongData returnSong = null;
+    public ArrayList<String> getSongByID(int ID) throws IOException, SQLException, UnsupportedAudioFileException {
+
+        ArrayList<String> fileLocations = new ArrayList<String>();
+        
         String sql = "SELECT * FROM Songs WHERE ID = ? ";
         
-        FileOutputStream fos = null;
-
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, ID);
         ResultSet rs = pstmt.executeQuery();
         
-        File PPicFile = new File("PPic");
-        fos = new FileOutputStream(PPicFile);
 
         // loop through the result set
         while (rs.next()) {
-            InputStream input = rs.getBinaryStream("Art");
-            
-            byte[] buffer = new byte[1024];
-            
-            while (input.read(buffer) > 0) {
-                    fos.write(buffer);
-            }
-            
-
-            returnSong = new SongData(PPicFile,rs.getBytes("Data"));
+            fileLocations.add(rs.getString("Data"));
+            fileLocations.add(rs.getString("Art"));
         }
 
         conn.close();
 
-        return returnSong;
+        return fileLocations;
 
     }
 

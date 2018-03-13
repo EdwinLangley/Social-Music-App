@@ -7,6 +7,9 @@ package server;
 
 import DataPacket.*;
 import Database.SQLiteJDBCDriverConnection;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -57,7 +60,21 @@ public class ControlHandler {
 
     public static void uploadSong(SongData songInfo) throws IOException, SQLException {
         System.out.println(songInfo.userName);
-        databaseCheck.insertSong(databaseCheck.getNextSongID(), songInfo.songName, songInfo.song, songInfo.image, songInfo.artist, songInfo.genre, songInfo.userName);
+        File AudioDir = new File("Audio/" + songInfo.songName +".wav");
+        File ImgDir = new File("IMG/" + songInfo.songName +".png");
+        String dbPathAudio = "Audio/" + songInfo.songName +".wav";
+        String dbPathIMG = "IMG/" + songInfo.songName +".png";
+                
+        
+        byte[] songData = songInfo.song;
+        FileOutputStream retreievdClientSong = new FileOutputStream(AudioDir);
+        retreievdClientSong.write(songData);
+        
+        byte[] artData = songInfo.AlbumArt;
+        FileOutputStream retreievdAlbumArt = new FileOutputStream(ImgDir);
+        retreievdAlbumArt.write(artData);
+        
+        databaseCheck.insertSong(databaseCheck.getNextSongID(), songInfo.songName, dbPathAudio, dbPathIMG, songInfo.artist, songInfo.genre, songInfo.userName);
     }
 
     public static void uploadPost(PostData postData) throws IOException, SQLException {
@@ -65,8 +82,21 @@ public class ControlHandler {
     }
 
     public static SongData getSong(DataPacket dataPacket) throws IOException, UnsupportedAudioFileException, SQLException {
-        SongData requestedSong = databaseCheck.getSongByID(dataPacket.ID);
-        return requestedSong;
+        ArrayList<String> requestedSong = databaseCheck.getSongByID(dataPacket.ID);
+        FileInputStream songData;
+        FileInputStream ArtWork;
+        
+        songData = new FileInputStream(requestedSong.get(0));
+        byte[] songBuffer = new byte[songData.available()];
+        songData.read(songBuffer);
+        
+        ArtWork = new FileInputStream(requestedSong.get(1));
+        byte[] ArtBuffer = new byte[ArtWork.available()];
+        ArtWork.read(ArtBuffer);
+        
+        SongData returnSong = new SongData(ArtBuffer,songBuffer); 
+        
+        return returnSong;
     }
 
     public static MainPageData buildMainPage(DataPacket dataPacket) throws IOException, SQLException, UnsupportedAudioFileException {

@@ -11,10 +11,16 @@ import DataPacket.SongData;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +37,9 @@ public class UploadSong extends javax.swing.JFrame {
 
     File attachImage = null;
     File attachSong = null;
+    String songFilename = "";
+    String artFilename = "";
+    
     String GlobalUserName = "";
     /**
      * Creates new form UploadSong
@@ -360,9 +369,10 @@ public class UploadSong extends javax.swing.JFrame {
         JFileChooser fChooser = new JFileChooser();
         fChooser.showOpenDialog(null);
         attachSong = fChooser.getSelectedFile();
-        String filename = attachSong.getAbsolutePath();
+        songFilename = attachSong.getAbsolutePath();
+ 
         
-        selectedSongLabel.setText(filename);
+        selectedSongLabel.setText(songFilename);
     }//GEN-LAST:event_songSelectorButtonMouseClicked
 
     private void addSongButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSongButtonActionPerformed
@@ -380,6 +390,27 @@ public class UploadSong extends javax.swing.JFrame {
                 GenreString+=",";
             }
         }
+
+        byte[] songDataByteArray = null;
+        byte[] artDataByteArray = null;
+        
+        FileInputStream SongFile;
+        FileInputStream AlbumArt;
+        
+        try {
+            SongFile = new FileInputStream(songFilename);
+            songDataByteArray = new byte[SongFile.available()];
+            SongFile.read(songDataByteArray);
+            
+            AlbumArt = new FileInputStream(artFilename);
+            artDataByteArray = new byte[AlbumArt.available()];
+            AlbumArt.read(artDataByteArray);
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
         String songName = nameField.getText();
@@ -387,10 +418,8 @@ public class UploadSong extends javax.swing.JFrame {
         DataPacket genreDataPacket = new DataPacket("UPS",GlobalUserName);
         SongData songContent = null;
         try {
-            songContent = new SongData(0, songName, songArtist, songName, GenreString, GlobalUserName, attachImage, attachSong);
-        } catch (UnsupportedAudioFileException ex) {
-            Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+            songContent = new SongData(0, songName, songArtist, songName, GenreString, GlobalUserName, artDataByteArray, songDataByteArray);
+        } catch (UnsupportedAudioFileException | IOException ex) {
             Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println(genreDataPacket.getCommand());
@@ -419,10 +448,10 @@ public class UploadSong extends javax.swing.JFrame {
         JFileChooser fChooser = new JFileChooser();
         fChooser.showOpenDialog(null);
         attachImage = fChooser.getSelectedFile();
-        String filename = attachImage.getAbsolutePath();
+        artFilename = attachImage.getAbsolutePath();
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File(filename));
+            img = ImageIO.read(new File(artFilename));
         } catch (IOException e) {
                e.printStackTrace();
         }    
