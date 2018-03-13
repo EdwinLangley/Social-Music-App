@@ -182,42 +182,29 @@ public class SQLiteJDBCDriverConnection {
         return returnPost;
     }
 
-//    public SongData getSongByID(int ID) throws IOException, SQLException, UnsupportedAudioFileException {
-//        File albumArt = null;
-//        File song = null;
-//        ArrayList<String> Genres = new ArrayList<String>();
-//        SongData returnSong = null;
-//        String sql = "SELECT * FROM Songs WHERE ID = ? ";
-//        
-//        FileOutputStream fos = null;
-//
-//        Connection conn = this.connect();
-//        PreparedStatement pstmt = conn.prepareStatement(sql);
-//        pstmt.setInt(1, ID);
-//        ResultSet rs = pstmt.executeQuery();
-//        
-//        File PPicFile = new File("PPic");
-//        fos = new FileOutputStream(PPicFile);
-//
-//        // loop through the result set
-//        while (rs.next()) {
-//            InputStream input = rs.getBinaryStream("Art");
-//            
-//            byte[] buffer = new byte[1024];
-//            
-//            while (input.read(buffer) > 0) {
-//                    fos.write(buffer);
-//            }
-//            
-//
-//            returnSong = new SongData(PPicFile,rs.getBytes("Data"));
-//        }
-//
-//        conn.close();
-//
-//        return returnSong;
-//
-//    }
+    public ArrayList<String> getSongByID(int ID) throws IOException, SQLException, UnsupportedAudioFileException {
+
+        ArrayList<String> fileLocations = new ArrayList<String>();
+        
+        String sql = "SELECT * FROM Songs WHERE ID = ? ";
+        
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, ID);
+        ResultSet rs = pstmt.executeQuery();
+        
+
+        // loop through the result set
+        while (rs.next()) {
+            fileLocations.add(rs.getString("Data"));
+            fileLocations.add(rs.getString("Art"));
+        }
+
+        conn.close();
+
+        return fileLocations;
+
+    }
 
     public ArrayList<SongData> getSongByUserName(String UserName) throws IOException, SQLException, UnsupportedAudioFileException {
         ArrayList<SongData> songs = new ArrayList<SongData>();

@@ -8,6 +8,7 @@ package server;
 import DataPacket.*;
 import Database.SQLiteJDBCDriverConnection;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -80,10 +81,23 @@ public class ControlHandler {
         databaseCheck.addPost(databaseCheck.getNextPostID(), postData.postMessage, postData.attachedSong, postData.postMood, postData.username);
     }
 
-//    public static SongData getSong(DataPacket dataPacket) throws IOException, UnsupportedAudioFileException, SQLException {
-//        //SongData requestedSong = databaseCheck.getSongByID(dataPacket.ID);
-//        return requestedSong;
-//    }
+    public static SongData getSong(DataPacket dataPacket) throws IOException, UnsupportedAudioFileException, SQLException {
+        ArrayList<String> requestedSong = databaseCheck.getSongByID(dataPacket.ID);
+        FileInputStream songData;
+        FileInputStream ArtWork;
+        
+        songData = new FileInputStream(requestedSong.get(0));
+        byte[] songBuffer = new byte[songData.available()];
+        songData.read(songBuffer);
+        
+        ArtWork = new FileInputStream(requestedSong.get(1));
+        byte[] ArtBuffer = new byte[ArtWork.available()];
+        ArtWork.read(ArtBuffer);
+        
+        SongData returnSong = new SongData(ArtBuffer,songBuffer); 
+        
+        return returnSong;
+    }
 
     public static MainPageData buildMainPage(DataPacket dataPacket) throws IOException, SQLException, UnsupportedAudioFileException {
         ArrayList<UserData> allFriends = databaseCheck.returnFriends(dataPacket.username);

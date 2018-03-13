@@ -25,6 +25,8 @@ import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -510,7 +512,11 @@ public class MusicSocialUI extends javax.swing.JFrame {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            setAlbumArtFromDB(currentSongData.AlbumArt);
+                try {
+                    setAlbumArtFromDB(currentSongData.AlbumArt);
+                } catch (IOException ex) {
+                    Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             
             }
         });
@@ -685,20 +691,29 @@ public class MusicSocialUI extends javax.swing.JFrame {
         AlbumArt.setIcon(icon);
    }                                          
 
-    private void setAlbumArtFromDB(byte[] inImage) { 
+    private void setAlbumArtFromDB(byte[] inImage) throws FileNotFoundException, IOException { 
+        
 
-//        File file = inImage;
-//        BufferedImage img = null;
-//        try {
-//            img = ImageIO.read(inImage);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        Image dimg = img.getScaledInstance(AlbumArt.getWidth(), AlbumArt.getHeight(),
-//                Image.SCALE_SMOOTH);
-//        ImageIcon icon = new ImageIcon(dimg);
-//        AlbumArt.setIcon(icon);
+        File ImgDir = new File("./src/images/currentImg.png");
+                
+        
+        byte[] artData = inImage;
+        FileOutputStream retreievdClientArt = new FileOutputStream(ImgDir);
+        retreievdClientArt.write(artData);
+
+        File file = new File("./src/images/currentImg.png");
+        String filename = file.getAbsolutePath();
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(filename));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Image dimg = img.getScaledInstance(AlbumArt.getWidth(), AlbumArt.getHeight(),
+                Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(dimg);
+        AlbumArt.setIcon(icon);
    }   
     
     private void PostButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PostButtonMouseClicked
