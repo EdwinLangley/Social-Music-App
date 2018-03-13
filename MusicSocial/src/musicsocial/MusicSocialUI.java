@@ -514,6 +514,7 @@ public class MusicSocialUI extends javax.swing.JFrame {
             
                 try {
                     setAlbumArtFromDB(currentSongData.AlbumArt);
+                    PlaySongFromDB(currentSongData.song);
                 } catch (IOException ex) {
                     Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -636,6 +637,51 @@ public class MusicSocialUI extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Hi");
+    } 
+    
+    private void PlaySongFromDB(byte[] Song) throws FileNotFoundException, IOException {   
+        
+        
+        File AudioDir = new File("./src/audio/currentSong.wav");
+                
+        
+        byte[] songData = Song;
+        FileOutputStream retreievdClientSong = new FileOutputStream(AudioDir);
+        retreievdClientSong.write(songData);
+        
+        String trackName = "./src/audio/currentSong.wav";
+
+        try {
+            if (isPlaying == false) {
+
+                audioInputStream = AudioSystem.getAudioInputStream(new File(trackName).getAbsoluteFile());
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                if (clipTime < clip.getFrameLength()) {
+                    clip.setFramePosition(clipTime);
+                }
+                clip.start();
+                isPlaying = true;
+            } else {
+
+                clipTime = clip.getFramePosition();
+                clip.stop();
+                isPlaying = false;
+                
+                audioInputStream = AudioSystem.getAudioInputStream(new File(trackName).getAbsoluteFile());
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                if (clipTime < clip.getFrameLength()) {
+                    clip.setFramePosition(0);
+                }
+                clip.start();
+                isPlaying = true;
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     } 
     
     private void PlayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PlayMouseClicked
