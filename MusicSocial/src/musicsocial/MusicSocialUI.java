@@ -6,31 +6,21 @@ import DataPacket.NetworkInterfaces;
 import DataPacket.PostData;
 import DataPacket.SongData;
 import DataPacket.UserData;
-import java.awt.BorderLayout;
 import java.awt.Image;
-import java.awt.List;
-import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
-import javax.swing.WindowConstants;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -38,8 +28,6 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -53,7 +41,7 @@ import javax.swing.table.TableColumnModel;
  *
  * @author Edwin
  */
-public class MusicSocialUI extends javax.swing.JFrame implements Runnable {
+public class MusicSocialUI extends javax.swing.JFrame{
 
     boolean isPlaying = false;
     AudioInputStream audioInputStream;
@@ -101,10 +89,43 @@ public class MusicSocialUI extends javax.swing.JFrame implements Runnable {
         LoadMainPageDataIntoUI();
         
         LoadSongIDsIntoComboBox();
+
+        new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    try {
+                        
+                        getMainPageData();
+                    } catch (IOException ex) {
+                        Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    try {
+                        LoadMainPageDataIntoUI();
+                    } catch (IOException ex) {
+                        Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    try {
+                        LoadSongIDsIntoComboBox();
+                    } catch (IOException ex) {
+                        Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.out.println("Timer Hit");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                }
+                
+            }
+        }).start();
         
         
-        Thread t1 = new Thread(new MusicSocialUI());
-        t1.start();
+//        Thread t1 = new Thread(new MusicSocialUI());
+//        t1.start();
         
         //getAllPosts();
 
@@ -499,13 +520,13 @@ public class MusicSocialUI extends javax.swing.JFrame implements Runnable {
                 } catch (IOException ex) {
                     Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            
             }
         });
 
         InYourNetworkTable.getSelectionModel().addListSelectionListener(e ->{
             if (! e.getValueIsAdjusting()){
-                            DataPacket reqSong = new DataPacket("RSG",(int) InYourNetworkTable.getValueAt(InYourNetworkTable.getSelectedRow(), 0));
+                            
+            DataPacket reqSong = new DataPacket("RSG",(int) InYourNetworkTable.getValueAt(InYourNetworkTable.getSelectedRow(), 0));
             
             InetAddress address = null;
             try {
@@ -544,6 +565,8 @@ public class MusicSocialUI extends javax.swing.JFrame implements Runnable {
     
         ArrayList<UserData> friends = mpd.allFriends;
         
+        friendsModel.removeAllElements();
+        
         for(int i = 0; i < friends.size(); i++){
             UserData friend = friends.get(i);
             String friendUserName = friend.username;
@@ -555,6 +578,8 @@ public class MusicSocialUI extends javax.swing.JFrame implements Runnable {
         
         ArrayList<UserData> all = mpd.allUsers;
         
+        allModel.removeAllElements();
+        
         for(int i = 0; i < all.size(); i++){
             UserData single = all.get(i);
             String singleUserName = single.username;
@@ -564,6 +589,8 @@ public class MusicSocialUI extends javax.swing.JFrame implements Runnable {
         AllUsersList.setModel(allModel);
         
         ArrayList<PostData> AllFriendsPostsArray = mpd.friendsPosts;
+        
+        allFriendsPostsModel.removeAllElements();
         
         for(int i = 0; i < AllFriendsPostsArray.size(); i++){
             PostData singlePost = AllFriendsPostsArray.get(i);
@@ -576,20 +603,26 @@ public class MusicSocialUI extends javax.swing.JFrame implements Runnable {
         
         ArrayList<SongData> AllMySongsArray = mpd.yourQueue;
         
+        int rowcount = YourQueueTable.getRowCount();
+       
+        
         for(int i = 0; i < AllMySongsArray.size(); i++){
-            String genreOutputString = "";
             SongData mySingleSong = AllMySongsArray.get(i);
-
-            
+           
+            if((i >= rowcount) || (rowcount==0) ){
             allMySongsTableModel.addRow(new Object[]{mySingleSong.ID,mySingleSong.songName,mySingleSong.artist, mySingleSong.genre, mySingleSong.username});
+            }
         }
         
         TableColumnModel allMyQueueColumnModel = YourQueueTable.getColumnModel();
         allMyQueueColumnModel.getColumn(0).setPreferredWidth(10);
-      
+              
         YourQueueTable.setModel(allMySongsTableModel);
-        
+                
         ArrayList<SongData> inYourNetwoekQueue = mpd.inYourNetwork;
+        
+        
+        allNetworkSongsTableModel.setRowCount(0);
         
         for(int i = 0; i < inYourNetwoekQueue.size(); i++){
             String genreOutputString = "";
@@ -599,6 +632,7 @@ public class MusicSocialUI extends javax.swing.JFrame implements Runnable {
         }
       
         TableColumnModel allNetworkSongsTableColumnModel = InYourNetworkTable.getColumnModel();
+        
         allNetworkSongsTableColumnModel.getColumn(0).setPreferredWidth(10);
         
         InYourNetworkTable.setModel(allNetworkSongsTableModel);
@@ -606,6 +640,7 @@ public class MusicSocialUI extends javax.swing.JFrame implements Runnable {
         
             
     } 
+     
     
     private void LoadSongIDsIntoComboBox() throws IOException { 
         
@@ -897,22 +932,4 @@ public class MusicSocialUI extends javax.swing.JFrame implements Runnable {
     private javax.swing.JScrollPane jScrollPane7;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void run() {
-        while(true){
-//            try {
-//                getMainPageData();
-//                LoadMainPageDataIntoUI();
-//                LoadSongIDsIntoComboBox();
-//            } catch (IOException ex) {
-//                Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            System.out.println("Timer Hit");
-        }
-    }
 }
