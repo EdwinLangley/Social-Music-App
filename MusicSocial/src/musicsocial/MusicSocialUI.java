@@ -524,7 +524,34 @@ public class MusicSocialUI extends javax.swing.JFrame {
 
         InYourNetworkTable.getSelectionModel().addListSelectionListener(e ->{
             if (! e.getValueIsAdjusting()){
-                System.out.println(InYourNetworkTable.getValueAt(InYourNetworkTable.getSelectedRow(), 0).toString());
+                            DataPacket reqSong = new DataPacket("RSG",(int) InYourNetworkTable.getValueAt(InYourNetworkTable.getSelectedRow(), 0));
+            
+            InetAddress address = null;
+            try {
+                address = InetAddress.getLocalHost();
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Socket socket = null;
+
+            try {
+
+            socket = new Socket(address, 9090);    
+
+            NetworkInterfaces.SendDataPacket(socket, reqSong);
+            currentSongData = NetworkInterfaces.RecieveSongData(socket);
+
+            } catch (IOException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+                try {
+                    setAlbumArtFromDB(currentSongData.AlbumArt);
+                    PlaySongFromDB(currentSongData.song);
+                } catch (IOException ex) {
+                    Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
             }
         });
 
