@@ -19,7 +19,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  *
  * @author Joe
  */
-public class ClientNetworkInterface /*extends ClientHandler*/ implements Runnable {
+public class ClientNetworkInterface implements Runnable {
 
     private Socket socket = null;
     public boolean openConnection = true;
