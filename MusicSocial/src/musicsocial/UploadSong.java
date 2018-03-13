@@ -28,6 +28,7 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -437,6 +438,8 @@ public class UploadSong extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        JOptionPane.showMessageDialog(null, "Song Uploaded!");
         
     }//GEN-LAST:event_addSongButtonMouseClicked
 

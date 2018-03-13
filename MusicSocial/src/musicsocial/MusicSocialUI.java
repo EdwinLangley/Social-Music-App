@@ -53,7 +53,7 @@ import javax.swing.table.TableColumnModel;
  *
  * @author Edwin
  */
-public class MusicSocialUI extends javax.swing.JFrame {
+public class MusicSocialUI extends javax.swing.JFrame implements Runnable {
 
     boolean isPlaying = false;
     AudioInputStream audioInputStream;
@@ -101,6 +101,10 @@ public class MusicSocialUI extends javax.swing.JFrame {
         LoadMainPageDataIntoUI();
         
         LoadSongIDsIntoComboBox();
+        
+        
+        Thread t1 = new Thread(new MusicSocialUI());
+        t1.start();
         
         //getAllPosts();
 
@@ -892,4 +896,23 @@ public class MusicSocialUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void run() {
+        while(true){
+//            try {
+//                getMainPageData();
+//                LoadMainPageDataIntoUI();
+//                LoadSongIDsIntoComboBox();
+//            } catch (IOException ex) {
+//                Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("Timer Hit");
+        }
+    }
 }
