@@ -91,15 +91,15 @@ public class SQLiteJDBCDriverConnection {
 
     }
 
-    public void insertSong(int ID, String SongName, byte[] songData, byte[] picData, String Artist, String GenreList, String UserName) throws IOException, SQLException {
+    public void insertSong(int ID, String SongName, String songData, String picData, String Artist, String GenreList, String UserName) throws IOException, SQLException {
         String sql = "INSERT INTO Songs(ID,Name,Data,Art,Artist,Genres,UserName) VALUES(?,?,?,?,?,?,?)";
 
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, ID);
         pstmt.setString(2, SongName);
-        pstmt.setBytes(3, songData);
-        pstmt.setBytes(4, picData);
+        pstmt.setString(3, songData);
+        pstmt.setString(4, picData);
         pstmt.setString(5, Artist);
         pstmt.setString(6, GenreList);
         pstmt.setString(7, UserName);

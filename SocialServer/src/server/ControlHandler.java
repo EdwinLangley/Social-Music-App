@@ -61,6 +61,9 @@ public class ControlHandler {
         System.out.println(songInfo.userName);
         File AudioDir = new File("Audio/" + songInfo.songName +".wav");
         File ImgDir = new File("IMG/" + songInfo.songName +".png");
+        String dbPathAudio = "Audio/" + songInfo.songName +".wav";
+        String dbPathIMG = "IMG/" + songInfo.songName +".png";
+                
         
         byte[] songData = songInfo.song;
         FileOutputStream retreievdClientSong = new FileOutputStream(AudioDir);
@@ -70,7 +73,7 @@ public class ControlHandler {
         FileOutputStream retreievdAlbumArt = new FileOutputStream(ImgDir);
         retreievdAlbumArt.write(artData);
         
-        databaseCheck.insertSong(databaseCheck.getNextSongID(), songInfo.songName, songInfo.song, songInfo.image, songInfo.artist, songInfo.genre, songInfo.userName);
+        databaseCheck.insertSong(databaseCheck.getNextSongID(), songInfo.songName, dbPathAudio, dbPathIMG, songInfo.artist, songInfo.genre, songInfo.userName);
     }
 
     public static void uploadPost(PostData postData) throws IOException, SQLException {
