@@ -7,6 +7,8 @@ package DataPacket;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
@@ -25,13 +27,14 @@ public class UserData extends LoginData {
     public ArrayList<String> friendsList;
     public byte[] image;
     public boolean isOnline;
+    private InetAddress IPAddress;
 
     public UserData() {
     }
 
     public UserData(int userID, String username, String password, String firstName, String lastName,
             String email, ArrayList<String> genreList, ArrayList<SongData> songList, ArrayList<PostData> postIDs,
-            File profilePicture, ArrayList<String> friendsList, boolean isOnline) {
+            File profilePicture, ArrayList<String> friendsList, boolean isOnline) throws UnknownHostException {
         this.command = "UserData";
         this.userID = userID;
         this.username = username;
@@ -46,10 +49,10 @@ public class UserData extends LoginData {
         this.image = buildByteArray(profilePicture);
         this.isOnline = isOnline;
         arrayToString();
-
+        this.IPAddress = InetAddress.getLocalHost();
     }
 
-    public UserData(int userID, String username, String password, String firstName, String lastName, String email, ArrayList<String> genreList, File profilePicture) {
+    public UserData(int userID, String username, String password, String firstName, String lastName, String email, ArrayList<String> genreList, File profilePicture) throws UnknownHostException {
         this.command = "UserData";
         this.userID = userID;
         this.username = username;
@@ -60,6 +63,7 @@ public class UserData extends LoginData {
         this.genreList = genreList;
         this.image = buildByteArray(profilePicture);
         arrayToString();
+        this.IPAddress = InetAddress.getLocalHost();
     }
 
     public static byte[] buildByteArray(File inputFile) {
