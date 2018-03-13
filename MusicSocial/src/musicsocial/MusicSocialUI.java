@@ -622,13 +622,13 @@ public class MusicSocialUI extends javax.swing.JFrame{
         ArrayList<SongData> inYourNetwoekQueue = mpd.inYourNetwork;
         
         
-        allNetworkSongsTableModel.setRowCount(0);
+        int rowcount2 = InYourNetworkTable.getRowCount();
         
         for(int i = 0; i < inYourNetwoekQueue.size(); i++){
-            String genreOutputString = "";
             SongData yourSingleSong = inYourNetwoekQueue.get(i);
-            
+            if((i >= rowcount2) || (rowcount2==0) ){
             allNetworkSongsTableModel.addRow(new Object[]{yourSingleSong.ID,yourSingleSong.songName,yourSingleSong.artist, yourSingleSong.genre, yourSingleSong.username});
+            }
         }
       
         TableColumnModel allNetworkSongsTableColumnModel = InYourNetworkTable.getColumnModel();
