@@ -58,7 +58,15 @@ public class ClientNetworkInterface implements Runnable {
                 case "EXT"://Logout
                     System.out.println("EXT Switch hit");
                     openConnection = false;
-                    Server.currentUsers.remove(inputData.username);
+                    //Server.currentUsers.remove(inputData.username);
+                    for (int i = 0; i < server.Server.currentUsers.size(); i++) {
+                        UserData single = server.Server.currentUsers.get(i);
+                        if(single.username.equals(inputData.username) ){
+                            server.Server.currentUsers.remove(i);
+                        }
+                    }
+                    server.Server.currentUsers.remove(inputData.username);
+                    System.out.println("hit");
                     break OpenConnectionLoop;
                 case "REG"://Register User
                     System.out.println("REG Switch hit");
