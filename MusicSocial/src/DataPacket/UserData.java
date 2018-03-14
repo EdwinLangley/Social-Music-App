@@ -27,7 +27,7 @@ public class UserData extends LoginData {
     public ArrayList<String> friendsList;
     public byte[] image;
     public boolean isOnline;
-    private InetAddress IPAddress;
+    public InetAddress IPAddress;
 
     public UserData() {
     }
