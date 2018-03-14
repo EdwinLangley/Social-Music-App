@@ -1,5 +1,18 @@
 package musicsocial;
 
+import DataPacket.DataPacket;
+import DataPacket.MainPageData;
+import DataPacket.NetworkInterfaces;
+import DataPacket.UserData;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,11 +25,40 @@ package musicsocial;
  */
 public class Messaging extends javax.swing.JFrame {
 
+    MainPageData mpd;
+    DefaultListModel friendsModel = new DefaultListModel();
+    String CurrentUser = "";
+    
     /**
      * Creates new form Messaging
      */
-    public Messaging() {
+    
+       public Messaging() {
         initComponents();
+               
+    }
+    
+    
+    public Messaging(String UserName) {
+        initComponents();
+        
+        CurrentUser = UserName;
+        
+        new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                   loadFriends();
+                }
+                
+            }
+        }).start();
+        
     }
 
     /**
@@ -165,6 +207,58 @@ public class Messaging extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void loadFriends() {
+        
+        DataPacket MainPagePacket = new DataPacket("UMP", CurrentUser);
+        
+        InetAddress address = null;
+        try {
+            address = InetAddress.getLocalHost();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Socket socket = null;
+        
+        try {
+          
+        socket = new Socket(address, 9090);    
+        
+        NetworkInterfaces.SendDataPacket(socket, MainPagePacket);
+        mpd = NetworkInterfaces.RecieveMainPageData(socket);
+        
+        } catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        ArrayList<UserData> friends = mpd.allFriends;
+
+        friendsModel.removeAllElements();
+
+        ArrayList<UserData> all = mpd.allUsers;
+        ArrayList<UserData> allOnline = mpd.onlineFriends;
+        ArrayList<String> allOnlineList = new ArrayList<String>();
+        for (int i = 0; i < allOnline.size(); i++) {
+            UserData single = allOnline.get(i);
+            allOnlineList.add(single.username);
+        }
+
+        ArrayList<String> listOfFriendsforComparison = new ArrayList<String>();
+
+        for (int i = 0; i < friends.size(); i++) {
+            UserData friend = friends.get(i);
+            String friendUserName = friend.username;
+            listOfFriendsforComparison.add(friendUserName);
+            if (allOnlineList.contains(friend.username)) {
+                friendsModel.addElement(friendUserName + "    [ONLINE]");
+            } else {
+                friendsModel.addElement(friendUserName);
+            }
+        }
+
+        FriendsList.setModel(friendsModel);
+    }
+    
     private void SendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SendButtonActionPerformed

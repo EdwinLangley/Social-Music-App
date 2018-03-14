@@ -905,7 +905,7 @@ public class MusicSocialUI extends javax.swing.JFrame{
     }//GEN-LAST:event_ChatButtonActionPerformed
 
     private void ChatButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ChatButtonMouseClicked
-        new Messaging().setVisible(true);
+        new Messaging(currentUser).setVisible(true);
     }//GEN-LAST:event_ChatButtonMouseClicked
 
     private void AddFriendButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddFriendButtonMouseClicked
