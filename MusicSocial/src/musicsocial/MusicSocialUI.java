@@ -1,6 +1,7 @@
 package musicsocial;
 
 import DataPacket.DataPacket;
+import DataPacket.FriendData;
 import DataPacket.MainPageData;
 import DataPacket.NetworkInterfaces;
 import DataPacket.PostData;
@@ -611,6 +612,12 @@ public class MusicSocialUI extends javax.swing.JFrame{
             allOnlineList.add(single.username);   
         }
         
+        int allUserSelectedIndex = -1;
+        
+        if(AllUsersList.getSelectedIndex() != -1){
+            allUserSelectedIndex = AllUsersList.getSelectedIndex();
+        }
+        
         allModel.removeAllElements();
         
          for (int i = 0; i < all.size(); i++) {
@@ -624,9 +631,14 @@ public class MusicSocialUI extends javax.swing.JFrame{
                  }
                  allModel.addElement(singleUserName);
              }
-         }
+         }        
+         
 
         AllUsersList.setModel(allModel);
+        
+         if(allUserSelectedIndex != -1){
+           AllUsersList.setSelectedIndex(allUserSelectedIndex);
+        }
         
         ArrayList<PostData> AllFriendsPostsArray = mpd.friendsPosts;
         
@@ -886,7 +898,33 @@ public class MusicSocialUI extends javax.swing.JFrame{
     }//GEN-LAST:event_ChatButtonMouseClicked
 
     private void AddFriendButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddFriendButtonMouseClicked
-        // TODO add your handling code here:
+                
+        DataPacket sendData = new DataPacket("AFR");
+        String otherUser = AllUsersList.getSelectedValue();
+        String splitArr[] = otherUser.split(" ", 2);
+        
+        FriendData friendData = new FriendData("AFR", currentUser, splitArr[0]);
+        
+        InetAddress address = null;
+        
+        try {
+            address = InetAddress.getLocalHost();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Socket socket = null;
+        try {
+            socket = new Socket(address, 9090);
+            //Send multiple bits of data over same socket connection should always be in pairs
+            //First DataPacket preps server
+            //Second sends data
+            //Only close socket afterwards
+            NetworkInterfaces.SendDataPacket(socket, sendData);
+            NetworkInterfaces.SendFriendData(socket, friendData);
+        } catch (IOException ex) {
+            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_AddFriendButtonMouseClicked
 
     
