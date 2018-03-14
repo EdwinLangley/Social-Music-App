@@ -129,7 +129,9 @@ public class ClientNetworkInterface implements Runnable {
                         }
                     } catch (IOException ex) {
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    } catch (SQLException ex) {
+                Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
                     break OpenConnectionLoop;
                 case "PST"://Upload Post
                     System.out.println("PST Switch hit");

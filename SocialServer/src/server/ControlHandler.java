@@ -59,12 +59,12 @@ public class ControlHandler {
         databaseCheck.addNewFriend(friendData.otherUsername, friendData.username, friendData.status);
     }
 
-    public static void acceptFriend(FriendData friendData) {
-        //databaseCheck.updateFriendStatus(friendData);
+    public static void acceptFriend(FriendData friendData) throws IOException, SQLException {
+        databaseCheck.updateFriendStatus(friendData);
     }
 
-    public static void rejectFriend(FriendData friendData) {
-        //databaseCheck.removeFriendPair(friendData);
+    public static void rejectFriend(FriendData friendData) throws IOException, SQLException {
+        databaseCheck.removeFriendPair(friendData);
     }
 
     public static void uploadSong(SongData songInfo) throws IOException, SQLException {

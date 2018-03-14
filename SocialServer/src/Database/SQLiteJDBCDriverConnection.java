@@ -5,6 +5,7 @@
  */
 package Database;
 
+import DataPacket.FriendData;
 import DataPacket.PostData;
 import DataPacket.SongData;
 import DataPacket.UserData;
@@ -425,8 +426,13 @@ public class SQLiteJDBCDriverConnection {
         //app.addNewFriend("Ed", "Joe");
         //PostData posts = app.getPostsByID(0);
         //System.out.println(posts.ID + posts.postMessage + posts.username + posts.postMood);
-        app.returnFriends("Ed");
+        //app.returnFriends("Ed");
         //app.getUserDataByUserName("griffindore");
+        
+        FriendData test = new FriendData("AFR", "ed", "sefs", "Req"); 
+//        app.updateFriendStatus(test);
+          app.removeFriendPair(test);
+        
         System.out.println("================");
 
         //app.updatePicture("UserName", "D:\\Users\\Edwin\\Downloads\\14463110_1206091416079967_1082422483814707867_n.jpg");
@@ -460,5 +466,49 @@ public class SQLiteJDBCDriverConnection {
 
         return returnedUserData;
 
+    }
+
+    public void updateFriendStatus(FriendData friendData) throws IOException, SQLException {
+        String sql = "UPDATE Friendships SET status = 'ACCEPT'  WHERE UserName1 = ? AND UserName2 = ? ";
+
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, friendData.username);
+        pstmt.setString(2, friendData.otherUsername);
+
+        pstmt.executeUpdate();
+
+        conn.close();
+        
+        conn = this.connect();
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, friendData.otherUsername);
+        pstmt.setString(2, friendData.username);
+
+        pstmt.executeUpdate();
+
+        conn.close();
+    }
+
+    public void removeFriendPair(FriendData friendData) throws IOException, SQLException {
+        String sql = "DELETE FROM Friendships WHERE UserName1 = ? AND UserName2 = ? ";
+
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, friendData.username);
+        pstmt.setString(2, friendData.otherUsername);
+
+        pstmt.executeUpdate();
+
+        conn.close();
+
+        conn = this.connect();
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, friendData.otherUsername);
+        pstmt.setString(2, friendData.username);
+
+        pstmt.executeUpdate();
+
+        conn.close();
     }
 }
