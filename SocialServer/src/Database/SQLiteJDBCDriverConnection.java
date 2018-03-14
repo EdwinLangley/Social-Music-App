@@ -302,7 +302,7 @@ public class SQLiteJDBCDriverConnection {
         return Index + 1;
 
     }
-
+//CHANGE THIS SO IT SETS STATUS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public void addNewFriend(String username1, String username2) throws IOException, SQLException {
         String sql = "INSERT INTO Friendships VALUES(?,?)";
 

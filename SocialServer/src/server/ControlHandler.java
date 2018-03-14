@@ -55,26 +55,33 @@ public class ControlHandler {
     }
 
     public static void addFriend(FriendData friendData) throws IOException, SQLException {
-        databaseCheck.addNewFriend(friendData.username, friendData.otherUsername);
-        databaseCheck.addNewFriend(friendData.otherUsername, friendData.username);
+//        databaseCheck.addNewFriend(friendData.username, friendData.otherUsername, friendData.status);
+//        databaseCheck.addNewFriend(friendData.otherUsername, friendData.username, friendData.status);
+    }
+
+    public static void acceptFriend(FriendData friendData) {
+        //databaseCheck.updateFriendStatus(friendData);
+    }
+
+    public static void rejectFriend(FriendData friendData) {
+        //databaseCheck.removeFriendPair(friendData);
     }
 
     public static void uploadSong(SongData songInfo) throws IOException, SQLException {
         System.out.println(songInfo.userName);
-        File AudioDir = new File("Audio/" + songInfo.songName +".wav");
-        File ImgDir = new File("IMG/" + songInfo.songName +".png");
-        String dbPathAudio = "Audio/" + songInfo.songName +".wav";
-        String dbPathIMG = "IMG/" + songInfo.songName +".png";
-                
-        
+        File AudioDir = new File("Audio/" + songInfo.songName + ".wav");
+        File ImgDir = new File("IMG/" + songInfo.songName + ".png");
+        String dbPathAudio = "Audio/" + songInfo.songName + ".wav";
+        String dbPathIMG = "IMG/" + songInfo.songName + ".png";
+
         byte[] songData = songInfo.song;
         FileOutputStream retreievdClientSong = new FileOutputStream(AudioDir);
         retreievdClientSong.write(songData);
-        
+
         byte[] artData = songInfo.AlbumArt;
         FileOutputStream retreievdAlbumArt = new FileOutputStream(ImgDir);
         retreievdAlbumArt.write(artData);
-        
+
         databaseCheck.insertSong(databaseCheck.getNextSongID(), songInfo.songName, dbPathAudio, dbPathIMG, songInfo.artist, songInfo.genre, songInfo.userName);
     }
 
@@ -86,17 +93,17 @@ public class ControlHandler {
         ArrayList<String> requestedSong = databaseCheck.getSongByID(dataPacket.ID);
         FileInputStream songData;
         FileInputStream ArtWork;
-        
+
         songData = new FileInputStream(requestedSong.get(0));
         byte[] songBuffer = new byte[songData.available()];
         songData.read(songBuffer);
-        
+
         ArtWork = new FileInputStream(requestedSong.get(1));
         byte[] ArtBuffer = new byte[ArtWork.available()];
         ArtWork.read(ArtBuffer);
-        
-        SongData returnSong = new SongData(ArtBuffer,songBuffer); 
-        
+
+        SongData returnSong = new SongData(ArtBuffer, songBuffer);
+
         return returnSong;
     }
 
@@ -104,12 +111,12 @@ public class ControlHandler {
         ArrayList<UserData> allFriends = databaseCheck.returnFriends(dataPacket.username);
         ArrayList<UserData> allUsers = databaseCheck.returnAllUsers();
         ArrayList<UserData> onlineFriends = new ArrayList<>();
-        if(!server.Server.currentUsers.isEmpty()){
+        if (!server.Server.currentUsers.isEmpty()) {
             for (int i = 0; i < server.Server.currentUsers.size(); i++) {
-                    onlineFriends.add(server.Server.currentUsers.get(i));
+                onlineFriends.add(server.Server.currentUsers.get(i));
             }
         }
-        
+
         ArrayList<PostData> friendsPosts = new ArrayList<>();
         ArrayList<SongData> inYourNetwork = new ArrayList<>();
         for (int i = 0; i < allFriends.size(); i++) {
@@ -120,11 +127,11 @@ public class ControlHandler {
         }
         ArrayList<SongData> yourQueue = new ArrayList<>();
         yourQueue = databaseCheck.getSongByUserName(dataPacket.username);
-        MainPageData mainPage = new MainPageData(allFriends,allUsers, onlineFriends, friendsPosts, inYourNetwork, yourQueue);
+        MainPageData mainPage = new MainPageData(allFriends, allUsers, onlineFriends, friendsPosts, inYourNetwork, yourQueue);
         return mainPage;
     }
-    
-    public static UserData getUserData(String Username) throws IOException{
+
+    public static UserData getUserData(String Username) throws IOException {
         try {
             return databaseCheck.getUserDataByUserName(Username);
         } catch (SQLException ex) {

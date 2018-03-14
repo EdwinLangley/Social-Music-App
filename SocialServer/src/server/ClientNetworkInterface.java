@@ -21,14 +21,14 @@ import static server.ControlHandler.databaseCheck;
  * @author Joe
  */
 public class ClientNetworkInterface implements Runnable {
-
+    
     private Socket socket = null;
     public boolean openConnection = true;
-
+    
     public ClientNetworkInterface(Socket socket) {
         this.socket = socket;
     }
-
+    
     @Override
     public void run() {
         //insert client listener in here
@@ -69,7 +69,7 @@ public class ClientNetworkInterface implements Runnable {
                     break OpenConnectionLoop;
                 case "REG"://Register User
                     System.out.println("REG Switch hit");
-
+                    
                     UserData registerUserData = null;
                     try {
                         registerUserData = NetworkInterfaces.RecieveUserData(socket);
@@ -120,8 +120,17 @@ public class ClientNetworkInterface implements Runnable {
                     }
                     break OpenConnectionLoop;
                 case "FFR"://Friend Request Response
-                    //Call relevant function
-                    break;
+                    try {
+                        FriendData friendData = NetworkInterfaces.RecieveFriendData(socket);
+                        if ("Accepted".equals(friendData.status)) {
+                            ControlHandler.acceptFriend(friendData);
+                        } else {
+                            ControlHandler.rejectFriend(friendData);
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break OpenConnectionLoop;
                 case "PST"://Upload Post
                     System.out.println("PST Switch hit");
                     try {
@@ -156,7 +165,7 @@ public class ClientNetworkInterface implements Runnable {
                     }
 //                    Call relevant function
                     break OpenConnectionLoop;
-
+                
                 case "UMP"://Update the Main Page
                     System.out.println("UMP Switch hit");
                     try {
@@ -165,7 +174,7 @@ public class ClientNetworkInterface implements Runnable {
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break OpenConnectionLoop;
-
+                
                 default:
                     break OpenConnectionLoop;
             }
