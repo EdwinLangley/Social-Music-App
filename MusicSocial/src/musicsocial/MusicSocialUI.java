@@ -577,12 +577,23 @@ public class MusicSocialUI extends javax.swing.JFrame{
         
         
         ArrayList<UserData> all = mpd.allUsers;
+        ArrayList<UserData> allOnline = mpd.onlineFriends;
+        ArrayList<String> allOnlineList = new ArrayList<String>();
+        for (int i = 0; i < allOnline.size(); i++ ){
+            UserData single = allOnline.get(i);
+            allOnlineList.add(single.username);   
+        }
         
         allModel.removeAllElements();
         
         for(int i = 0; i < all.size(); i++){
             UserData single = all.get(i);
-            String singleUserName = single.username;
+            String singleUserName;
+            if(allOnlineList.contains(single.username)){
+            singleUserName = single.username + "    [ONLINE]";
+            } else {
+            singleUserName = single.username;
+            }
             allModel.addElement(singleUserName);
         }
         
