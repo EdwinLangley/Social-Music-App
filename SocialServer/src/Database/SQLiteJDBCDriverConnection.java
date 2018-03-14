@@ -302,14 +302,15 @@ public class SQLiteJDBCDriverConnection {
         return Index + 1;
 
     }
-//CHANGE THIS SO IT SETS STATUS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    public void addNewFriend(String username1, String username2) throws IOException, SQLException {
-        String sql = "INSERT INTO Friendships VALUES(?,?)";
+//CHANGE THIS SO IT SETS STATUS!
+    public void addNewFriend(String username1, String username2, String status) throws IOException, SQLException {
+        String sql = "INSERT INTO Friendships VALUES(?,?,?)";
 
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, username1);
         pstmt.setString(2, username2);
+        pstmt.setString(3, status);
         pstmt.executeUpdate();
 
         conn.close();

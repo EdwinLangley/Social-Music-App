@@ -55,8 +55,8 @@ public class ControlHandler {
     }
 
     public static void addFriend(FriendData friendData) throws IOException, SQLException {
-//        databaseCheck.addNewFriend(friendData.username, friendData.otherUsername, friendData.status);
-//        databaseCheck.addNewFriend(friendData.otherUsername, friendData.username, friendData.status);
+        databaseCheck.addNewFriend(friendData.username, friendData.otherUsername, friendData.status);
+        databaseCheck.addNewFriend(friendData.otherUsername, friendData.username, friendData.status);
     }
 
     public static void acceptFriend(FriendData friendData) {

@@ -82,7 +82,6 @@ public class Messaging extends javax.swing.JFrame {
         FriendsLabel = new javax.swing.JLabel();
         ConnectButton = new javax.swing.JButton();
         DisconnectButton = new javax.swing.JButton();
-        SelectedFriendTextField = new javax.swing.JTextField();
         ChatLabel = new javax.swing.JLabel();
 
         jButton1.setText("SEND");
@@ -135,6 +134,11 @@ public class Messaging extends javax.swing.JFrame {
         FriendsLabel.setText("Friends");
 
         ConnectButton.setText("Connect");
+        ConnectButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ConnectButtonMouseClicked(evt);
+            }
+        });
 
         DisconnectButton.setText("Disconnect");
 
@@ -158,8 +162,7 @@ public class Messaging extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(ConnectButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DisconnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(SelectedFriendTextField))
+                        .addComponent(DisconnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -190,8 +193,6 @@ public class Messaging extends javax.swing.JFrame {
                                 .addComponent(SendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(35, 35, 35)
-                                .addComponent(SelectedFriendTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(ConnectButton)
                                     .addComponent(DisconnectButton)))
@@ -207,6 +208,10 @@ public class Messaging extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void initTableListeners() {
+        
+    }
+    
     private void loadFriends() {
         
         DataPacket MainPagePacket = new DataPacket("UMP", CurrentUser);
@@ -277,8 +282,13 @@ public class Messaging extends javax.swing.JFrame {
 
     private void FriendsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FriendsListMouseClicked
        
-        SelectedFriendTextField.setText(FriendsList.getSelectedValue());
+        //SelectedFriendTextField.setText(FriendsList.getSelectedValue());
+        
     }//GEN-LAST:event_FriendsListMouseClicked
+
+    private void ConnectButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ConnectButtonMouseClicked
+        
+    }//GEN-LAST:event_ConnectButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -323,7 +333,6 @@ public class Messaging extends javax.swing.JFrame {
     private javax.swing.JLabel FriendsLabel;
     private javax.swing.JList<String> FriendsList;
     private javax.swing.JScrollPane MessageComposerField;
-    private javax.swing.JTextField SelectedFriendTextField;
     private javax.swing.JButton SendButton;
     private javax.swing.JTextArea TextComposeArea;
     private javax.swing.JTextArea TextReadArea;
