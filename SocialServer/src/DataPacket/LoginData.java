@@ -5,6 +5,9 @@
  */
 package DataPacket;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 /**
  *
  * @author jcgri
@@ -12,13 +15,15 @@ package DataPacket;
 public class LoginData extends DataPacket {
 
     public String username, passsword;
+    public InetAddress IPAddress;
 
     public LoginData() {
     }
 
-    public LoginData(String username, String password) {
+    public LoginData(String username, String password) throws UnknownHostException {
         this.command = "LoginData";
         this.username = username;
         this.passsword = password;
+        this.IPAddress = InetAddress.getLocalHost();
     }
 }

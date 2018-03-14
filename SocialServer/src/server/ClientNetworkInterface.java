@@ -61,7 +61,7 @@ public class ClientNetworkInterface implements Runnable {
                     //Server.currentUsers.remove(inputData.username);
                     for (int i = 0; i < server.Server.currentUsers.size(); i++) {
                         UserData single = server.Server.currentUsers.get(i);
-                        if(single.username.equals(inputData.username) ){
+                        if (single.username.equals(inputData.username)) {
                             server.Server.currentUsers.remove(i);
                         }
                     }
@@ -70,7 +70,7 @@ public class ClientNetworkInterface implements Runnable {
                     break OpenConnectionLoop;
                 case "REG"://Register User
                     System.out.println("REG Switch hit");
-                    
+
                     UserData registerUserData = null;
                     try {
                         registerUserData = NetworkInterfaces.RecieveUserData(socket);
@@ -89,7 +89,7 @@ public class ClientNetworkInterface implements Runnable {
                     break OpenConnectionLoop;
                 //Call relevant function
                 case "LGN"://Login
-                    
+
                     LoginData loginData = null;
                     NotificationPacket loginResponse = new NotificationPacket();
                     try {
@@ -156,7 +156,7 @@ public class ClientNetworkInterface implements Runnable {
                     }
 //                    Call relevant function
                     break OpenConnectionLoop;
-                    
+
                 case "UMP"://Update the Main Page
                     System.out.println("UMP Switch hit");
                     try {
@@ -164,11 +164,8 @@ public class ClientNetworkInterface implements Runnable {
                     } catch (IOException | SQLException | UnsupportedAudioFileException ex) {
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
-            
-
-                   break OpenConnectionLoop;
-                case "SCT"://Start chat
-                    break;
+                    break OpenConnectionLoop;
+                    
                 default:
                     break OpenConnectionLoop;
             }

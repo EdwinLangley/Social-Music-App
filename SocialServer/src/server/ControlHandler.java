@@ -103,11 +103,9 @@ public class ControlHandler {
         ArrayList<UserData> allFriends = databaseCheck.returnFriends(dataPacket.username);
         ArrayList<UserData> allUsers = databaseCheck.returnAllUsers();
         ArrayList<UserData> onlineFriends = new ArrayList<>();
-        if(server.Server.currentUsers.size() != 0){
+        if(!server.Server.currentUsers.isEmpty()){
             for (int i = 0; i < server.Server.currentUsers.size(); i++) {
-                //if (allFriends.contains(server.Server.currentUsers.get(i))) {
                     onlineFriends.add(server.Server.currentUsers.get(i));
-                //}
             }
         }
         
