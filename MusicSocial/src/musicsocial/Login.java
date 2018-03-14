@@ -217,7 +217,12 @@ public class Login extends javax.swing.JFrame {
         DataPacket LoginPacket = new DataPacket("LGN");
         //LoginPacket.buildDataPacket("LGN",null,infoArray);
         
-        LoginData LoginDataPacket = new LoginData(userNameRetrievedText, passwordRetrievedText);
+        LoginData LoginDataPacket = null;
+        try {
+            LoginDataPacket = new LoginData(userNameRetrievedText, passwordRetrievedText);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
         NotificationPacket serverResponse = new NotificationPacket();
         
         InetAddress address = null;
