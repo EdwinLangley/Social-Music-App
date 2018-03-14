@@ -107,7 +107,9 @@ public class MusicSocialUI extends javax.swing.JFrame{
                     }
 
                     try {
-                        LoadSongIDsIntoComboBox();
+                        if (!AttatchedSong.isPopupVisible()) {
+                            LoadSongIDsIntoComboBox();
+                        }
                     } catch (IOException ex) {
                         Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -479,15 +481,34 @@ public class MusicSocialUI extends javax.swing.JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void initListeners(){
-        
-        addWindowListener(new WindowAdapter(){
+    private void initListeners() {
+
+        addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e){
+            public void windowClosing(WindowEvent e) {
                 DataPacket extPacket = new DataPacket("EXT", currentUser);
+
+                InetAddress address = null;
+                try {
+                    address = InetAddress.getLocalHost();
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Socket socket = null;
+
+                try {
+
+                    socket = new Socket(address, 9090);
+
+                    NetworkInterfaces.SendDataPacket(socket, extPacket);
+
+                } catch (IOException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 System.exit(0);
             }
-        
+
         });
         
         YourQueueTable.getSelectionModel().addListSelectionListener(e ->{
