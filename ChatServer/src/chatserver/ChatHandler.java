@@ -8,6 +8,7 @@ package chatserver;
 import DataPacket.ChatData;
 import DataPacket.NetworkInterfaces;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +31,7 @@ public class ChatHandler implements Runnable {
         ChatData recievedMessage = new ChatData();
         try {
             recievedMessage = NetworkInterfaces.RecieveChat(socket);
-//            NetworkInterfaces.SendChat(/*Call get ip address function*/, recievedMessage);
+            NetworkInterfaces.SendChat(InetAddress.getByName(recievedMessage.recievingUser), recievedMessage);
         } catch (IOException ex) {
             Logger.getLogger(ChatHandler.class.getName()).log(Level.SEVERE, null, ex);
         }

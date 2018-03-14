@@ -21,7 +21,7 @@ public class NetworkInterfaces {
 
     /**
      *
-     * @param socket
+     * @param destination
      * @param outputObject
      * @throws IOException
      * 
