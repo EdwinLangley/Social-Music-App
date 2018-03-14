@@ -595,9 +595,12 @@ public class MusicSocialUI extends javax.swing.JFrame{
         
         friendsModel.removeAllElements();
         
+        ArrayList<String> listOfFriendsforComparison = new ArrayList<String>();
+        
         for(int i = 0; i < friends.size(); i++){
             UserData friend = friends.get(i);
             String friendUserName = friend.username;
+            listOfFriendsforComparison.add(friendUserName);
             friendsModel.addElement(friendUserName);
         }
         
@@ -612,6 +615,8 @@ public class MusicSocialUI extends javax.swing.JFrame{
             allOnlineList.add(single.username);   
         }
         
+        
+        
         int allUserSelectedIndex = -1;
         
         if(AllUsersList.getSelectedIndex() != -1){
@@ -622,17 +627,20 @@ public class MusicSocialUI extends javax.swing.JFrame{
         
          for (int i = 0; i < all.size(); i++) {
              UserData single = all.get(i);
-             String singleUserName;
+             String singleUserName = null;
              if (!single.username.equals(currentUser)) {
-                 if (allOnlineList.contains(single.username)) {
-                     singleUserName = single.username + "    [ONLINE]";
-                 } else {
-                     singleUserName = single.username;
+                 if (!listOfFriendsforComparison.contains(single.username)) {
+                     if (allOnlineList.contains(single.username)) {
+                         singleUserName = single.username + "    [ONLINE]";
+                     } else {
+                         singleUserName = single.username;
+                     }
+                     allModel.addElement(singleUserName);
                  }
-                 allModel.addElement(singleUserName);
+                 
              }
-         }        
-         
+         }
+
 
         AllUsersList.setModel(allModel);
         
