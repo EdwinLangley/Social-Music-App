@@ -60,6 +60,20 @@ public class SQLiteJDBCDriverConnection {
         }
 
     }
+    
+        public void insertIP(String IP, String UserName) throws IOException, SQLException {
+        String sql = "UPDATE UserData SET IP = ? WHERE UserName = ?";
+
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, IP);
+        pstmt.setString(2, UserName);
+
+        pstmt.executeUpdate();
+
+        conn.close();
+
+    }
 
     public void insertUser(String FirstName, String LastName, String UserName, String Email, String GenreList, byte[] blob) throws IOException, SQLException {
         String sql = "INSERT INTO UserData(FirstName,LastName,UserName, Email, GenreList,Picture) VALUES(?,?,?,?,?,?)";
