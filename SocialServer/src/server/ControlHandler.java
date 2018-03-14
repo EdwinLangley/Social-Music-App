@@ -33,7 +33,7 @@ public class ControlHandler {
     }
 
     public static boolean Login(LoginData loginInfo) throws IOException, SQLException {
-
+        server.Server.currentUsers.add(databaseCheck.getUserDataByUserName(loginInfo.username));
         return databaseCheck.isGoodLogin(loginInfo.username, loginInfo.passsword) == true;
     }
 
@@ -105,9 +105,9 @@ public class ControlHandler {
         ArrayList<UserData> onlineFriends = new ArrayList<>();
         if(server.Server.currentUsers.size() != 0){
             for (int i = 0; i < server.Server.currentUsers.size(); i++) {
-                if (allFriends.contains(server.Server.currentUsers.get(i))) {
+                //if (allFriends.contains(server.Server.currentUsers.get(i))) {
                     onlineFriends.add(server.Server.currentUsers.get(i));
-                }
+                //}
             }
         }
         
