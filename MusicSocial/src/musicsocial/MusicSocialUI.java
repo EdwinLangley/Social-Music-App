@@ -791,7 +791,7 @@ public class MusicSocialUI extends javax.swing.JFrame{
     } 
     
     private void PlayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PlayMouseClicked
-        String trackName = "D:\\Users\\Edwin\\Music\\marbles-daniel_simon.wav";
+        String trackName = "./src/audio/unselected.wav";
 
         try {
             if (isPlaying == false) {
