@@ -89,6 +89,7 @@ public class NewUser extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("New User");
+        setResizable(false);
 
         firstNameTextField.setToolTipText("First Name");
         firstNameTextField.addActionListener(new java.awt.event.ActionListener() {

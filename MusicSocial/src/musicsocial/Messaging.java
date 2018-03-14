@@ -52,6 +52,7 @@ public class Messaging extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Chat");
+        setResizable(false);
 
         TextComposeArea.setColumns(20);
         TextComposeArea.setRows(5);

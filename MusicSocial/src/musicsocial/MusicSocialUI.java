@@ -181,6 +181,7 @@ public class MusicSocialUI extends javax.swing.JFrame{
         setTitle("Music Social");
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(255, 255, 255));
+        setResizable(false);
 
         SecondSep.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -284,6 +285,11 @@ public class MusicSocialUI extends javax.swing.JFrame{
         jScrollPane5.setViewportView(YourFriendsList);
 
         AddFriendButton.setText("ADD");
+        AddFriendButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AddFriendButtonMouseClicked(evt);
+            }
+        });
 
         jScrollPane6.setViewportView(AllUsersList);
 
@@ -878,6 +884,10 @@ public class MusicSocialUI extends javax.swing.JFrame{
     private void ChatButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ChatButtonMouseClicked
         new Messaging().setVisible(true);
     }//GEN-LAST:event_ChatButtonMouseClicked
+
+    private void AddFriendButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddFriendButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AddFriendButtonMouseClicked
 
     
     private void getAllPosts() {   
