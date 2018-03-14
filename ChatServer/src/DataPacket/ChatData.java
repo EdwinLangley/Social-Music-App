@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public class ChatData implements Serializable {
 
-    private String sendingUser, recievingUser, mesageContent, extension;
+    public String sendingUser, recievingUser, mesageContent, extension;
     private int songID;
     private byte[] image;
     

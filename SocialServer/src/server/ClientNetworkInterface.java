@@ -174,7 +174,6 @@ public class ClientNetworkInterface implements Runnable {
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break OpenConnectionLoop;
-                
                 default:
                     break OpenConnectionLoop;
             }
