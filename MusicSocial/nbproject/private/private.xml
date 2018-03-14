@@ -4,6 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Users/Edwin/Documents/SystemsSoftware/MusicSocial/src/musicsocial/UploadSong.java</file>
+            <file>file:/D:/Users/Edwin/Documents/SystemsSoftware/MusicSocial/src/DataPacket/ChatData.java</file>
             <file>file:/D:/Users/Edwin/Documents/SystemsSoftware/MusicSocial/src/musicsocial/Login.java</file>
             <file>file:/D:/Users/Edwin/Documents/SystemsSoftware/MusicSocial/src/musicsocial/NewUser.java</file>
             <file>file:/D:/Users/Edwin/Documents/SystemsSoftware/MusicSocial/src/DataPacket/LoginData.java</file>
@@ -11,6 +12,7 @@
             <file>file:/D:/Users/Edwin/Documents/SystemsSoftware/MusicSocial/src/musicsocial/MusicSocialUI.java</file>
             <file>file:/D:/Users/Edwin/Documents/SystemsSoftware/MusicSocial/src/DataPacket/MainPageData.java</file>
             <file>file:/D:/Users/Edwin/Documents/SystemsSoftware/MusicSocial/src/musicsocial/MusicSocial.java</file>
+            <file>file:/D:/Users/Edwin/Documents/SystemsSoftware/MusicSocial/src/DataPacket/FriendData.java</file>
             <file>file:/D:/Users/Edwin/Documents/SystemsSoftware/MusicSocial/src/DataPacket/NetworkInterfaces.java</file>
             <file>file:/D:/Users/Edwin/Documents/SystemsSoftware/MusicSocial/src/musicsocial/Messaging.java</file>
             <file>file:/D:/Users/Edwin/Documents/SystemsSoftware/MusicSocial/src/DataPacket/DataPacket.java</file>
