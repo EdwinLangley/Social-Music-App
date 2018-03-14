@@ -13,6 +13,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
@@ -33,7 +35,6 @@ public class ControlHandler {
     }
 
     public static boolean Login(LoginData loginInfo) throws IOException, SQLException {
-        server.Server.currentUsers.add(databaseCheck.getUserDataByUserName(loginInfo.username));
         return databaseCheck.isGoodLogin(loginInfo.username, loginInfo.passsword) == true;
     }
 
@@ -122,5 +123,13 @@ public class ControlHandler {
         MainPageData mainPage = new MainPageData(allFriends,allUsers, onlineFriends, friendsPosts, inYourNetwork, yourQueue);
         return mainPage;
     }
-
+    
+    public static UserData getUserData(String Username) throws IOException{
+        try {
+            return databaseCheck.getUserDataByUserName(Username);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

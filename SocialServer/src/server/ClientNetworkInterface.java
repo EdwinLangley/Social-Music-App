@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import static server.ControlHandler.databaseCheck;
 
 /**
  *
@@ -58,14 +59,12 @@ public class ClientNetworkInterface implements Runnable {
                 case "EXT"://Logout
                     System.out.println("EXT Switch hit");
                     openConnection = false;
-                    //Server.currentUsers.remove(inputData.username);
                     for (int i = 0; i < server.Server.currentUsers.size(); i++) {
                         UserData single = server.Server.currentUsers.get(i);
                         if (single.username.equals(inputData.username)) {
                             server.Server.currentUsers.remove(i);
                         }
                     }
-                    server.Server.currentUsers.remove(inputData.username);
                     System.out.println("hit");
                     break OpenConnectionLoop;
                 case "REG"://Register User
@@ -89,7 +88,6 @@ public class ClientNetworkInterface implements Runnable {
                     break OpenConnectionLoop;
                 //Call relevant function
                 case "LGN"://Login
-
                     LoginData loginData = null;
                     NotificationPacket loginResponse = new NotificationPacket();
                     try {
@@ -98,6 +96,9 @@ public class ClientNetworkInterface implements Runnable {
                             loginResponse.setCommand("ACK");
                             loginResponse.setNotification("Good Login");
                             NetworkInterfaces.SendNotificationPacket(socket, loginResponse);
+                            UserData login = databaseCheck.getUserDataByUserName(loginData.username);
+                            login.IPAddress = loginData.IPAddress;
+                            server.Server.currentUsers.add(login);
                         } else {
                             loginResponse.setCommand("NAK");
                             loginResponse.setNotification("Bad Login");
@@ -106,7 +107,6 @@ public class ClientNetworkInterface implements Runnable {
                     } catch (IOException | SQLException ex) {
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
-//                    Server.currentUsers.add(inputData.username);
                     break OpenConnectionLoop;
                 case "SFR"://Search for Friend Recomendations
                     //Call relevant function
@@ -165,7 +165,7 @@ public class ClientNetworkInterface implements Runnable {
                         Logger.getLogger(ClientNetworkInterface.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break OpenConnectionLoop;
-                    
+
                 default:
                     break OpenConnectionLoop;
             }
