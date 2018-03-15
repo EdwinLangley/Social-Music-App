@@ -21,7 +21,7 @@ public class ChatServer {
         // TODO code application logic here
         boolean running=true;
         //int portNumber=Integer.parseInt(args[0]);
-	int portNumber=9090;
+	int portNumber=9091;
         try (ServerSocket serverSocket = new ServerSocket(portNumber)){
             while (running){
             //Do server stuff

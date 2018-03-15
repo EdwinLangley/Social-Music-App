@@ -1,5 +1,6 @@
 package musicsocial;
 
+import DataPacket.ChatData;
 import DataPacket.DataPacket;
 import DataPacket.MainPageData;
 import DataPacket.NetworkInterfaces;
@@ -49,13 +50,13 @@ public class Messaging extends javax.swing.JFrame {
         new Thread(new Runnable() {
             public void run() {
                 while (true) {
-                    
+                    loadFriends();
                     try {
                         Thread.sleep(2000);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                   loadFriends();
+                   
                 }
                 
             }
@@ -279,8 +280,18 @@ public class Messaging extends javax.swing.JFrame {
     private void SendButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SendButtonMouseClicked
         String composedMessage = TextComposeArea.getText();
         TextComposeArea.setText("");
-        if(!composedMessage.matches("")){
+        if (!composedMessage.matches("") && !sendToUser.matches("")) {
             TextReadArea.append(composedMessage + "\n");
+            ChatData chatData = new ChatData(CurrentUser, sendToUser, composedMessage);
+
+            try {
+                NetworkInterfaces.SendChat(InetAddress.getLocalHost(), chatData);
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
     }//GEN-LAST:event_SendButtonMouseClicked
 
@@ -297,6 +308,11 @@ public class Messaging extends javax.swing.JFrame {
         
         if(splitArr.length == 1){
             JOptionPane.showMessageDialog(null, "Sorry, that user is not online");
+        } else {
+            sendToUser = splitArr[0];
+            TextReadArea.setText("");
+            TextReadArea.append("Chat with " + sendToUser +"\n");
+            TextReadArea.append("===============================================================\n");
         }
         
         
