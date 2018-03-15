@@ -542,6 +542,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Reject / Remove"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="RejectFriendButtonMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

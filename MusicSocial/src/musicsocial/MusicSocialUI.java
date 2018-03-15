@@ -354,6 +354,11 @@ public class MusicSocialUI extends javax.swing.JFrame{
         });
 
         RejectFriendButton.setText("Reject / Remove");
+        RejectFriendButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RejectFriendButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1009,7 +1014,7 @@ public class MusicSocialUI extends javax.swing.JFrame{
         String otherUser = YourFriendsList.getSelectedValue();
         String splitArr[] = otherUser.split(" ", 2);
 
-        System.out.println("hi");
+
         if (splitArr[1].equals("   [INCOMING REQUEST]"));
         {
             FriendData friendData = new FriendData("FFR", currentUser, splitArr[0], "Accepted");
@@ -1036,6 +1041,39 @@ public class MusicSocialUI extends javax.swing.JFrame{
             }
         }
     }//GEN-LAST:event_AcceptFriendButtonMouseClicked
+
+    private void RejectFriendButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RejectFriendButtonMouseClicked
+        DataPacket sendData = new DataPacket("FFR");
+        String otherUser = YourFriendsList.getSelectedValue();
+        String splitArr[] = otherUser.split(" ", 2);
+
+
+
+        
+            FriendData friendData = new FriendData("FFR", currentUser, splitArr[0], "Reject");
+
+            InetAddress address = null;
+
+            try {
+                address = InetAddress.getLocalHost();
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Socket socket = null;
+            try {
+                socket = new Socket(address, 9090);
+                //Send multiple bits of data over same socket connection should always be in pairs
+                //First DataPacket preps server
+                //Second sends data
+                //Only close socket afterwards
+                NetworkInterfaces.SendDataPacket(socket, sendData);
+                NetworkInterfaces.SendFriendData(socket, friendData);
+            } catch (IOException ex) {
+                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+    }//GEN-LAST:event_RejectFriendButtonMouseClicked
 
     
     private void getAllPosts() {   
