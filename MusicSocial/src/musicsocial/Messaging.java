@@ -284,13 +284,19 @@ public class Messaging extends javax.swing.JFrame {
             TextReadArea.append(composedMessage + "\n");
             ChatData chatData = new ChatData(CurrentUser, sendToUser, composedMessage);
 
+            Socket someSocket= null; 
+            
             try {
+                someSocket = new Socket(InetAddress.getLocalHost(), 9091);
                 NetworkInterfaces.SendChat(InetAddress.getLocalHost(), chatData);
+                chatData = NetworkInterfaces.RecieveChat(someSocket);
             } catch (UnknownHostException ex) {
                 Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            TextReadArea.append(chatData.mesageContent);
 
         }
     }//GEN-LAST:event_SendButtonMouseClicked
