@@ -347,6 +347,11 @@ public class MusicSocialUI extends javax.swing.JFrame{
         jScrollPane7.setViewportView(InYourNetworkTable);
 
         AcceptFriendButton.setText("Accept");
+        AcceptFriendButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AcceptFriendButtonMouseClicked(evt);
+            }
+        });
 
         RejectFriendButton.setText("Reject / Remove");
 
@@ -612,7 +617,7 @@ public class MusicSocialUI extends javax.swing.JFrame{
     
         ArrayList<UserData> friends = mpd.allFriends;
         
-        friendsModel.removeAllElements();
+        
         
         ArrayList<UserData> all = mpd.allUsers;
         ArrayList<UserData> allOnline = mpd.onlineFriends;
@@ -636,7 +641,13 @@ public class MusicSocialUI extends javax.swing.JFrame{
              requestedToList.add(single.username);
          }
         
+        int friendsSelectedIndex = -1;
+                
+        if(YourFriendsList.getSelectedIndex() != -1){
+            friendsSelectedIndex = YourFriendsList.getSelectedIndex();
+        }
         
+        friendsModel.removeAllElements();
         
         ArrayList<String> listOfFriendsforComparison = new ArrayList<String>();
         
@@ -669,6 +680,12 @@ public class MusicSocialUI extends javax.swing.JFrame{
         
         YourFriendsList.setModel(friendsModel);
         
+        if(friendsSelectedIndex != -1){
+           YourFriendsList.setSelectedIndex(friendsSelectedIndex);
+        }
+        
+
+        
         int allUserSelectedIndex = -1;
         
         if(AllUsersList.getSelectedIndex() != -1){
@@ -696,7 +713,7 @@ public class MusicSocialUI extends javax.swing.JFrame{
 
         AllUsersList.setModel(allModel);
         
-         if(allUserSelectedIndex != -1){
+        if(allUserSelectedIndex != -1){
            AllUsersList.setSelectedIndex(allUserSelectedIndex);
         }
         
@@ -986,6 +1003,39 @@ public class MusicSocialUI extends javax.swing.JFrame{
             Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_AddFriendButtonMouseClicked
+
+    private void AcceptFriendButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AcceptFriendButtonMouseClicked
+        DataPacket sendData = new DataPacket("FFR");
+        String otherUser = YourFriendsList.getSelectedValue();
+        String splitArr[] = otherUser.split(" ", 2);
+
+        System.out.println("hi");
+        if (splitArr[1].equals("   [INCOMING REQUEST]"));
+        {
+            FriendData friendData = new FriendData("FFR", currentUser, splitArr[0], "Accepted");
+
+            InetAddress address = null;
+
+            try {
+                address = InetAddress.getLocalHost();
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Socket socket = null;
+            try {
+                socket = new Socket(address, 9090);
+                //Send multiple bits of data over same socket connection should always be in pairs
+                //First DataPacket preps server
+                //Second sends data
+                //Only close socket afterwards
+                NetworkInterfaces.SendDataPacket(socket, sendData);
+                NetworkInterfaces.SendFriendData(socket, friendData);
+            } catch (IOException ex) {
+                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_AcceptFriendButtonMouseClicked
 
     
     private void getAllPosts() {   
