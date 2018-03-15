@@ -178,7 +178,12 @@ public class ServerUI extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    public void outputToConsole(String message){
+        this.ConsoleArea.append(message);
+        this.ConsoleArea.append("\n");
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea ConsoleArea;
     private javax.swing.JLabel TitleArea;

@@ -214,7 +214,7 @@ public class Login extends javax.swing.JFrame {
         infoArray.add(userNameRetrievedText);
         infoArray.add(passwordRetrievedText);
         
-        DataPacket LoginPacket = new DataPacket("LGN");
+        DataPacket LoginPacket = new DataPacket("LGN",userNameRetrievedText);
         //LoginPacket.buildDataPacket("LGN",null,infoArray);
         
         LoginData LoginDataPacket = null;
