@@ -14,8 +14,8 @@ import java.io.Serializable;
 public class ChatData implements Serializable {
 
     public String sendingUser, recievingUser, mesageContent, extension;
-    private int songID;
-    private byte[] image;
+    public int songID;
+    public byte[] image;
     
     //Sending a song and message
     public ChatData(String sendingUser, String recievingUser, String mesageContent, String extension, int songID) {

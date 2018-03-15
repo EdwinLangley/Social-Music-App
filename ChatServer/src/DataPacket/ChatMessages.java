@@ -5,16 +5,18 @@
  */
 package DataPacket;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author jcgri
  */
 public class ChatMessages {
 
-    public ChatData[] messages;
+    public ArrayList<ChatData> messages;
     public boolean isEmpty;
 
-    public ChatMessages(ChatData[] messages) {
+    public ChatMessages(ArrayList<ChatData> messages) {
         this.messages = messages;
     }
 

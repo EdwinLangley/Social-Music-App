@@ -54,7 +54,7 @@ public class Messaging extends javax.swing.JFrame {
                         Socket someSocket = null;
                         try {
                             someSocket = new Socket(InetAddress.getLocalHost(), 9091);
-                            DataPacket chatRequest = new DataPacket("REC", CurrentUser);
+                            DataPacket chatRequest = new DataPacket("REC", sendToUser);
                             NetworkInterfaces.SendDataPacket(someSocket, chatRequest);
                             ChatMessages chatData = NetworkInterfaces.RecieveChat(someSocket);
                             if (!chatData.isEmpty) {

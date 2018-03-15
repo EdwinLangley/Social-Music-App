@@ -6,10 +6,16 @@
 package chatserver;
 
 import DataPacket.*;
+import Database.SQLiteJDBCDriverConnection;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,6 +24,8 @@ import java.util.logging.Logger;
  * @author jcgri
  */
 public class ChatHandler implements Runnable {
+    
+    public static SQLiteJDBCDriverConnection databaseCheck = new SQLiteJDBCDriverConnection();
 
     private Socket socket = null;
     public boolean openConnection = true;
@@ -43,8 +51,17 @@ public class ChatHandler implements Runnable {
                 ChatData recievedMessage = new ChatData();
                 try {
                     recievedMessage = NetworkInterfaces.RecieveChat(socket);
-                    //Add database entry here
-                } catch (IOException ex) {
+                    
+                    File ImgDir = new File("IMG/1.png");
+                    String dbPathIMG = "IMG/1.png";
+
+                    byte[] artData = recievedMessage.image;
+                    FileOutputStream retreievdAlbumArt = new FileOutputStream(ImgDir);
+                    retreievdAlbumArt.write(artData);
+                    
+                    databaseCheck.insertMessageIntoDatabase(recievedMessage,dbPathIMG);
+                    //Add database entry here adding messages to the database 
+                } catch (IOException | SQLException ex) {
                     Logger.getLogger(ChatHandler.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 break;
@@ -53,7 +70,23 @@ public class ChatHandler implements Runnable {
                 ChatMessages voicemail = null;
                 try {
                     //ChatMessages voicemail = Pull messages from database();
-                    if (voicemail.messages.length < 1) {
+                    ArrayList<ChatData> changeForOutput = databaseCheck.readAndDelete("s",inputData.username);
+                    ArrayList<ChatData> changed = new ArrayList<ChatData>();
+                    
+                    FileInputStream ArtWork;
+                    
+                    for (int i = 0; i < changeForOutput.size(); i++) {
+                        ChatData temp = changeForOutput.get(i);
+                        ArtWork = new FileInputStream(temp.extension);
+                        byte[] ArtBuffer = new byte[ArtWork.available()];
+                        ArtWork.read(ArtBuffer);
+                        
+                        ChatData addToOutput = new ChatData(temp.sendingUser, temp.recievingUser, temp.mesageContent, temp.extension, ArtBuffer);
+                        changed.add(addToOutput);
+                    }
+                    
+                    voicemail = new ChatMessages(changed);
+                    if (voicemail.messages.size() < 1) {
                         voicemail.isEmpty = true;
                     } else {
                         voicemail.isEmpty = false;
@@ -61,7 +94,7 @@ public class ChatHandler implements Runnable {
                     NetworkInterfaces.SendChat(socket, voicemail);
                 } catch (UnknownHostException ex) {
                     Logger.getLogger(ChatHandler.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
+                } catch (IOException | SQLException ex) {
                     Logger.getLogger(ChatHandler.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 break;
