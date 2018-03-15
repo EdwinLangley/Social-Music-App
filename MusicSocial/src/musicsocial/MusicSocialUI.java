@@ -58,6 +58,7 @@ public class MusicSocialUI extends javax.swing.JFrame{
     DefaultListModel allMySongsModel = new DefaultListModel();
     DefaultTableModel allMySongsTableModel;
     DefaultTableModel allNetworkSongsTableModel;
+    boolean firstRun = true;
 
     /**
      * Creates new form MusicSocialUI
@@ -146,10 +147,6 @@ public class MusicSocialUI extends javax.swing.JFrame{
         SecondSep = new javax.swing.JSeparator();
         FirstSep = new javax.swing.JSeparator();
         Play = new javax.swing.JLabel();
-        Skip = new javax.swing.JLabel();
-        Previous = new javax.swing.JLabel();
-        Repeat = new javax.swing.JLabel();
-        Mute = new javax.swing.JLabel();
         AlbumArt = new javax.swing.JLabel();
         TitleFriendsPost = new javax.swing.JLabel();
         TitleRecommendation = new javax.swing.JLabel();
@@ -197,18 +194,6 @@ public class MusicSocialUI extends javax.swing.JFrame{
                 PlayMouseClicked(evt);
             }
         });
-
-        Skip.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/next.png"))); // NOI18N
-        Skip.setText("jLabel2");
-
-        Previous.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back.png"))); // NOI18N
-        Previous.setText("jLabel2");
-
-        Repeat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/repeat.png"))); // NOI18N
-        Repeat.setText("jLabel3");
-
-        Mute.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mute.png"))); // NOI18N
-        Mute.setText("jLabel4");
 
         AlbumArt.setText("jLabel6");
 
@@ -422,22 +407,16 @@ public class MusicSocialUI extends javax.swing.JFrame{
                 .addComponent(SecondSep, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(200, 200, 200)
+                        .addGap(215, 215, 215)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(TitleRecommendation)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(addSongButton)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(Mute, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(Previous, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
                                         .addComponent(Play, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(Skip, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addComponent(Repeat, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(50, 50, 50)))
+                                .addGap(50, 50, 50))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(218, 218, 218)
                         .addComponent(AlbumArt, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -476,12 +455,7 @@ public class MusicSocialUI extends javax.swing.JFrame{
                                 .addGap(5, 5, 5)
                                 .addComponent(AlbumArt, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(37, 37, 37)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(Play, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Skip, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Previous, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Repeat, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Mute, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(Play, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(WelcomeLabel)
@@ -577,6 +551,7 @@ public class MusicSocialUI extends javax.swing.JFrame{
                 } catch (IOException ex) {
                     Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                firstRun = false;
             }
         });
 
@@ -610,7 +585,7 @@ public class MusicSocialUI extends javax.swing.JFrame{
                 } catch (IOException ex) {
                     Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            
+            firstRun = false;
             }
         });
 
@@ -835,7 +810,7 @@ public class MusicSocialUI extends javax.swing.JFrame{
                 clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 if (clipTime < clip.getFrameLength()) {
-                    clip.setFramePosition(clipTime);
+                    clip.setFramePosition(0);
                 }
                 clip.start();
                 isPlaying = true;
@@ -863,13 +838,18 @@ public class MusicSocialUI extends javax.swing.JFrame{
     
     private void PlayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PlayMouseClicked
         String trackName = "./src/audio/unselected.wav";
+        
+        
 
         try {
             if (isPlaying == false) {
 
-//                audioInputStream = AudioSystem.getAudioInputStream(new File(trackName).getAbsoluteFile());
-//                clip = AudioSystem.getClip();
-//                clip.open(audioInputStream);
+                if(firstRun == true){
+                audioInputStream = AudioSystem.getAudioInputStream(new File(trackName).getAbsoluteFile());
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                firstRun = false;
+                }
                 if (clipTime < clip.getFrameLength()) {
                     clip.setFramePosition(clipTime);
                 }
@@ -1138,16 +1118,12 @@ public class MusicSocialUI extends javax.swing.JFrame{
     private javax.swing.JTable InYourNetworkTable;
     private javax.swing.JComboBox<String> MoodDropDown;
     private javax.swing.JLabel MoodLabel;
-    private javax.swing.JLabel Mute;
     private javax.swing.JLabel Play;
     private javax.swing.JButton PostButton;
     private javax.swing.JTextArea PostField;
     private javax.swing.JList<String> PostsDisplay;
-    private javax.swing.JLabel Previous;
     private javax.swing.JButton RejectFriendButton;
-    private javax.swing.JLabel Repeat;
     private javax.swing.JSeparator SecondSep;
-    private javax.swing.JLabel Skip;
     private javax.swing.JLabel TitleFriends1;
     private javax.swing.JLabel TitleFriendsPost;
     private javax.swing.JLabel TitleInYourNetwork;
