@@ -29,8 +29,7 @@ public class NetworkInterfaces {
      * Socket will be closed at the end of the ClientNetworkInterface(Hopefully)
      * 
      */
-    public static void SendChat(InetAddress destination, ChatData outputObject) throws IOException {
-        Socket socket = new Socket(destination,9091);
+    public static void SendChat(Socket socket, ChatMessages outputObject) throws IOException {
         ObjectOutputStream output = null;
         output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         System.out.println("OutputData");
@@ -46,6 +45,32 @@ public class NetworkInterfaces {
         System.out.println("Getting Input:DataPacket");
         try {
             inputData = (ChatData) input.readObject();
+        } catch (ClassNotFoundException c) {
+            System.out.println("Class not found");
+            c.printStackTrace();
+        }
+        socket.close();
+        return inputData;
+    }
+    
+    public static void SendDataPacket(InetAddress destination, DataPacket outputObject) throws IOException {
+        Socket socket = new Socket(destination,9091);
+        ObjectOutputStream output = null;
+        output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        System.out.println("OutputData");
+        System.out.println(outputObject.getCommand());
+        output.writeObject(outputObject);
+        output.flush();
+        System.out.println("OutputClosed");
+    }
+
+    public static DataPacket RecieveDataPacket(Socket socket) throws IOException {
+        ObjectInputStream input = null;
+        DataPacket inputData = null;
+        input = new ObjectInputStream(socket.getInputStream());
+        System.out.println("Getting Input:DataPacket");
+        try {
+            inputData = (DataPacket) input.readObject();
         } catch (ClassNotFoundException c) {
             System.out.println("Class not found");
             c.printStackTrace();

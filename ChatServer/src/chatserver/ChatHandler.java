@@ -5,11 +5,11 @@
  */
 package chatserver;
 
-import DataPacket.ChatData;
-import DataPacket.NetworkInterfaces;
+import DataPacket.*;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,12 +28,45 @@ public class ChatHandler implements Runnable {
 
     @Override
     public void run() {
-        ChatData recievedMessage = new ChatData();
+
+        DataPacket inputData = new DataPacket();
         try {
-            recievedMessage = NetworkInterfaces.RecieveChat(socket);
-            NetworkInterfaces.SendChat(InetAddress.getByName(recievedMessage.recievingUser), recievedMessage);
+            inputData = NetworkInterfaces.RecieveDataPacket(socket);
+//            ui.outputToConsole("DATA PACKET RECIEVED");
         } catch (IOException ex) {
             Logger.getLogger(ChatHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String inputCommand = inputData.getCommand();
+        switch (inputCommand) {
+            case "SND"://Send chat message
+                ChatData recievedMessage = new ChatData();
+                try {
+                    recievedMessage = NetworkInterfaces.RecieveChat(socket);
+                    //Add database entry here
+                } catch (IOException ex) {
+                    Logger.getLogger(ChatHandler.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+
+            case "REC"://Recieve chat message
+                ChatMessages voicemail = null;
+                try {
+                    //ChatMessages voicemail = Pull messages from database();
+                    if (voicemail.messages.length < 1) {
+                        voicemail.isEmpty = true;
+                    } else {
+                        voicemail.isEmpty = false;
+                    }
+                    NetworkInterfaces.SendChat(socket, voicemail);
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(ChatHandler.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ChatHandler.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+            default:
+                break;
         }
     }
 

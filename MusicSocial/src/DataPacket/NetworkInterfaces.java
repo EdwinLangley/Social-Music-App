@@ -235,13 +235,13 @@ public class NetworkInterfaces {
         System.out.println("OutputClosed");
     }
 
-    public static ChatData RecieveChat(Socket socket) throws IOException {
+    public static ChatMessages RecieveChat(Socket socket) throws IOException {
         ObjectInputStream input = null;
-        ChatData inputData = null;
+        ChatMessages inputData = null;
         input = new ObjectInputStream(socket.getInputStream());
         System.out.println("Getting Input:DataPacket");
         try {
-            inputData = (ChatData) input.readObject();
+            inputData = (ChatMessages) input.readObject();
         } catch (ClassNotFoundException c) {
             System.out.println("Class not found");
             c.printStackTrace();

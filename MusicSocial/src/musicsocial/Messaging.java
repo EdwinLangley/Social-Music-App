@@ -1,6 +1,7 @@
 package musicsocial;
 
 import DataPacket.ChatData;
+import DataPacket.ChatMessages;
 import DataPacket.DataPacket;
 import DataPacket.MainPageData;
 import DataPacket.NetworkInterfaces;
@@ -20,7 +21,6 @@ import javax.swing.JOptionPane;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Edwin
@@ -31,37 +31,52 @@ public class Messaging extends javax.swing.JFrame {
     DefaultListModel friendsModel = new DefaultListModel();
     String CurrentUser = "";
     String sendToUser = "";
-    
+
     /**
      * Creates new form Messaging
      */
-    
-       public Messaging() {
+    public Messaging() {
         initComponents();
-               
+
     }
-    
-    
+
     public Messaging(String UserName) {
         initComponents();
-        
+
         CurrentUser = UserName;
-        
+
         new Thread(new Runnable() {
             public void run() {
                 while (true) {
                     loadFriends();
                     try {
                         Thread.sleep(2000);
+                        Socket someSocket = null;
+                        try {
+                            someSocket = new Socket(InetAddress.getLocalHost(), 9091);
+                            DataPacket chatRequest = new DataPacket("REC", CurrentUser);
+                            NetworkInterfaces.SendDataPacket(someSocket, chatRequest);
+                            ChatMessages chatData = NetworkInterfaces.RecieveChat(someSocket);
+                            if (!chatData.isEmpty) {
+                                for (ChatData message : chatData.messages) {
+                                    TextReadArea.append(sendToUser + ":\t" + message.mesageContent + "\n");
+                                }
+                            }
+                        } catch (UnknownHostException ex) {
+                            Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                            Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                   
+
                 }
-                
+
             }
         }).start();
-        
+
     }
 
     /**
@@ -204,13 +219,13 @@ public class Messaging extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void initTableListeners() {
-        
+
     }
-    
+
     private void loadFriends() {
-        
+
         DataPacket MainPagePacket = new DataPacket("UMP", CurrentUser);
-        
+
         InetAddress address = null;
         try {
             address = InetAddress.getLocalHost();
@@ -218,24 +233,23 @@ public class Messaging extends javax.swing.JFrame {
             Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
         }
         Socket socket = null;
-        
+
         try {
-          
-        socket = new Socket(address, 9090);    
-        
-        NetworkInterfaces.SendDataPacket(socket, MainPagePacket);
-        mpd = NetworkInterfaces.RecieveMainPageData(socket);
-        
+
+            socket = new Socket(address, 9090);
+
+            NetworkInterfaces.SendDataPacket(socket, MainPagePacket);
+            mpd = NetworkInterfaces.RecieveMainPageData(socket);
+
         } catch (IOException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
         ArrayList<UserData> friends = mpd.allFriends;
-        
+
         int allUserSelectedIndex = -1;
-        
-        if(FriendsList.getSelectedIndex() != -1){
+
+        if (FriendsList.getSelectedIndex() != -1) {
             allUserSelectedIndex = FriendsList.getSelectedIndex();
         }
 
@@ -263,12 +277,12 @@ public class Messaging extends javax.swing.JFrame {
         }
 
         FriendsList.setModel(friendsModel);
-        
-        if(allUserSelectedIndex != -1){
-           FriendsList.setSelectedIndex(allUserSelectedIndex);
+
+        if (allUserSelectedIndex != -1) {
+            FriendsList.setSelectedIndex(allUserSelectedIndex);
         }
     }
-    
+
     private void SendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SendButtonActionPerformed
@@ -284,44 +298,43 @@ public class Messaging extends javax.swing.JFrame {
             TextReadArea.append(CurrentUser + ":\t" + composedMessage + "\n");
             ChatData chatData = new ChatData(CurrentUser, sendToUser, composedMessage);
 
-            Socket someSocket= null; 
-            
+            Socket someSocket = null;
+
             try {
                 someSocket = new Socket(InetAddress.getLocalHost(), 9091);
+                DataPacket chatRequest = new DataPacket("SND", CurrentUser);
+                NetworkInterfaces.SendDataPacket(someSocket, chatRequest);
                 NetworkInterfaces.SendChat(InetAddress.getLocalHost(), chatData);
-                chatData = NetworkInterfaces.RecieveChat(someSocket);
             } catch (UnknownHostException ex) {
                 Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            TextReadArea.append(sendToUser + ":\t" + chatData.mesageContent + "\n");
 
         }
     }//GEN-LAST:event_SendButtonMouseClicked
 
     private void FriendsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FriendsListMouseClicked
-       
+
         //SelectedFriendTextField.setText(FriendsList.getSelectedValue());
-        
+
     }//GEN-LAST:event_FriendsListMouseClicked
 
     private void ConnectButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ConnectButtonMouseClicked
-        
+
         String otherUser = FriendsList.getSelectedValue();
         String splitArr[] = otherUser.split(" ", 2);
-        
-        if(splitArr.length == 1){
+
+        if (splitArr.length == 1) {
             JOptionPane.showMessageDialog(null, "Sorry, that user is not online");
         } else {
             sendToUser = splitArr[0];
             TextReadArea.setText("");
-            TextReadArea.append("Chat with " + sendToUser +"\n");
+            TextReadArea.append("Chat with " + sendToUser + "\n");
             TextReadArea.append("===============================================================\n");
         }
-        
-        
+
+
     }//GEN-LAST:event_ConnectButtonMouseClicked
 
     /**
@@ -350,7 +363,7 @@ public class Messaging extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Messaging.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
