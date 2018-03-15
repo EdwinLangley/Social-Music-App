@@ -867,9 +867,9 @@ public class MusicSocialUI extends javax.swing.JFrame{
         try {
             if (isPlaying == false) {
 
-                audioInputStream = AudioSystem.getAudioInputStream(new File(trackName).getAbsoluteFile());
-                clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
+//                audioInputStream = AudioSystem.getAudioInputStream(new File(trackName).getAbsoluteFile());
+//                clip = AudioSystem.getClip();
+//                clip.open(audioInputStream);
                 if (clipTime < clip.getFrameLength()) {
                     clip.setFramePosition(clipTime);
                 }
