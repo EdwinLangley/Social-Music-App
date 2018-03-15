@@ -616,11 +616,25 @@ public class MusicSocialUI extends javax.swing.JFrame{
         
         ArrayList<UserData> all = mpd.allUsers;
         ArrayList<UserData> allOnline = mpd.onlineFriends;
+        ArrayList<UserData> requestedFrom = mpd.requestedMyFriendShipFrom;
+        ArrayList<UserData> requestedTo = mpd.iRequestedFriendShip;
         ArrayList<String> allOnlineList = new ArrayList<String>();
+        ArrayList<String> requestedFromList = new ArrayList<String>();
+        ArrayList<String> requestedToList = new ArrayList<String>();
+        
+        
         for (int i = 0; i < allOnline.size(); i++ ){
             UserData single = allOnline.get(i);
             allOnlineList.add(single.username);   
         }
+        for (int i = 0; i < requestedFrom.size(); i++) {
+             UserData single = requestedFrom.get(i);
+             requestedFromList.add(single.username);
+         }
+        for (int i = 0; i < requestedTo.size(); i++) {
+             UserData single = requestedTo.get(i);
+             requestedToList.add(single.username);
+         }
         
         
         
@@ -630,10 +644,26 @@ public class MusicSocialUI extends javax.swing.JFrame{
              UserData friend = friends.get(i);
              String friendUserName = friend.username;
              listOfFriendsforComparison.add(friendUserName);
-             if (allOnlineList.contains(friend.username)) {
-                 friendsModel.addElement(friendUserName +"    [ONLINE]");
-             } else {
-                 friendsModel.addElement(friendUserName);
+             if(requestedFromList.contains(friend.username)){
+                 friendUserName += "    [INCOMING REQUEST]";
+                if (allOnlineList.contains(friend.username)) {
+                    friendsModel.addElement(friendUserName +"    [ONLINE]");
+                } else {
+                    friendsModel.addElement(friendUserName);
+                }
+             } else if(requestedToList.contains(friend.username)) {
+                friendUserName += "    [OUTGOING REQUEST]";
+                if (allOnlineList.contains(friend.username)) {
+                    friendsModel.addElement(friendUserName +"    [ONLINE]");
+                } else {
+                    friendsModel.addElement(friendUserName);
+                }
+             } else{
+                 if (allOnlineList.contains(friend.username)) {
+                    friendsModel.addElement(friendUserName +"    [ONLINE]");
+                } else {
+                    friendsModel.addElement(friendUserName);
+                }
              }
         }
         
