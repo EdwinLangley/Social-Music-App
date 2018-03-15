@@ -19,11 +19,13 @@ public class MainPageData extends DataPacket {
     public ArrayList<PostData> friendsPosts;
     public ArrayList<SongData> inYourNetwork;
     public ArrayList<SongData> yourQueue;
+    public ArrayList<UserData> iRequestedFriendShip;
+    public ArrayList<UserData> requestedMyFriendShipFrom;
 
     public MainPageData() {
     }
 
-    public MainPageData(ArrayList<UserData> allFriends,ArrayList<UserData> allUsers, ArrayList<UserData> onlineFriends, ArrayList<PostData> friendsPosts, ArrayList<SongData> inYourNetwork, ArrayList<SongData> yourQueue) {
+    public MainPageData(ArrayList<UserData> allFriends,ArrayList<UserData> allUsers, ArrayList<UserData> onlineFriends, ArrayList<PostData> friendsPosts, ArrayList<SongData> inYourNetwork, ArrayList<SongData> yourQueue,ArrayList<UserData> iRequestedFriendShip, ArrayList<UserData> requestedMyFriendShipFrom ) {
         this.command = "MainPageData";
         this.allFriends = allFriends;
         this.allUsers = allUsers;
@@ -31,5 +33,7 @@ public class MainPageData extends DataPacket {
         this.friendsPosts = friendsPosts;
         this.inYourNetwork = inYourNetwork;
         this.yourQueue = yourQueue;
+        this.iRequestedFriendShip = iRequestedFriendShip;
+        this.requestedMyFriendShipFrom = requestedMyFriendShipFrom;
     }
 }

@@ -429,9 +429,20 @@ public class SQLiteJDBCDriverConnection {
         //app.returnFriends("Ed");
         //app.getUserDataByUserName("griffindore");
         
-        FriendData test = new FriendData("AFR", "ed", "sefs", "Req"); 
+        //FriendData test = new FriendData("AFR", "ed", "sefs", "Req"); 
 //        app.updateFriendStatus(test);
-          app.removeFriendPair(test);
+          //app.removeFriendPair(test);
+          
+          //ArrayList<UserData> getPeopleWhoWantToBeMyFriend(String username)
+          
+          ArrayList<UserData> test = new ArrayList<UserData>();
+          
+          test = app.getPeopleWhoIWantToBeMyFriend("ed");
+          
+          for (int i = 0; i < test.size(); i++) {
+              UserData temp = test.get(i);
+              System.out.println(temp.username);
+        }
         
         System.out.println("================");
 
@@ -510,5 +521,53 @@ public class SQLiteJDBCDriverConnection {
         pstmt.executeUpdate();
 
         conn.close();
+    }
+
+    public ArrayList<UserData> getPeopleWhoWantToBeMyFriend(String username) throws IOException, SQLException {
+        ArrayList<UserData> returnUserData = new ArrayList<UserData>();
+        ArrayList<String> names = new ArrayList<String>();
+        
+        String sql = "SELECT username2 FROM Friendships WHERE userName1 = ? AND status = 'ToReq'";
+
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, username);
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+            names.add(rs.getString("username2"));
+
+        }
+        conn.close();
+        
+        for (int i = 0; i < names.size(); i++) {
+            returnUserData.add(getUserDataByUserName(names.get(i)));
+        }
+                
+        return returnUserData;
+    }
+
+    public ArrayList<UserData> getPeopleWhoIWantToBeMyFriend(String username) throws IOException, SQLException {
+        ArrayList<UserData> returnUserData = new ArrayList<UserData>();
+        ArrayList<String> names = new ArrayList<String>();
+
+        String sql = "SELECT username2 FROM Friendships WHERE userName1 = ? AND status = 'FromReq'";
+
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, username);
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+            names.add(rs.getString("username2"));
+
+        }
+        conn.close();
+
+        for (int i = 0; i < names.size(); i++) {
+            returnUserData.add(getUserDataByUserName(names.get(i)));
+        }
+
+        return returnUserData;
     }
 }

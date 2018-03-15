@@ -55,8 +55,8 @@ public class ControlHandler {
     }
 
     public static void addFriend(FriendData friendData) throws IOException, SQLException {
-        databaseCheck.addNewFriend(friendData.username, friendData.otherUsername, friendData.status);
-        databaseCheck.addNewFriend(friendData.otherUsername, friendData.username, friendData.status);
+        databaseCheck.addNewFriend(friendData.username, friendData.otherUsername, "From"+friendData.status);
+        databaseCheck.addNewFriend(friendData.otherUsername, friendData.username, "To"+friendData.status);
     }
 
     public static void acceptFriend(FriendData friendData) throws IOException, SQLException {
@@ -127,7 +127,14 @@ public class ControlHandler {
         }
         ArrayList<SongData> yourQueue = new ArrayList<>();
         yourQueue = databaseCheck.getSongByUserName(dataPacket.username);
-        MainPageData mainPage = new MainPageData(allFriends, allUsers, onlineFriends, friendsPosts, inYourNetwork, yourQueue);
+        
+        ArrayList<UserData> requestedMyFriendShip = new ArrayList<UserData>();
+        requestedMyFriendShip = databaseCheck.getPeopleWhoWantToBeMyFriend(dataPacket.username);
+        
+        ArrayList<UserData> iRequestedFriendShip = new ArrayList<UserData>();
+        iRequestedFriendShip = databaseCheck.getPeopleWhoIWantToBeMyFriend(dataPacket.username);
+        
+        MainPageData mainPage = new MainPageData(allFriends, allUsers, onlineFriends, friendsPosts, inYourNetwork, yourQueue,iRequestedFriendShip,requestedMyFriendShip);
         return mainPage;
     }
 

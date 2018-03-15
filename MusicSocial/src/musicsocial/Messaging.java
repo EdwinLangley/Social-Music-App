@@ -281,7 +281,7 @@ public class Messaging extends javax.swing.JFrame {
         String composedMessage = TextComposeArea.getText();
         TextComposeArea.setText("");
         if (!composedMessage.matches("") && !sendToUser.matches("")) {
-            TextReadArea.append(composedMessage + "\n");
+            TextReadArea.append(CurrentUser + ":\t" + composedMessage + "\n");
             ChatData chatData = new ChatData(CurrentUser, sendToUser, composedMessage);
 
             Socket someSocket= null; 
@@ -296,7 +296,7 @@ public class Messaging extends javax.swing.JFrame {
                 Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            TextReadArea.append(chatData.mesageContent);
+            TextReadArea.append(sendToUser + ":\t" + chatData.mesageContent + "\n");
 
         }
     }//GEN-LAST:event_SendButtonMouseClicked

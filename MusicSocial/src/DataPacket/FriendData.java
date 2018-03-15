@@ -11,11 +11,12 @@ package DataPacket;
  */
 public class FriendData extends DataPacket {
 
-    public String otherUsername;
+    public String otherUsername, status;
 
-    public FriendData(String command, String username, String otherUsername) {
+    public FriendData(String command, String username, String otherUsername, String status) {
         super(command, username);
         this.otherUsername = otherUsername;
+        this.status = status;
     }
 
 }
