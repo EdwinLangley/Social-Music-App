@@ -29,6 +29,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javazoom.jl.converter.Converter;
+import javazoom.jl.decoder.JavaLayerException;
 
 /**
  *
@@ -373,10 +375,36 @@ public class UploadSong extends javax.swing.JFrame {
         attachSong = fChooser.getSelectedFile();
         songFilename = attachSong.getAbsolutePath();
  
-        
+        String extension = getFileExtension(attachSong);
         selectedSongLabel.setText(songFilename);
+                
+        if(extension.equals("mp3")){
+            
+            Converter converter = new Converter();
+            try {
+                converter.convert(songFilename, "./src/audio/convertedSong.wav");
+            } catch (JavaLayerException ex) {
+                Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            attachSong = new File("./src/audio/convertedSong.wav");
+            songFilename = attachSong.getAbsolutePath();
+        }
+        
+        
+        
+
     }//GEN-LAST:event_songSelectorButtonMouseClicked
 
+    private static String getFileExtension(File file) {
+        String fileName = file.getName();
+        if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0) {
+            return fileName.substring(fileName.lastIndexOf(".") + 1);
+        } else {
+            return "";
+        }
+    }
+    
+    
     private void addSongButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSongButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addSongButtonActionPerformed
