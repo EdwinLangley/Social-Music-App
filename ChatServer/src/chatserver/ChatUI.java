@@ -5,6 +5,11 @@
  */
 package chatserver;
 
+import DataPacket.ChatMessages;
+import Database.SQLiteJDBCDriverConnection;
+import java.io.IOException;
+import java.sql.SQLException;
+
 /**
  *
  * @author jcgri
@@ -128,6 +133,11 @@ public class ChatUI extends javax.swing.JFrame {
                 new ChatUI().setVisible(true);
             }
         });
+    }
+    
+    public void outputToTable() throws SQLException, IOException{
+        SQLiteJDBCDriverConnection databaseCheck = new SQLiteJDBCDriverConnection();
+        ChatMessages pendingMessages = new ChatMessages(databaseCheck.read());
     }
     
     public void outputToConsole(String message){

@@ -98,25 +98,21 @@ public class SQLiteJDBCDriverConnection {
         
     }
     
-    public void readAndDeletetest(String sentTo ,String sentFrom ) throws SQLException, IOException {
-        String sql = "SELECT * FROM Messages WHERE SentTo = ? AND SentFrom = ? ";
+    public ArrayList<ChatData> read() throws SQLException, IOException {
+        String sql = "SELECT * FROM Messages";
         
         ArrayList<ChatData> sendBack = new ArrayList<ChatData>();
 
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, sentTo);
-        pstmt.setString(2, sentFrom);
-
         ResultSet rs = pstmt.executeQuery();
         
         while(rs.next()){
-            //sendBack.add(new ChatData(rs.getString("SentFrom"), rs.getString("SentTo"),rs.getString("Message"), rs.getString("FileStuff"), rs.getInt("songID")));
-            System.out.println(rs.getString("SentFrom") + rs.getString("SentTo") + rs.getString("Message") + rs.getString("FileStuff") + rs.getInt("songID"));
+            sendBack.add(new ChatData(rs.getString("SentFrom"), rs.getString("SentTo"),rs.getString("Message"), rs.getString("FileStuff"), rs.getInt("songID")));
+//            System.out.println(rs.getString("SentFrom") + rs.getString("SentTo") + rs.getString("Message") + rs.getString("FileStuff") + rs.getInt("songID"));
         }
-
         conn.close();
-
+        return sendBack;
 } 
     
     
@@ -124,7 +120,7 @@ public class SQLiteJDBCDriverConnection {
         SQLiteJDBCDriverConnection app = new SQLiteJDBCDriverConnection();
   
         
-        app.readAndDeletetest("ed","io");
+//        app.readAndDeletetest("ed","io");
         
     }
 
