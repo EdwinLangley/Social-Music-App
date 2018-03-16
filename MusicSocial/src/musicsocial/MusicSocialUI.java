@@ -24,6 +24,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -698,6 +700,13 @@ public class MusicSocialUI extends javax.swing.JFrame{
         }
         
         ArrayList<PostData> AllFriendsPostsArray = mpd.friendsPosts;
+        
+         Collections.sort(AllFriendsPostsArray, new Comparator<PostData>() {
+             @Override
+             public int compare(PostData p1, PostData p2) {
+                 return p1.ID - p2.ID; // Ascending
+             }
+         });
         
         allFriendsPostsModel.removeAllElements();
         
