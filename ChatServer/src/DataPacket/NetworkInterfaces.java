@@ -32,7 +32,7 @@ public class NetworkInterfaces {
     public static void SendChat(Socket socket, ChatMessages outputObject) throws IOException {
         ObjectOutputStream output = null;
         output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        System.out.println("OutputData");
+        System.out.println("SendChat");
         output.writeObject(outputObject);
         output.flush();
         System.out.println("OutputClosed");
@@ -42,22 +42,20 @@ public class NetworkInterfaces {
         ObjectInputStream input = null;
         ChatData inputData = null;
         input = new ObjectInputStream(socket.getInputStream());
-        System.out.println("Getting Input:DataPacket");
+        System.out.println("Getting Input:RecieveChatt");
         try {
             inputData = (ChatData) input.readObject();
         } catch (ClassNotFoundException c) {
             System.out.println("Class not found");
             c.printStackTrace();
         }
-        socket.close();
         return inputData;
     }
     
-    public static void SendDataPacket(InetAddress destination, DataPacket outputObject) throws IOException {
-        Socket socket = new Socket(destination,9091);
+    public static void SendDataPacket(Socket socket, DataPacket outputObject) throws IOException {
         ObjectOutputStream output = null;
         output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        System.out.println("OutputData");
+        System.out.println("SendDataPacket");
         System.out.println(outputObject.getCommand());
         output.writeObject(outputObject);
         output.flush();
@@ -68,7 +66,7 @@ public class NetworkInterfaces {
         ObjectInputStream input = null;
         DataPacket inputData = null;
         input = new ObjectInputStream(socket.getInputStream());
-        System.out.println("Getting Input:DataPacket");
+        System.out.println("Getting Input:RecieveDataPacket");
         try {
             inputData = (DataPacket) input.readObject();
         } catch (ClassNotFoundException c) {

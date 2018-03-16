@@ -51,16 +51,18 @@ public class Messaging extends javax.swing.JFrame {
                     loadFriends();
                     try {
                         Thread.sleep(2000);
-                        Socket someSocket = null;
+                        Socket someSocket;
+                        Socket inboundSocket;
                         try {
-                            someSocket = new Socket(InetAddress.getLocalHost(), 9091);
-                            DataPacket chatRequest = new DataPacket("REC", sendToUser);
-                            NetworkInterfaces.SendDataPacket(someSocket, chatRequest);
-                            ChatMessages chatData = NetworkInterfaces.RecieveChat(someSocket);
+//                            someSocket = new Socket(InetAddress.getLocalHost(), 9091);
+                            inboundSocket = new Socket(InetAddress.getLocalHost(),9092);
+                            DataPacket chatRequest = new DataPacket("REC", CurrentUser, sendToUser);
+                            NetworkInterfaces.SendDataPacket(inboundSocket, chatRequest);
+                            ChatMessages chatData = NetworkInterfaces.RecieveChat(inboundSocket);
                             if (!chatData.isEmpty) {
-                                for (ChatData message : chatData.messages) {
+                                chatData.messages.forEach((message) -> {
                                     TextReadArea.append(sendToUser + ":\t" + message.mesageContent + "\n");
-                                }
+                                });
                             }
                         } catch (UnknownHostException ex) {
                             Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
@@ -304,7 +306,7 @@ public class Messaging extends javax.swing.JFrame {
                 someSocket = new Socket(InetAddress.getLocalHost(), 9091);
                 DataPacket chatRequest = new DataPacket("SND", CurrentUser);
                 NetworkInterfaces.SendDataPacket(someSocket, chatRequest);
-                NetworkInterfaces.SendChat(InetAddress.getLocalHost(), chatData);
+                NetworkInterfaces.SendChat(someSocket, chatData);
             } catch (UnknownHostException ex) {
                 Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {

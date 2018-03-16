@@ -225,8 +225,7 @@ public class NetworkInterfaces {
         return inputData;
     }
     
-    public static void SendChat(InetAddress destination, ChatData outputObject) throws IOException {
-        Socket socket = new Socket(destination,9091);
+    public static void SendChat(Socket socket, ChatData outputObject) throws IOException {
         ObjectOutputStream output = null;
         output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         System.out.println("OutputData");

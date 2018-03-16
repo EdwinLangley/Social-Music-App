@@ -38,12 +38,12 @@ public class SQLiteJDBCDriverConnection {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException, SQLException {
-        SQLiteJDBCDriverConnection app = new SQLiteJDBCDriverConnection();
-        //ChatData test =  new ChatData("ed", "joe", "Helloooo");
-        //app.insertMessageIntoDatabase(test);
-        
-    }
+//    public static void main(String[] args) throws IOException, SQLException {
+//        SQLiteJDBCDriverConnection app = new SQLiteJDBCDriverConnection();
+//        //ChatData test =  new ChatData("ed", "joe", "Helloooo");
+//        //app.insertMessageIntoDatabase(test);
+//
+//    }
 
     public void insertMessageIntoDatabase(ChatData recievedMessage,String path) throws IOException, SQLException {
         String sql = "INSERT INTO Messages VALUES(?,?,?,?,?)";

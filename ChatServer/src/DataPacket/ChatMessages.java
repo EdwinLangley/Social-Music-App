@@ -5,13 +5,14 @@
  */
 package DataPacket;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author jcgri
  */
-public class ChatMessages {
+public class ChatMessages implements Serializable{
 
     public ArrayList<ChatData> messages;
     public boolean isEmpty;
