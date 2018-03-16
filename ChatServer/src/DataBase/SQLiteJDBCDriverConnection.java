@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.UnsupportedAudioFileException;
  
 /**
  *
@@ -45,16 +46,15 @@ public class SQLiteJDBCDriverConnection {
 //
 //    }
 
-    public void insertMessageIntoDatabase(ChatData recievedMessage,String path) throws IOException, SQLException {
-        String sql = "INSERT INTO Messages VALUES(?,?,?,?,?)";
+    public void insertMessageIntoDatabase(ChatData recievedMessage/*,String path*/) throws IOException, SQLException {
+        String sql = "INSERT INTO Messages(SentFrom,SentTo,Message) VALUES(?,?,?)";
 
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, recievedMessage.sendingUser);
         pstmt.setString(2, recievedMessage.recievingUser);
         pstmt.setString(3, recievedMessage.mesageContent);
-        pstmt.setString(4, path);
-        pstmt.setInt(5, recievedMessage.songID);
+
         pstmt.executeUpdate();
 
         try {
@@ -64,7 +64,7 @@ public class SQLiteJDBCDriverConnection {
         }
     }
 
-    public ArrayList<ChatData> readAndDelete(String sentTo, String sentFrom) throws SQLException, IOException {
+    public ArrayList<ChatData> readAndDelete(String sentTo ,String sentFrom ) throws SQLException, IOException {
         String sql = "SELECT * FROM Messages WHERE SentTo = ? AND SentFrom = ? ";
         
         ArrayList<ChatData> sendBack = new ArrayList<ChatData>();
@@ -72,7 +72,7 @@ public class SQLiteJDBCDriverConnection {
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, sentTo);
-        pstmt.setString(1, sentFrom);
+        pstmt.setString(2, sentFrom);
 
         ResultSet rs = pstmt.executeQuery();
         
@@ -88,7 +88,7 @@ public class SQLiteJDBCDriverConnection {
         conn = this.connect();
         pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, sentTo);
-        pstmt.setString(1, sentFrom);
+        pstmt.setString(2, sentFrom);
 
         pstmt.executeUpdate();
 
@@ -97,4 +97,37 @@ public class SQLiteJDBCDriverConnection {
         return sendBack;
         
     }
+    
+    public void readAndDeletetest(String sentTo ,String sentFrom ) throws SQLException, IOException {
+        String sql = "SELECT * FROM Messages WHERE SentTo = ? AND SentFrom = ? ";
+        
+        ArrayList<ChatData> sendBack = new ArrayList<ChatData>();
+
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, sentTo);
+        pstmt.setString(2, sentFrom);
+
+        ResultSet rs = pstmt.executeQuery();
+        
+        while(rs.next()){
+            //sendBack.add(new ChatData(rs.getString("SentFrom"), rs.getString("SentTo"),rs.getString("Message"), rs.getString("FileStuff"), rs.getInt("songID")));
+            System.out.println(rs.getString("SentFrom") + rs.getString("SentTo") + rs.getString("Message") + rs.getString("FileStuff") + rs.getInt("songID"));
+        }
+
+        conn.close();
+
+} 
+    
+    
+    public static void main(String[] args) throws IOException, SQLException, UnsupportedAudioFileException {
+        SQLiteJDBCDriverConnection app = new SQLiteJDBCDriverConnection();
+  
+        
+        app.readAndDeletetest("ed","io");
+        
+    }
+
+    
 }
+

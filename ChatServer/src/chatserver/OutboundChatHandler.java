@@ -50,27 +50,28 @@ public class OutboundChatHandler implements Runnable {
         ChatMessages voicemail = null;
         try {
             //ChatMessages voicemail = Pull messages from database();
-            ArrayList<ChatData> changeForOutput = databaseCheck.readAndDelete(inputData.username, inputData.secondUsername);
-            ArrayList<ChatData> changed = new ArrayList<ChatData>();
+           //ChatMessages changed = new ChatMessafes(databaseCheck.readAndDelete(inputData.username, inputData.secondUsername));
+//            ArrayList<ChatData> changed = new ArrayList<ChatData>();
+//
+//            FileInputStream ArtWork;
+//
+//            for (int i = 0; i < changeForOutput.size(); i++) {
+//                ChatData temp = changeForOutput.get(i);
+//                ArtWork = new FileInputStream(temp.extension);
+//                byte[] ArtBuffer = new byte[ArtWork.available()];
+//                ArtWork.read(ArtBuffer);
+//
+//                ChatData addToOutput = new ChatData(temp.sendingUser, temp.recievingUser, temp.mesageContent, temp.extension, ArtBuffer);
+//                changed.add(addToOutput);
+//            }
 
-            FileInputStream ArtWork;
-
-            for (int i = 0; i < changeForOutput.size(); i++) {
-                ChatData temp = changeForOutput.get(i);
-                ArtWork = new FileInputStream(temp.extension);
-                byte[] ArtBuffer = new byte[ArtWork.available()];
-                ArtWork.read(ArtBuffer);
-
-                ChatData addToOutput = new ChatData(temp.sendingUser, temp.recievingUser, temp.mesageContent, temp.extension, ArtBuffer);
-                changed.add(addToOutput);
-            }
-
-            voicemail = new ChatMessages(changed);
+            voicemail = new ChatMessages(databaseCheck.readAndDelete(inputData.username, inputData.secondUsername));
             if (voicemail.messages.size() < 1) {
                 voicemail.isEmpty = true;
             } else {
                 voicemail.isEmpty = false;
             }
+            //System.out.println(voicemail.messages.get(0).mesageContent);
             NetworkInterfaces.SendChat(outboundSocket, voicemail);
         } catch (UnknownHostException ex) {
             Logger.getLogger(InboundChatHandler.class.getName()).log(Level.SEVERE, null, ex);

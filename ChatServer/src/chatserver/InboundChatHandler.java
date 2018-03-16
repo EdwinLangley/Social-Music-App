@@ -57,14 +57,14 @@ public class InboundChatHandler implements Runnable {
                     try {
                         recievedMessage = NetworkInterfaces.RecieveChat(inboundSocket);
 
-                        File ImgDir = new File("IMG/1.png");
-                        String dbPathIMG = "IMG/1.png";
+//                        File ImgDir = new File("IMG/1.png");
+//                        String dbPathIMG = "IMG/1.png";
+//
+//                        byte[] artData = recievedMessage.image;
+//                        FileOutputStream retreievdAlbumArt = new FileOutputStream(ImgDir);
+//                        retreievdAlbumArt.write(artData);
 
-                        byte[] artData = recievedMessage.image;
-                        FileOutputStream retreievdAlbumArt = new FileOutputStream(ImgDir);
-                        retreievdAlbumArt.write(artData);
-
-                        databaseCheck.insertMessageIntoDatabase(recievedMessage, dbPathIMG);
+                        databaseCheck.insertMessageIntoDatabase(recievedMessage); //dbPathIMG);
                         //Add database entry here adding messages to the database 
                     } catch (IOException | SQLException ex) {
                         Logger.getLogger(InboundChatHandler.class.getName()).log(Level.SEVERE, null, ex);
