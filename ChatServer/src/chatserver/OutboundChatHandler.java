@@ -7,15 +7,10 @@ package chatserver;
 
 import DataPacket.*;
 import Database.SQLiteJDBCDriverConnection;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,9 +24,11 @@ public class OutboundChatHandler implements Runnable {
 
     private Socket outboundSocket = null;
     public boolean openConnection = true;
+    public ChatUI ui;
 
-    public OutboundChatHandler(Socket outboundSocket) throws UnknownHostException, IOException {
+    public OutboundChatHandler(Socket outboundSocket, ChatUI ui) throws UnknownHostException, IOException {
         this.outboundSocket = outboundSocket;
+        this.ui = ui;
     }
 
     @Override
@@ -42,15 +39,15 @@ public class OutboundChatHandler implements Runnable {
         try {
             inputData = NetworkInterfaces.RecieveDataPacket(outboundSocket);
 //            recievePacket = NetworkInterfaces.RecieveDataPacket(outboundSocket);
-//            ui.outputToConsole("DATA PACKET RECIEVED");
+            ui.outputToConsole("DATA PACKET RECIEVED");
         } catch (IOException ex) {
             Logger.getLogger(InboundChatHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.print("REC Switch hit");
+        ui.outputToConsole("REC Switch hit");
         ChatMessages voicemail = null;
         try {
             //ChatMessages voicemail = Pull messages from database();
-           //ChatMessages changed = new ChatMessafes(databaseCheck.readAndDelete(inputData.username, inputData.secondUsername));
+            //ChatMessages changed = new ChatMessafes(databaseCheck.readAndDelete(inputData.username, inputData.secondUsername));
 //            ArrayList<ChatData> changed = new ArrayList<ChatData>();
 //
 //            FileInputStream ArtWork;
@@ -73,11 +70,12 @@ public class OutboundChatHandler implements Runnable {
             }
             //System.out.println(voicemail.messages.get(0).mesageContent);
             NetworkInterfaces.SendChat(outboundSocket, voicemail);
+            ui.outputToConsole("Sending Chats");
         } catch (UnknownHostException ex) {
             Logger.getLogger(InboundChatHandler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException | SQLException ex) {
             Logger.getLogger(InboundChatHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Thread End");
+        ui.outputToConsole("Thread End");
     }
 }

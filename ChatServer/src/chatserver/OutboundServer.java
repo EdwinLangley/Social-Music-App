@@ -16,14 +16,19 @@ public class OutboundServer implements Runnable {
 
     boolean running = true;
     int outboundPort = 9092;
+    public ChatUI ui;
 
+    public OutboundServer(ChatUI ui) {
+        this.ui = ui;
+    }
+
+    @Override
     public void run() {
         try {
             ServerSocket serverSocket = new ServerSocket(outboundPort);
             while (running) {
-                //Do server stuff
-                new Thread(new OutboundChatHandler(serverSocket.accept())).start();
-                System.out.println("New thread");
+                new Thread(new OutboundChatHandler(serverSocket.accept(), ui)).start();
+                ui.outputToConsole("New thread: OutboundChatServer");
             }
         } catch (IOException e) {
             System.err.println("Error on port" + outboundPort + e);

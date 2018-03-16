@@ -100,6 +100,7 @@ public class ServerUI extends javax.swing.JFrame {
         TitleArea.setFont(new java.awt.Font("Rockwell", 0, 28)); // NOI18N
         TitleArea.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TitleArea.setText("M U S I C    S E R V E R");
+        TitleArea.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
