@@ -374,24 +374,30 @@ public class UploadSong extends javax.swing.JFrame {
         fChooser.showOpenDialog(null);
         attachSong = fChooser.getSelectedFile();
         songFilename = attachSong.getAbsolutePath();
- 
+
         String extension = getFileExtension(attachSong);
-        selectedSongLabel.setText(songFilename);
-                
-        if(extension.equals("mp3")){
-            
-            Converter converter = new Converter();
-            try {
-                converter.convert(songFilename, "./src/audio/convertedSong.wav");
-            } catch (JavaLayerException ex) {
-                Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
+
+        if ((extension.equals("mp3")) || (extension.equals("wav"))) {
+
+            selectedSongLabel.setText(songFilename);
+
+            if (extension.equals("mp3")) {
+
+                Converter converter = new Converter();
+                try {
+                    converter.convert(songFilename, "./src/audio/convertedSong.wav");
+                } catch (JavaLayerException ex) {
+                    Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                attachSong = new File("./src/audio/convertedSong.wav");
+                songFilename = attachSong.getAbsolutePath();
             }
-            attachSong = new File("./src/audio/convertedSong.wav");
-            songFilename = attachSong.getAbsolutePath();
+
+        } else {
+            attachSong = null;
+            JOptionPane.showMessageDialog(null, "Only .mp3 or .wav files please!");
         }
-        
-        
-        
+
 
     }//GEN-LAST:event_songSelectorButtonMouseClicked
 
