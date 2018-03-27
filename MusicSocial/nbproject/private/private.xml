@@ -3,7 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documents/Git%20Drive/SystemsSoftware/MusicSocial/src/musicsocial/Messaging.java</file>
+            <file>file:/C:/Users/edlan/Documents/SystemsSoftware/MusicSocial/src/DataPacket/NetworkInterfaces.java</file>
+            <file>file:/C:/Users/edlan/Documents/SystemsSoftware/MusicSocial/src/musicsocial/Login.java</file>
+            <file>file:/C:/Users/edlan/Documents/SystemsSoftware/MusicSocial/src/DataPacket/NotificationPacket.java</file>
+            <file>file:/C:/Users/edlan/Documents/SystemsSoftware/MusicSocial/src/musicsocial/ServerNetworkInterface.java</file>
+            <file>file:/C:/Users/edlan/Documents/SystemsSoftware/MusicSocial/src/musicsocial/MusicSocialUI.java</file>
+            <file>file:/C:/Users/edlan/Documents/SystemsSoftware/MusicSocial/src/DataPacket/UserData.java</file>
+            <file>file:/C:/Users/edlan/Documents/SystemsSoftware/MusicSocial/src/musicsocial/UploadSong.java</file>
+            <file>file:/C:/Users/edlan/Documents/SystemsSoftware/MusicSocial/src/DataPacket/SongData.java</file>
         </group>
     </open-files>
 </project-private>
