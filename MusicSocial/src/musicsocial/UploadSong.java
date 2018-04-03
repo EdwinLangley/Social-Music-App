@@ -437,6 +437,10 @@ public class UploadSong extends javax.swing.JFrame {
         FileInputStream SongFile;
         FileInputStream AlbumArt;
         if (songName.isEmpty() || songArtist.isEmpty() || songFilename.isEmpty() || artFilename.isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Please fill out all fields!");
+
+        } else {
             try {
                 SongFile = new FileInputStream(songFilename);
                 songDataByteArray = new byte[SongFile.available()];
@@ -451,10 +455,6 @@ public class UploadSong extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            JOptionPane.showMessageDialog(null, "Please fill out all fields!");
-
-        } else {
             try {
                 songContent = new SongData(0, songName, songArtist, songName, GenreString, GlobalUserName, artDataByteArray, songDataByteArray);
             } catch (UnsupportedAudioFileException | IOException ex) {
