@@ -417,65 +417,69 @@ public class UploadSong extends javax.swing.JFrame {
 
     private void addSongButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addSongButtonMouseClicked
         ArrayList<String> genreArrayList = takeCheckBoxGenres();
-        
+
         String GenreString = "";
-        
-        for(int i = 0; i < genreArrayList.size() ; i++){
+
+        for (int i = 0; i < genreArrayList.size(); i++) {
             GenreString += genreArrayList.get(i);
-            if(i != (genreArrayList.size() - 1) ){
-                GenreString+=",";
+            if (i != (genreArrayList.size() - 1)) {
+                GenreString += ",";
             }
         }
+        String songName = nameField.getText();
+        String songArtist = artistField.getText();
+        DataPacket genreDataPacket = new DataPacket("UPS", GlobalUserName);
+        SongData songContent = null;
 
         byte[] songDataByteArray = null;
         byte[] artDataByteArray = null;
-        
+
         FileInputStream SongFile;
         FileInputStream AlbumArt;
-        
-        try {
-            SongFile = new FileInputStream(songFilename);
-            songDataByteArray = new byte[SongFile.available()];
-            SongFile.read(songDataByteArray);
-            
-            AlbumArt = new FileInputStream(artFilename);
-            artDataByteArray = new byte[AlbumArt.available()];
-            AlbumArt.read(artDataByteArray);
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
+        if (songName.isEmpty() || songArtist.isEmpty() || songFilename.isEmpty() || artFilename.isEmpty()) {
+            try {
+                SongFile = new FileInputStream(songFilename);
+                songDataByteArray = new byte[SongFile.available()];
+                SongFile.read(songDataByteArray);
+
+                AlbumArt = new FileInputStream(artFilename);
+                artDataByteArray = new byte[AlbumArt.available()];
+                AlbumArt.read(artDataByteArray);
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            JOptionPane.showMessageDialog(null, "Please fill out all fields!");
+
+        } else {
+            try {
+                songContent = new SongData(0, songName, songArtist, songName, GenreString, GlobalUserName, artDataByteArray, songDataByteArray);
+            } catch (UnsupportedAudioFileException | IOException ex) {
+                Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println(genreDataPacket.getCommand());
+            InetAddress address = null;
+            try {
+                address = InetAddress.getLocalHost();
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Socket socket = null;
+            try {
+                socket = new Socket(address, 9090);
+                NetworkInterfaces.SendDataPacket(socket, genreDataPacket);
+                NetworkInterfaces.SendSongData(socket, songContent);
+            } catch (IOException ex) {
+                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            JOptionPane.showMessageDialog(null, "Song Uploaded!");
+
         }
-        
-        
-        String songName = nameField.getText();
-        String songArtist = artistField.getText();
-        DataPacket genreDataPacket = new DataPacket("UPS",GlobalUserName);
-        SongData songContent = null;
-        try {
-            songContent = new SongData(0, songName, songArtist, songName, GenreString, GlobalUserName, artDataByteArray, songDataByteArray);
-        } catch (UnsupportedAudioFileException | IOException ex) {
-            Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println(genreDataPacket.getCommand());
-        InetAddress address = null;
-        try {
-            address = InetAddress.getLocalHost();
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Socket socket = null;
-        try {
-            socket = new Socket(address, 9090);
-            NetworkInterfaces.SendDataPacket(socket, genreDataPacket);
-            NetworkInterfaces.SendSongData(socket, songContent);
-        } catch (IOException ex) {
-            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        JOptionPane.showMessageDialog(null, "Song Uploaded!");
-        
+
     }//GEN-LAST:event_addSongButtonMouseClicked
 
     private void albumArtFrameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_albumArtFrameMouseClicked
