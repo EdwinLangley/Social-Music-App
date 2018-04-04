@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -387,45 +388,44 @@ public class NewUser extends javax.swing.JFrame {
         newUserName = userNameTextField.getText();
         newEmail = emailField.getText();
         String newPassword = new String(newUserPasswordField.getPassword());
+        if (compulsoryFieldsEmpty() == false) {
+            genreList = takeCheckBoxGenres();
 
-        genreList = takeCheckBoxGenres();
+            infoArray = constructInfoArray(newFirstName, newLastName, newUserName, newEmail, newPassword, genreList);
+            UserData newUser = null;
+            try {
+                newUser = new UserData(0, newUserName, newPassword, newFirstName, newLastName, newEmail, genreList, attachImage);
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-        infoArray = constructInfoArray(newFirstName, newLastName, newUserName, newEmail, newPassword, genreList);
-        UserData newUser = null;
-        try {
-            newUser = new UserData(0, newUserName, newPassword, newFirstName, newLastName, newEmail, genreList,attachImage);
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            System.out.println(infoArray);
 
-        System.out.println(infoArray);
-
-        //DataPacket genreDataPacket = new DataPacket();
-        //genreDataPacket.buildDataPacket("REG", null ,infoArray);
-        DataPacket genreDataPacket = new DataPacket("REG");
-        System.out.println(genreDataPacket.getCommand());
+            //DataPacket genreDataPacket = new DataPacket();
+            //genreDataPacket.buildDataPacket("REG", null ,infoArray);
+            DataPacket genreDataPacket = new DataPacket("REG");
+            System.out.println(genreDataPacket.getCommand());
 //        ServerNetworkInterface sendData = new ServerNetworkInterface();
-        InetAddress address = null;
-        try {
-            address = InetAddress.getLocalHost();
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Socket socket = null;
-        try {
-            socket = new Socket(address, 9090);
-            //Send multiple bits of data over same socket connection should always be in pairs
-            //First DataPacket preps server
-            //Second sends data
-            //Only close socket afterwards
-            NetworkInterfaces.SendDataPacket(socket, genreDataPacket);
-            NetworkInterfaces.SendUserData(socket, newUser);
-        } catch (IOException ex) {
-            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            InetAddress address = null;
+            try {
+                address = InetAddress.getLocalHost();
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Socket socket = null;
+            try {
+                socket = new Socket(address, 9090);
+                //Send multiple bits of data over same socket connection should always be in pairs
+                //First DataPacket preps server
+                //Second sends data
+                //Only close socket afterwards
+                NetworkInterfaces.SendDataPacket(socket, genreDataPacket);
+                NetworkInterfaces.SendUserData(socket, newUser);
+            } catch (IOException ex) {
+                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
 //        sendData.sendData(genreDataPacket);
-        if (compulsoryFieldsFull() == false) {
             this.dispose();
             try {
                 new MusicSocialUI(newUserName).setVisible(true);
@@ -434,6 +434,7 @@ public class NewUser extends javax.swing.JFrame {
             }
         } else {
             mandatoryLabel.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Please Complete All Fields");
         }
     }//GEN-LAST:event_CreateNewUserButtonMouseClicked
 
@@ -538,12 +539,12 @@ public class NewUser extends javax.swing.JFrame {
     private javax.swing.JTextField userNameTextField;
     // End of variables declaration//GEN-END:variables
 
-    private boolean compulsoryFieldsFull() {
+    private boolean compulsoryFieldsEmpty() {
         boolean wasItEmpty;
 
         if (firstNameTextField.getText().isEmpty() || lastNameTextField.getText().isEmpty()
                 || userNameTextField.getText().isEmpty() || newUserPasswordField.getPassword().length == 0
-                || emailField.getText().isEmpty()) {
+                || emailField.getText().isEmpty() || attachImage == null) {
             wasItEmpty = true;
         } else {
             wasItEmpty = false;
