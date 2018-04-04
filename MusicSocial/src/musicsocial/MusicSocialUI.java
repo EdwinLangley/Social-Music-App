@@ -164,7 +164,6 @@ public class MusicSocialUI extends javax.swing.JFrame{
         MoodLabel = new javax.swing.JLabel();
         AttatchedSongLabel = new javax.swing.JLabel();
         PostButton = new javax.swing.JButton();
-        ChatButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         PostsDisplay = new javax.swing.JList<>();
         WelcomeLabel = new javax.swing.JLabel();
@@ -180,6 +179,7 @@ public class MusicSocialUI extends javax.swing.JFrame{
         InYourNetworkTable = new javax.swing.JTable();
         AcceptFriendButton = new javax.swing.JButton();
         RejectFriendButton = new javax.swing.JButton();
+        ChatButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Music Social");
@@ -244,19 +244,6 @@ public class MusicSocialUI extends javax.swing.JFrame{
         PostButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 PostButtonMouseClicked(evt);
-            }
-        });
-
-        ChatButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/chat.png"))); // NOI18N
-        ChatButton.setText(" Chat With Friends!");
-        ChatButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ChatButtonMouseClicked(evt);
-            }
-        });
-        ChatButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ChatButtonActionPerformed(evt);
             }
         });
 
@@ -349,6 +336,19 @@ public class MusicSocialUI extends javax.swing.JFrame{
             }
         });
 
+        ChatButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/chat.png"))); // NOI18N
+        ChatButton.setText(" Chat With Friend!");
+        ChatButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ChatButtonMouseClicked(evt);
+            }
+        });
+        ChatButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChatButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -370,20 +370,21 @@ public class MusicSocialUI extends javax.swing.JFrame{
                                 .addContainerGap()
                                 .addComponent(WelcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(168, 168, 168)
-                                .addComponent(AddFriendButton))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(85, 85, 85)
-                                .addComponent(ChatButton))
-                            .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(TitleFriends1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(AddFriendsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(22, 22, 22)
+                                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(158, 158, 158)
+                                        .addComponent(AddFriendButton))
+                                    .addComponent(AddFriendsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(93, 93, 93)
+                                .addComponent(ChatButton)))
                         .addGap(18, 18, 18)))
                 .addComponent(FirstSep, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -471,24 +472,25 @@ public class MusicSocialUI extends javax.swing.JFrame{
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(AcceptFriendButton)
                                     .addComponent(RejectFriendButton))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(AddFriendsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(ChatButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(AddFriendButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(ChatButton)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(addSongButton)
                                 .addGap(18, 18, 18)
                                 .addComponent(TitleRecommendation, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34))))))
+                                .addGap(34, 34, 34))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(AddFriendsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(AddFriendButton)
+                                .addGap(22, 22, 22))))))
             .addComponent(FirstSep, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
@@ -962,14 +964,6 @@ public class MusicSocialUI extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_PostButtonMouseClicked
 
-    private void ChatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChatButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ChatButtonActionPerformed
-
-    private void ChatButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ChatButtonMouseClicked
-        new Messaging(currentUser).setVisible(true);
-    }//GEN-LAST:event_ChatButtonMouseClicked
-
     private void AddFriendButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddFriendButtonMouseClicked
                 
         DataPacket sendData = new DataPacket("AFR");
@@ -1038,9 +1032,6 @@ public class MusicSocialUI extends javax.swing.JFrame{
         String otherUser = YourFriendsList.getSelectedValue();
         String splitArr[] = otherUser.split(" ", 2);
 
-
-
-        
             FriendData friendData = new FriendData("FFR", currentUser, splitArr[0], "Reject");
 
             InetAddress address = null;
@@ -1065,6 +1056,18 @@ public class MusicSocialUI extends javax.swing.JFrame{
             }
         
     }//GEN-LAST:event_RejectFriendButtonMouseClicked
+
+    private void ChatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChatButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ChatButtonActionPerformed
+
+    private void ChatButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ChatButtonMouseClicked
+        
+        String otherUser = YourFriendsList.getSelectedValue();
+        String splitArr[] = otherUser.split(" ", 2);
+        
+        new Messaging(currentUser,splitArr[0]).setVisible(true);
+    }//GEN-LAST:event_ChatButtonMouseClicked
 
     
     private void getAllPosts() {   

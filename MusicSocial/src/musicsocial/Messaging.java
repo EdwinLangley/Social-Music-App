@@ -40,15 +40,18 @@ public class Messaging extends javax.swing.JFrame {
 
     }
 
-    public Messaging(String UserName) {
+    public Messaging(String UserName, String sendTo) {
         initComponents();
 
         CurrentUser = UserName;
+        sendToUser = sendTo;
+        
+        ChatLabel.setText("Chat: " + CurrentUser + " to " +sendToUser );
+        this.setTitle("Chat: " + CurrentUser + " to " +sendToUser );
 
         new Thread(new Runnable() {
             public void run() {
                 while (true) {
-                    loadFriends();
                     try {
                         Thread.sleep(2000);
                         Socket someSocket;
@@ -97,11 +100,8 @@ public class Messaging extends javax.swing.JFrame {
         AttatchmentButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TextReadArea = new javax.swing.JTextArea();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        FriendsList = new javax.swing.JList<>();
-        FriendsLabel = new javax.swing.JLabel();
-        ConnectButton = new javax.swing.JButton();
         ChatLabel = new javax.swing.JLabel();
+        PPLabel = new javax.swing.JLabel();
 
         jButton1.setText("SEND");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -142,75 +142,56 @@ public class Messaging extends javax.swing.JFrame {
         TextReadArea.setRows(5);
         jScrollPane2.setViewportView(TextReadArea);
 
-        FriendsList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                FriendsListMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(FriendsList);
-
-        FriendsLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        FriendsLabel.setText("Friends");
-
-        ConnectButton.setText("Connect");
-        ConnectButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ConnectButtonMouseClicked(evt);
-            }
-        });
-
         ChatLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         ChatLabel.setText("Chat");
+
+        PPLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(FriendsLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ChatLabel)
-                .addGap(218, 218, 218))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(ConnectButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(MessageComposerField, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AttatchmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(MessageComposerField, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(AttatchmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(SendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(ChatLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(PPLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FriendsLabel)
-                    .addComponent(ChatLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(ChatLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(PPLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(AttatchmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(SendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(MessageComposerField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(AttatchmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ConnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(13, 13, 13))
+                        .addComponent(SendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(MessageComposerField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -224,66 +205,6 @@ public class Messaging extends javax.swing.JFrame {
 
     }
 
-    private void loadFriends() {
-
-        DataPacket MainPagePacket = new DataPacket("UMP", CurrentUser);
-
-        InetAddress address = null;
-        try {
-            address = InetAddress.getLocalHost();
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Socket socket = null;
-
-        try {
-
-            socket = new Socket(address, 9090);
-
-            NetworkInterfaces.SendDataPacket(socket, MainPagePacket);
-            mpd = NetworkInterfaces.RecieveMainPageData(socket);
-
-        } catch (IOException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        ArrayList<UserData> friends = mpd.allFriends;
-
-        int allUserSelectedIndex = -1;
-
-        if (FriendsList.getSelectedIndex() != -1) {
-            allUserSelectedIndex = FriendsList.getSelectedIndex();
-        }
-
-        friendsModel.removeAllElements();
-
-        ArrayList<UserData> all = mpd.allUsers;
-        ArrayList<UserData> allOnline = mpd.onlineFriends;
-        ArrayList<String> allOnlineList = new ArrayList<String>();
-        for (int i = 0; i < allOnline.size(); i++) {
-            UserData single = allOnline.get(i);
-            allOnlineList.add(single.username);
-        }
-
-        ArrayList<String> listOfFriendsforComparison = new ArrayList<String>();
-
-        for (int i = 0; i < friends.size(); i++) {
-            UserData friend = friends.get(i);
-            String friendUserName = friend.username;
-            listOfFriendsforComparison.add(friendUserName);
-            if (allOnlineList.contains(friend.username)) {
-                friendsModel.addElement(friendUserName + "    [ONLINE]");
-            } else {
-                friendsModel.addElement(friendUserName);
-            }
-        }
-
-        FriendsList.setModel(friendsModel);
-
-        if (allUserSelectedIndex != -1) {
-            FriendsList.setSelectedIndex(allUserSelectedIndex);
-        }
-    }
 
     private void SendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendButtonActionPerformed
         // TODO add your handling code here:
@@ -315,29 +236,6 @@ public class Messaging extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_SendButtonMouseClicked
-
-    private void FriendsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FriendsListMouseClicked
-
-        //SelectedFriendTextField.setText(FriendsList.getSelectedValue());
-
-    }//GEN-LAST:event_FriendsListMouseClicked
-
-    private void ConnectButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ConnectButtonMouseClicked
-
-        String otherUser = FriendsList.getSelectedValue();
-        String splitArr[] = otherUser.split(" ", 2);
-
-        if (splitArr.length == 1) {
-            JOptionPane.showMessageDialog(null, "Sorry, that user is not online");
-        } else {
-            sendToUser = splitArr[0];
-            TextReadArea.setText("");
-            TextReadArea.append("Chat with " + sendToUser + "\n");
-            TextReadArea.append("===============================================================\n");
-        }
-
-
-    }//GEN-LAST:event_ConnectButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -377,15 +275,12 @@ public class Messaging extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AttatchmentButton;
     private javax.swing.JLabel ChatLabel;
-    private javax.swing.JButton ConnectButton;
-    private javax.swing.JLabel FriendsLabel;
-    private javax.swing.JList<String> FriendsList;
     private javax.swing.JScrollPane MessageComposerField;
+    private javax.swing.JLabel PPLabel;
     private javax.swing.JButton SendButton;
     private javax.swing.JTextArea TextComposeArea;
     private javax.swing.JTextArea TextReadArea;
     private javax.swing.JButton jButton1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

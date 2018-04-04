@@ -37,6 +37,7 @@ public class ChatUI extends javax.swing.JFrame {
         ConsoleArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Chat Server");
 
         jLabel1.setFont(new java.awt.Font("Rockwell", 0, 28)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

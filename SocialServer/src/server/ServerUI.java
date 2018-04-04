@@ -32,6 +32,7 @@ public class ServerUI extends javax.swing.JFrame {
         TitleArea = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Music Server");
 
         ConsoleArea.setEditable(false);
         ConsoleArea.setColumns(20);
