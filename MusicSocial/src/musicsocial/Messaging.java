@@ -45,20 +45,20 @@ public class Messaging extends javax.swing.JFrame {
 
         CurrentUser = UserName;
         sendToUser = sendTo;
-        
-        ChatLabel.setText("Chat: " + CurrentUser + " to " +sendToUser );
-        this.setTitle("Chat: " + CurrentUser + " to " +sendToUser );
+
+        ChatLabel.setText("Chat: " + CurrentUser + " to " + sendToUser);
+        this.setTitle("Chat: " + CurrentUser + " to " + sendToUser);
 
         new Thread(new Runnable() {
             public void run() {
                 while (true) {
                     try {
                         Thread.sleep(2000);
-                        Socket someSocket;
+//                        Socket someSocket;
                         Socket inboundSocket;
                         try {
 //                            someSocket = new Socket(InetAddress.getLocalHost(), 9091);
-                            inboundSocket = new Socket(InetAddress.getLocalHost(),9092);
+                            inboundSocket = new Socket(InetAddress.getLocalHost(), 9092);
                             DataPacket chatRequest = new DataPacket("REC", CurrentUser, sendToUser);
                             NetworkInterfaces.SendDataPacket(inboundSocket, chatRequest);
                             ChatMessages chatData = NetworkInterfaces.RecieveChat(inboundSocket);
@@ -67,6 +67,7 @@ public class Messaging extends javax.swing.JFrame {
                                     TextReadArea.append(sendToUser + ":\t" + message.mesageContent + "\n");
                                 });
                             }
+                            inboundSocket.close();
                         } catch (UnknownHostException ex) {
                             Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (IOException ex) {
