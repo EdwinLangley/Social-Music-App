@@ -61,17 +61,19 @@ public class Messaging extends javax.swing.JFrame {
         //File ImgDir = new File("IMG/" + userInfo.username + ".png");
        // String dbPathIMG = "IMG/" + userInfo.username + ".png";
 
+
         new Thread(new Runnable() {
             public void run() {
                 while (true) {
                     try {
                         Thread.sleep(2000);
-                        Socket someSocket;
+//                        Socket someSocket;
                         Socket inboundSocket;
                         try {
 //                            someSocket = new Socket(InetAddress.getLocalHost(), 9091);
                             inboundSocket = new Socket(InetAddress.getLocalHost(),9092);
                             DataPacket chatRequest = new DataPacket("REC", CurrentUser, sendToUser.username);
+
                             NetworkInterfaces.SendDataPacket(inboundSocket, chatRequest);
                             ChatMessages chatData = NetworkInterfaces.RecieveChat(inboundSocket);
                             if (!chatData.isEmpty) {
@@ -79,6 +81,7 @@ public class Messaging extends javax.swing.JFrame {
                                     TextReadArea.append(sendToUser.username + ":\t" + message.mesageContent + "\n");
                                 });
                             }
+                            inboundSocket.close();
                         } catch (UnknownHostException ex) {
                             Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (IOException ex) {
