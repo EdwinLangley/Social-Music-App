@@ -76,7 +76,7 @@ public class SQLiteJDBCDriverConnection {
 
     }
 
-    public void insertUser(String FirstName, String LastName, String UserName, String Email, String GenreList, byte[] blob) throws IOException, SQLException {
+    public void insertUser(String FirstName, String LastName, String UserName, String Email, String GenreList, String blob) throws IOException, SQLException {
         String sql = "INSERT INTO UserData(FirstName,LastName,UserName, Email, GenreList,Picture) VALUES(?,?,?,?,?,?)";
 
         Connection conn = this.connect();
@@ -86,7 +86,7 @@ public class SQLiteJDBCDriverConnection {
         pstmt.setString(3, UserName);
         pstmt.setString(4, Email);
         pstmt.setString(5, GenreList);
-        pstmt.setBytes(6, blob);
+        pstmt.setString(6, blob);
         pstmt.executeUpdate();
 
         conn.close();
@@ -354,16 +354,21 @@ public class SQLiteJDBCDriverConnection {
         pstmt.setString(1, username);
         ResultSet rs = pstmt.executeQuery();
 
-        File file = new File("./src/images/6027fe7edf669a864347e7b011d7c126.jpg");
+        byte[] nothing = null;
         String password = "";
+        FileInputStream ArtWork;
 
         while (rs.next()) {
             //UserData newUser = new UserData(UserData(rs.getInt("ID"),rs.getString("UserName"),password,rs.getString("FirstName"),rs.getString("LastName"),rs.getString("Email"), rs.getString("GenreList"), file))
             String genreList = rs.getString("GenreList");
             List<String> genres = Arrays.asList(genreList.split("\\s*,\\s*"));
             ArrayList<String> genreArrayList = new ArrayList<>(genres);
+            
+        ArtWork = new FileInputStream(rs.getString("Picture"));
+        byte[] ArtBuffer = new byte[ArtWork.available()];
+        ArtWork.read(ArtBuffer);
 
-            returnedFriends = new UserData(rs.getInt("ID"), rs.getString("UserName"), password, rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), genreArrayList, file);
+            returnedFriends = new UserData(rs.getInt("ID"), rs.getString("UserName"), password, rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), genreArrayList, ArtBuffer);
 
         }
 
@@ -457,7 +462,8 @@ public class SQLiteJDBCDriverConnection {
         PreparedStatement pstmt = conn.prepareStatement(sql);
         ResultSet rs = pstmt.executeQuery();
         
-        File file = new File("./src/images/6027fe7edf669a864347e7b011d7c126.jpg");
+        byte[] nothing = null;
+        FileInputStream ArtWork;
         
         while(rs.next()){
             
@@ -465,7 +471,11 @@ public class SQLiteJDBCDriverConnection {
             List<String> genres = Arrays.asList(genreList.split("\\s*,\\s*"));
             ArrayList<String> genreArrayList = new ArrayList<>(genres);
             
-            UserData tempUser = new UserData(rs.getInt("ID"), rs.getString("UserName"), "", rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), genreArrayList, file);
+        ArtWork = new FileInputStream(rs.getString("Picture"));
+        byte[] ArtBuffer = new byte[ArtWork.available()];
+        ArtWork.read(ArtBuffer);
+            
+            UserData tempUser = new UserData(rs.getInt("ID"), rs.getString("UserName"), "", rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), genreArrayList, ArtBuffer);
             
             returnedUserData.add(tempUser);
             

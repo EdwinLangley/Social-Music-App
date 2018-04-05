@@ -30,6 +30,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -965,21 +966,21 @@ public class MusicSocialUI extends javax.swing.JFrame{
     }//GEN-LAST:event_PostButtonMouseClicked
 
     private void AddFriendButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddFriendButtonMouseClicked
-                
+        if(AllUsersList.getSelectedIndex() != -1){
         DataPacket sendData = new DataPacket("AFR");
         String otherUser = AllUsersList.getSelectedValue();
         String splitArr[] = otherUser.split(" ", 2);
-        
-        FriendData friendData = new FriendData("AFR", currentUser, splitArr[0],"Req");
-        
+
+        FriendData friendData = new FriendData("AFR", currentUser, splitArr[0], "Req");
+
         InetAddress address = null;
-        
+
         try {
             address = InetAddress.getLocalHost();
         } catch (UnknownHostException ex) {
             Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         Socket socket = null;
         try {
             socket = new Socket(address, 9090);
@@ -992,45 +993,53 @@ public class MusicSocialUI extends javax.swing.JFrame{
         } catch (IOException ex) {
             Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
         }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nothing was selected");
+        }
     }//GEN-LAST:event_AddFriendButtonMouseClicked
 
     private void AcceptFriendButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AcceptFriendButtonMouseClicked
-        DataPacket sendData = new DataPacket("FFR");
-        String otherUser = YourFriendsList.getSelectedValue();
-        String splitArr[] = otherUser.split(" ", 2);
+        if (YourFriendsList.getSelectedIndex() != -1) {
+            DataPacket sendData = new DataPacket("FFR");
 
+            String otherUser = YourFriendsList.getSelectedValue();
+            String splitArr[] = otherUser.split(" ", 2);
 
-        if (splitArr[1].equals("   [INCOMING REQUEST]"));
-        {
-            FriendData friendData = new FriendData("FFR", currentUser, splitArr[0], "Accepted");
+            if (splitArr[1].equals("   [INCOMING REQUEST]"));
+            {
+                FriendData friendData = new FriendData("FFR", currentUser, splitArr[0], "Accepted");
 
-            InetAddress address = null;
+                InetAddress address = null;
 
-            try {
-                address = InetAddress.getLocalHost();
-            } catch (UnknownHostException ex) {
-                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    address = InetAddress.getLocalHost();
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                Socket socket = null;
+                try {
+                    socket = new Socket(address, 9090);
+                    //Send multiple bits of data over same socket connection should always be in pairs
+                    //First DataPacket preps server
+                    //Second sends data
+                    //Only close socket afterwards
+                    NetworkInterfaces.SendDataPacket(socket, sendData);
+                    NetworkInterfaces.SendFriendData(socket, friendData);
+                } catch (IOException ex) {
+                    Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-
-            Socket socket = null;
-            try {
-                socket = new Socket(address, 9090);
-                //Send multiple bits of data over same socket connection should always be in pairs
-                //First DataPacket preps server
-                //Second sends data
-                //Only close socket afterwards
-                NetworkInterfaces.SendDataPacket(socket, sendData);
-                NetworkInterfaces.SendFriendData(socket, friendData);
-            } catch (IOException ex) {
-                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nothing was selected");
         }
     }//GEN-LAST:event_AcceptFriendButtonMouseClicked
 
     private void RejectFriendButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RejectFriendButtonMouseClicked
-        DataPacket sendData = new DataPacket("FFR");
-        String otherUser = YourFriendsList.getSelectedValue();
-        String splitArr[] = otherUser.split(" ", 2);
+        if (YourFriendsList.getSelectedIndex() != -1) {
+            DataPacket sendData = new DataPacket("FFR");
+            String otherUser = YourFriendsList.getSelectedValue();
+            String splitArr[] = otherUser.split(" ", 2);
 
             FriendData friendData = new FriendData("FFR", currentUser, splitArr[0], "Reject");
 
@@ -1054,7 +1063,10 @@ public class MusicSocialUI extends javax.swing.JFrame{
             } catch (IOException ex) {
                 Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+        } else {
+            JOptionPane.showMessageDialog(null, "Nothing was selected");
+        }
+
     }//GEN-LAST:event_RejectFriendButtonMouseClicked
 
     private void ChatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChatButtonActionPerformed
@@ -1062,11 +1074,24 @@ public class MusicSocialUI extends javax.swing.JFrame{
     }//GEN-LAST:event_ChatButtonActionPerformed
 
     private void ChatButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ChatButtonMouseClicked
-        
+        if (YourFriendsList.getSelectedIndex() != -1) {        
         String otherUser = YourFriendsList.getSelectedValue();
         String splitArr[] = otherUser.split(" ", 2);
         
-        new Messaging(currentUser,splitArr[0]).setVisible(true);
+        UserData personToTalkTo = new UserData();
+        
+        for(int i = 0; i < mpd.allUsers.size(); i++){
+            UserData tempCounterUserData = mpd.allUsers.get(i);
+            if(tempCounterUserData.username.equals(splitArr[0])){
+                personToTalkTo = tempCounterUserData;
+            }
+                           
+        }
+        
+        new Messaging(currentUser,personToTalkTo).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Nothing was selected");
+        }
     }//GEN-LAST:event_ChatButtonMouseClicked
 
     

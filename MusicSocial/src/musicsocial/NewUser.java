@@ -5,6 +5,8 @@ import DataPacket.NetworkInterfaces;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -388,13 +390,26 @@ public class NewUser extends javax.swing.JFrame {
         newUserName = userNameTextField.getText();
         newEmail = emailField.getText();
         String newPassword = new String(newUserPasswordField.getPassword());
+        
+        FileInputStream ProfilePicture = null;
+        byte[] artDataByteArray = null;
+        
         if (compulsoryFieldsEmpty() == false) {
             genreList = takeCheckBoxGenres();
+            try {
+                ProfilePicture = new FileInputStream(attachImage);
+                artDataByteArray = new byte[ProfilePicture.available()];
+                ProfilePicture.read(artDataByteArray);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(UploadSong.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             infoArray = constructInfoArray(newFirstName, newLastName, newUserName, newEmail, newPassword, genreList);
             UserData newUser = null;
             try {
-                newUser = new UserData(0, newUserName, newPassword, newFirstName, newLastName, newEmail, genreList, attachImage);
+                newUser = new UserData(0, newUserName, newPassword, newFirstName, newLastName, newEmail, genreList, artDataByteArray);
             } catch (UnknownHostException ex) {
                 Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
             }

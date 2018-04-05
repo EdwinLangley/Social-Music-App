@@ -30,7 +30,14 @@ public class ControlHandler {
     public static SQLiteJDBCDriverConnection databaseCheck = new SQLiteJDBCDriverConnection();
 
     public static void RegisterUser(UserData userInfo) throws IOException, SQLException {
-        databaseCheck.insertUser(userInfo.firstName, userInfo.lastName, userInfo.username, userInfo.email, userInfo.genreListString, userInfo.image);
+        
+        File ImgDir = new File("IMG/" + userInfo.username + ".png");
+        String dbPathIMG = "IMG/" + userInfo.username + ".png";
+        
+        byte[] artData = userInfo.image;
+        FileOutputStream retreievdAlbumArt = new FileOutputStream(ImgDir);
+        retreievdAlbumArt.write(artData);
+        databaseCheck.insertUser(userInfo.firstName, userInfo.lastName, userInfo.username, userInfo.email, userInfo.genreListString, dbPathIMG);
         databaseCheck.insertLoginData(userInfo.username, userInfo.passsword);
     }
 

@@ -52,7 +52,7 @@ public class UserData extends LoginData {
         this.IPAddress = InetAddress.getLocalHost();
     }
 
-    public UserData(int userID, String username, String password, String firstName, String lastName, String email, ArrayList<String> genreList, File profilePicture) throws UnknownHostException {
+    public UserData(int userID, String username, String password, String firstName, String lastName, String email, ArrayList<String> genreList, byte[] profilePicture) throws UnknownHostException {
         this.command = "UserData";
         this.userID = userID;
         this.username = username;
@@ -61,7 +61,7 @@ public class UserData extends LoginData {
         this.lastName = lastName;
         this.email = email;
         this.genreList = genreList;
-        this.image = buildByteArray(profilePicture);
+        this.image = profilePicture;
         arrayToString();
         this.IPAddress = InetAddress.getLocalHost();
     }

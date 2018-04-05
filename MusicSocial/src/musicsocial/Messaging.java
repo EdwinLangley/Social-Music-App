@@ -6,6 +6,11 @@ import DataPacket.DataPacket;
 import DataPacket.MainPageData;
 import DataPacket.NetworkInterfaces;
 import DataPacket.UserData;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -13,7 +18,9 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /*
@@ -30,7 +37,7 @@ public class Messaging extends javax.swing.JFrame {
     MainPageData mpd;
     DefaultListModel friendsModel = new DefaultListModel();
     String CurrentUser = "";
-    String sendToUser = "";
+    UserData sendToUser = null;
 
     /**
      * Creates new form Messaging
@@ -40,14 +47,19 @@ public class Messaging extends javax.swing.JFrame {
 
     }
 
-    public Messaging(String UserName, String sendTo) {
+    public Messaging(String UserName, UserData sendTo) throws IOException {
         initComponents();
 
         CurrentUser = UserName;
         sendToUser = sendTo;
         
-        ChatLabel.setText("Chat: " + CurrentUser + " to " +sendToUser );
-        this.setTitle("Chat: " + CurrentUser + " to " +sendToUser );
+        ChatLabel.setText("Chat: " + CurrentUser + " to " +sendToUser.username );
+        this.setTitle("Chat: " + CurrentUser + " to " +sendToUser.username );
+        
+        setUserInfo();
+        
+        //File ImgDir = new File("IMG/" + userInfo.username + ".png");
+       // String dbPathIMG = "IMG/" + userInfo.username + ".png";
 
         new Thread(new Runnable() {
             public void run() {
@@ -59,12 +71,12 @@ public class Messaging extends javax.swing.JFrame {
                         try {
 //                            someSocket = new Socket(InetAddress.getLocalHost(), 9091);
                             inboundSocket = new Socket(InetAddress.getLocalHost(),9092);
-                            DataPacket chatRequest = new DataPacket("REC", CurrentUser, sendToUser);
+                            DataPacket chatRequest = new DataPacket("REC", CurrentUser, sendToUser.username);
                             NetworkInterfaces.SendDataPacket(inboundSocket, chatRequest);
                             ChatMessages chatData = NetworkInterfaces.RecieveChat(inboundSocket);
                             if (!chatData.isEmpty) {
                                 chatData.messages.forEach((message) -> {
-                                    TextReadArea.append(sendToUser + ":\t" + message.mesageContent + "\n");
+                                    TextReadArea.append(sendToUser.username + ":\t" + message.mesageContent + "\n");
                                 });
                             }
                         } catch (UnknownHostException ex) {
@@ -102,6 +114,9 @@ public class Messaging extends javax.swing.JFrame {
         TextReadArea = new javax.swing.JTextArea();
         ChatLabel = new javax.swing.JLabel();
         PPLabel = new javax.swing.JLabel();
+        firstNameLabel = new javax.swing.JLabel();
+        secondNameLabel = new javax.swing.JLabel();
+        genreLabel = new javax.swing.JLabel();
 
         jButton1.setText("SEND");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -147,6 +162,12 @@ public class Messaging extends javax.swing.JFrame {
 
         PPLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        firstNameLabel.setText("jLabel1");
+
+        secondNameLabel.setText("jLabel2");
+
+        genreLabel.setText("jLabel3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,8 +186,11 @@ public class Messaging extends javax.swing.JFrame {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(ChatLabel)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ChatLabel)
+                            .addComponent(firstNameLabel)
+                            .addComponent(secondNameLabel)
+                            .addComponent(genreLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(PPLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -174,15 +198,20 @@ public class Messaging extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
                         .addComponent(ChatLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(firstNameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(secondNameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(genreLabel)
+                        .addGap(16, 16, 16))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(PPLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -205,6 +234,30 @@ public class Messaging extends javax.swing.JFrame {
 
     }
 
+    private void setUserInfo() throws FileNotFoundException, IOException {
+        File ImgDir = new File("src/images/" + "talkingToUser" + ".png");
+        String toPullFrom = "src/images/" + "talkingToUser" + ".png";
+        
+        byte[] artData = sendToUser.image;
+        FileOutputStream retreievdAlbumArt = new FileOutputStream(ImgDir);
+        retreievdAlbumArt.write(artData);
+        
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(toPullFrom));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Image dimg = img.getScaledInstance(PPLabel.getWidth(), PPLabel.getHeight(),
+                Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(dimg);
+        PPLabel.setIcon(icon);
+        
+        firstNameLabel.setText("First Name: " + sendToUser.firstName);
+        secondNameLabel.setText("Last Name: " + sendToUser.lastName);
+        genreLabel.setText("Genres: " + sendToUser.genreListString);
+    }
 
     private void SendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendButtonActionPerformed
         // TODO add your handling code here:
@@ -217,9 +270,9 @@ public class Messaging extends javax.swing.JFrame {
     private void SendButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SendButtonMouseClicked
         String composedMessage = TextComposeArea.getText();
         TextComposeArea.setText("");
-        if (!composedMessage.matches("") && !sendToUser.matches("")) {
+        if (!composedMessage.matches("") && !sendToUser.username.matches("")) {
             TextReadArea.append(CurrentUser + ":\t" + composedMessage + "\n");
-            ChatData chatData = new ChatData(CurrentUser, sendToUser, composedMessage);
+            ChatData chatData = new ChatData(CurrentUser, sendToUser.username, composedMessage);
 
             Socket someSocket = null;
 
@@ -280,7 +333,10 @@ public class Messaging extends javax.swing.JFrame {
     private javax.swing.JButton SendButton;
     private javax.swing.JTextArea TextComposeArea;
     private javax.swing.JTextArea TextReadArea;
+    private javax.swing.JLabel firstNameLabel;
+    private javax.swing.JLabel genreLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel secondNameLabel;
     // End of variables declaration//GEN-END:variables
 }
