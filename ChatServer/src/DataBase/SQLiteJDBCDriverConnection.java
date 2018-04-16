@@ -47,14 +47,16 @@ public class SQLiteJDBCDriverConnection {
 //    }
 
     public void insertMessageIntoDatabase(ChatData recievedMessage/*,String path*/) throws IOException, SQLException {
-        String sql = "INSERT INTO Messages(SentFrom,SentTo,Message) VALUES(?,?,?)";
+        String sql = "INSERT INTO Messages(SentFrom,SentTo,Message,FileStuff,songID) VALUES(?,?,?,?,?)";
 
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, recievedMessage.sendingUser);
         pstmt.setString(2, recievedMessage.recievingUser);
         pstmt.setString(3, recievedMessage.mesageContent);
-
+        pstmt.setBytes(4, recievedMessage.image);
+        pstmt.setString(5, recievedMessage.extension);
+        
         pstmt.executeUpdate();
 
         try {
@@ -77,7 +79,7 @@ public class SQLiteJDBCDriverConnection {
         ResultSet rs = pstmt.executeQuery();
         
         while(rs.next()){
-            sendBack.add(new ChatData(rs.getString("SentFrom"), rs.getString("SentTo"),rs.getString("Message"), rs.getString("FileStuff"), rs.getInt("songID")));
+            sendBack.add(new ChatData(rs.getString("SentFrom"), rs.getString("SentTo"),rs.getString("Message"), rs.getString("songID"), rs.getBytes("FileStuff") ));
         }
 
         conn.close();

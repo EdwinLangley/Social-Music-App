@@ -1088,7 +1088,11 @@ public class MusicSocialUI extends javax.swing.JFrame{
                            
         }
         
-        new Messaging(currentUser,personToTalkTo).setVisible(true);
+            try {
+                new Messaging(currentUser,personToTalkTo).setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(MusicSocialUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Nothing was selected");
         }

@@ -6,9 +6,11 @@ import DataPacket.DataPacket;
 import DataPacket.MainPageData;
 import DataPacket.NetworkInterfaces;
 import DataPacket.UserData;
+import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,7 +23,12 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javazoom.jl.converter.Converter;
+import javazoom.jl.decoder.JavaLayerException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -38,6 +45,12 @@ public class Messaging extends javax.swing.JFrame {
     DefaultListModel friendsModel = new DefaultListModel();
     String CurrentUser = "";
     UserData sendToUser = null;
+    
+    
+    File attachImage = null;
+    String artFilename = "";
+    String extension = "";
+
 
     /**
      * Creates new form Messaging
@@ -52,16 +65,14 @@ public class Messaging extends javax.swing.JFrame {
 
         CurrentUser = UserName;
         sendToUser = sendTo;
-        
-        ChatLabel.setText("Chat: " + CurrentUser + " to " +sendToUser.username );
-        this.setTitle("Chat: " + CurrentUser + " to " +sendToUser.username );
-        
+
+        ChatLabel.setText("Chat: " + CurrentUser + " to " + sendToUser.username);
+        this.setTitle("Chat: " + CurrentUser + " to " + sendToUser.username);
+
         setUserInfo();
-        
+
         //File ImgDir = new File("IMG/" + userInfo.username + ".png");
-       // String dbPathIMG = "IMG/" + userInfo.username + ".png";
-
-
+        // String dbPathIMG = "IMG/" + userInfo.username + ".png";
         new Thread(new Runnable() {
             public void run() {
                 while (true) {
@@ -71,14 +82,40 @@ public class Messaging extends javax.swing.JFrame {
                         Socket inboundSocket;
                         try {
 //                            someSocket = new Socket(InetAddress.getLocalHost(), 9091);
-                            inboundSocket = new Socket(InetAddress.getLocalHost(),9092);
+                            inboundSocket = new Socket(InetAddress.getLocalHost(), 9092);
                             DataPacket chatRequest = new DataPacket("REC", CurrentUser, sendToUser.username);
 
                             NetworkInterfaces.SendDataPacket(inboundSocket, chatRequest);
                             ChatMessages chatData = NetworkInterfaces.RecieveChat(inboundSocket);
+
                             if (!chatData.isEmpty) {
                                 chatData.messages.forEach((message) -> {
                                     TextReadArea.append(sendToUser.username + ":\t" + message.mesageContent + "\n");
+                                    if (message.image != null) {
+                                        JOptionPane.showMessageDialog(null, "Data");
+                                        try {
+                                            File ImageDir = new File("./src/images/chatimage.png");
+
+                                            byte[] imageData = message.image;
+                                            FileOutputStream retreievdClientimage = new FileOutputStream(ImageDir);
+                                            retreievdClientimage.write(imageData);
+                                        } catch (IOException ex) {
+                                            Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                        int reply = JOptionPane.showConfirmDialog(null, "An image has been recieved. Would you like to view it now?", "Display Image", JOptionPane.YES_NO_OPTION);
+                                        if (reply == JOptionPane.YES_OPTION) {
+                                            BufferedImage imageBuff = null;
+                                            try {
+                                                imageBuff = ImageIO.read(new File("./src/images/chatimage.png"));
+                                            } catch (IOException ex) {
+                                                Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
+                                            }
+                                            JLabel picLabel = new JLabel(new ImageIcon(imageBuff));
+                                            JOptionPane.showMessageDialog(null, picLabel, "Image", JOptionPane.PLAIN_MESSAGE, null);
+                                        } else {
+
+                                        }
+                                    }
                                 });
                             }
                             inboundSocket.close();
@@ -149,6 +186,11 @@ public class Messaging extends javax.swing.JFrame {
         });
 
         AttatchmentButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/attatchment.png"))); // NOI18N
+        AttatchmentButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AttatchmentButtonMouseClicked(evt);
+            }
+        });
         AttatchmentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AttatchmentButtonActionPerformed(evt);
@@ -275,9 +317,26 @@ public class Messaging extends javax.swing.JFrame {
         TextComposeArea.setText("");
         if (!composedMessage.matches("") && !sendToUser.username.matches("")) {
             TextReadArea.append(CurrentUser + ":\t" + composedMessage + "\n");
-            ChatData chatData = new ChatData(CurrentUser, sendToUser.username, composedMessage);
+            
 
             Socket someSocket = null;
+            
+            byte[] artDataByteArray = null;
+            FileInputStream AlbumArt;
+            
+            try {
+
+                AlbumArt = new FileInputStream(artFilename);
+                artDataByteArray = new byte[AlbumArt.available()];
+                AlbumArt.read(artDataByteArray);
+
+            } catch (FileNotFoundException ex) { 
+                Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Messaging.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            ChatData chatData = new ChatData(CurrentUser, sendToUser.username, composedMessage, extension, artDataByteArray);
 
             try {
                 someSocket = new Socket(InetAddress.getLocalHost(), 9091);
@@ -293,6 +352,34 @@ public class Messaging extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SendButtonMouseClicked
 
+    private void AttatchmentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AttatchmentButtonMouseClicked
+        JFileChooser fChooser = new JFileChooser();
+        fChooser.showOpenDialog(null);
+        
+        attachImage = fChooser.getSelectedFile();
+        artFilename = attachImage.getAbsolutePath();
+
+        extension = getFileExtension(attachImage);
+
+        if ((extension.equals("png"))) {
+            attachImage = fChooser.getSelectedFile();
+            artFilename = attachImage.getAbsolutePath();
+
+        } else {
+            attachImage = null;
+            JOptionPane.showMessageDialog(null, "Only png files please!");
+        }
+    }//GEN-LAST:event_AttatchmentButtonMouseClicked
+
+    
+    private static String getFileExtension(File file) {
+        String fileName = file.getName();
+        if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0) {
+            return fileName.substring(fileName.lastIndexOf(".") + 1);
+        } else {
+            return "";
+        }
+    }
     /**
      * @param args the command line arguments
      */
