@@ -92,7 +92,7 @@ public class Messaging extends javax.swing.JFrame {
                                 chatData.messages.forEach((message) -> {
                                     TextReadArea.append(sendToUser.username + ":\t" + message.mesageContent + "\n");
                                     if (message.image != null) {
-                                        JOptionPane.showMessageDialog(null, "Data");
+                                        //JOptionPane.showMessageDialog(null, "Data");
                                         try {
                                             File ImageDir = new File("./src/images/chatimage.png");
 

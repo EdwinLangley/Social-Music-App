@@ -37,11 +37,12 @@ public class ControlHandler {
         byte[] artData = userInfo.image;
         FileOutputStream retreievdAlbumArt = new FileOutputStream(ImgDir);
         retreievdAlbumArt.write(artData);
-        databaseCheck.insertUser(userInfo.firstName, userInfo.lastName, userInfo.username, userInfo.email, userInfo.genreListString, dbPathIMG);
+        databaseCheck.insertUser(userInfo.firstName, userInfo.lastName, userInfo.username, userInfo.email, userInfo.genreListString, dbPathIMG, userInfo.IPAddress.getHostAddress());
         databaseCheck.insertLoginData(userInfo.username, userInfo.passsword);
     }
 
     public static boolean Login(LoginData loginInfo) throws IOException, SQLException {
+        databaseCheck.insertIP(loginInfo.IPAddress.getHostAddress(), loginInfo.username);
         return databaseCheck.isGoodLogin(loginInfo.username, loginInfo.passsword) == true;
     }
 

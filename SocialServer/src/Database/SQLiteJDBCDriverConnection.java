@@ -76,8 +76,8 @@ public class SQLiteJDBCDriverConnection {
 
     }
 
-    public void insertUser(String FirstName, String LastName, String UserName, String Email, String GenreList, String blob) throws IOException, SQLException {
-        String sql = "INSERT INTO UserData(FirstName,LastName,UserName, Email, GenreList,Picture) VALUES(?,?,?,?,?,?)";
+    public void insertUser(String FirstName, String LastName, String UserName, String Email, String GenreList, String blob, String Ip) throws IOException, SQLException {
+        String sql = "INSERT INTO UserData(FirstName,LastName,UserName, Email, GenreList,Picture,IP) VALUES(?,?,?,?,?,?,?)";
 
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -87,6 +87,8 @@ public class SQLiteJDBCDriverConnection {
         pstmt.setString(4, Email);
         pstmt.setString(5, GenreList);
         pstmt.setString(6, blob);
+        pstmt.setString(7, Ip);
+        
         pstmt.executeUpdate();
 
         conn.close();
